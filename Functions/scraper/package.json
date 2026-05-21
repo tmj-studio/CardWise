@@ -19,7 +19,7 @@
     "full": "node index.js && node upload-to-firestore.js"
   },
   "dependencies": {
-    "puppeteer": "^24.40.0",
+    "puppeteer": "^25.0.4",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "firebase-admin": "^13.6.1",
