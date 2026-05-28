@@ -13,7 +13,7 @@ enum ProFeature: CaseIterable {
 /// can be unit-tested without a StoreKit environment.
 enum SubscriptionGate {
     /// Maximum number of cards a free (non-Pro) user may add.
-    static let freeCardLimit = 3
+    static let freeCardLimit: Int = 3
 
     /// Whether a user with `currentCount` cards may add one more.
     static func canAddCard(currentCount: Int, isPro: Bool) -> Bool {
@@ -21,6 +21,8 @@ enum SubscriptionGate {
     }
 
     /// Whether a Pro-gated feature is available to the user.
+    /// All Pro features currently share the same gate; the `feature` parameter is
+    /// accepted so per-feature gating can be added later without changing call sites.
     static func isUnlocked(_ feature: ProFeature, isPro: Bool) -> Bool {
         isPro
     }
