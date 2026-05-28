@@ -54,7 +54,7 @@ struct SettingsView: View {
                 // Bank Connection
                 Section("Bank Connection") {
                     Button {
-                        if subscription.isPro {
+                        if SubscriptionGate.isUnlocked(.bankLinking, isPro: subscription.isPro) {
                             showingLinkBank = true
                         } else {
                             showingPaywall = true

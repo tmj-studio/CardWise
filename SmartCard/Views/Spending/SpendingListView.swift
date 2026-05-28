@@ -41,7 +41,7 @@ struct SpendingListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        if subscription.isPro {
+                        if SubscriptionGate.isUnlocked(.advancedAnalytics, isPro: subscription.isPro) {
                             showingAnalytics = true
                         } else {
                             showingPaywall = true
