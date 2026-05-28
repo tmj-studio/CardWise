@@ -1,0 +1,64 @@
+{
+  "identifier" : "SMARTCARD_PRO",
+  "nonRenewingSubscriptions" : [],
+  "products" : [],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "SMARTCARD_PRO_GROUP",
+      "localizations" : [],
+      "name" : "SmartCard Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "2.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "MONTHLY01",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited cards, auto bank detection, advanced analytics",
+              "displayName" : "SmartCard Pro (Monthly)",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.smartcard.app.pro.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Pro Monthly",
+          "subscriptionGroupID" : "SMARTCARD_PRO_GROUP",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "19.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "YEARLY01",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited cards, auto bank detection, advanced analytics",
+              "displayName" : "SmartCard Pro (Yearly)",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.smartcard.app.pro.yearly",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Pro Yearly",
+          "subscriptionGroupID" : "SMARTCARD_PRO_GROUP",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
