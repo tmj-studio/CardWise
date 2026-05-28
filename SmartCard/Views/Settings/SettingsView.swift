@@ -1,8 +1,10 @@
 import SwiftUI
+import StoreKit
 
 struct SettingsView: View {
     @EnvironmentObject var cardViewModel: CardViewModel
     @EnvironmentObject var spendingViewModel: SpendingViewModel
+    @EnvironmentObject private var subscription: SubscriptionManager
     @AppStorage("notificationsEnabled") private var notificationsEnabled = true
     @AppStorage("rotatingReminders") private var rotatingReminders = true
     @AppStorage("spendingCapAlerts") private var spendingCapAlerts = true
@@ -10,14 +12,53 @@ struct SettingsView: View {
     @State private var showingTermsOfService = false
     @State private var showingLinkBank = false
     @State private var showingClearDataAlert = false
+    @State private var showingPaywall = false
+    @State private var showingManageSubscriptions = false
 
     var body: some View {
         NavigationStack {
             List {
+                Section("SmartCard Pro") {
+                    if subscription.isPro {
+                        HStack {
+                            Label("Pro Active", systemImage: "star.circle.fill")
+                                .foregroundStyle(.green)
+                            Spacer()
+                        }
+                        Button {
+                            showingManageSubscriptions = true
+                        } label: {
+                            Label("Manage Subscription", systemImage: "gearshape")
+                        }
+                    } else {
+                        Button {
+                            showingPaywall = true
+                        } label: {
+                            HStack {
+                                Label("Upgrade to Pro", systemImage: "star.circle.fill")
+                                    .foregroundStyle(.yellow)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+
+                    Button {
+                        Task { await subscription.restorePurchases() }
+                    } label: {
+                        Label("Restore Purchases", systemImage: "arrow.clockwise")
+                    }
+                }
+
                 // Bank Connection
                 Section("Bank Connection") {
                     Button {
-                        showingLinkBank = true
+                        if subscription.isPro {
+                            showingLinkBank = true
+                        } else {
+                            showingPaywall = true
+                        }
                     } label: {
                         HStack {
                             Label("Link Bank Account", systemImage: "building.columns")
@@ -148,6 +189,10 @@ struct SettingsView: View {
             .sheet(isPresented: $showingLinkBank) {
                 LinkBankView()
             }
+            .sheet(isPresented: $showingPaywall) {
+                PaywallView()
+            }
+            .manageSubscriptionsSheet(isPresented: $showingManageSubscriptions)
             .alert("Clear All Data", isPresented: $showingClearDataAlert) {
                 Button("Cancel", role: .cancel) {}
                 Button("Clear", role: .destructive) {
@@ -172,4 +217,5 @@ struct SettingsView: View {
     SettingsView()
         .environmentObject(CardViewModel())
         .environmentObject(SpendingViewModel())
+        .environmentObject(SubscriptionManager.shared)
 }
