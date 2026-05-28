@@ -22,6 +22,7 @@ struct SmartCardApp: App {
 
     @StateObject private var cardViewModel = CardViewModel()
     @StateObject private var spendingViewModel = SpendingViewModel()
+    @StateObject private var subscription = SubscriptionManager.shared
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @Environment(\.scenePhase) private var scenePhase
 
@@ -31,6 +32,7 @@ struct SmartCardApp: App {
                 MainTabView()
                     .environmentObject(cardViewModel)
                     .environmentObject(spendingViewModel)
+                    .environmentObject(subscription)
                     .onChange(of: scenePhase) { _, newPhase in
                         if newPhase == .background {
                             updateWidgetData()
@@ -44,6 +46,7 @@ struct SmartCardApp: App {
                 OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
                     .environmentObject(cardViewModel)
                     .environmentObject(spendingViewModel)
+                    .environmentObject(subscription)
             }
 
             // Uncomment when Firebase Auth is configured:
