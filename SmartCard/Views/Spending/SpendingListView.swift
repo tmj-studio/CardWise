@@ -3,8 +3,10 @@ import SwiftUI
 struct SpendingListView: View {
     @EnvironmentObject var cardViewModel: CardViewModel
     @EnvironmentObject var spendingViewModel: SpendingViewModel
+    @EnvironmentObject private var subscription: SubscriptionManager
     @State private var showingAddSpending = false
     @State private var showingAnalytics = false
+    @State private var showingPaywall = false
     @State private var showingScanReceipt = false
 
     var body: some View {
@@ -39,7 +41,11 @@ struct SpendingListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        showingAnalytics = true
+                        if subscription.isPro {
+                            showingAnalytics = true
+                        } else {
+                            showingPaywall = true
+                        }
                     } label: {
                         Image(systemName: "chart.pie")
                     }
@@ -62,6 +68,9 @@ struct SpendingListView: View {
             }
             .sheet(isPresented: $showingAnalytics) {
                 EnhancedAnalyticsView()
+            }
+            .sheet(isPresented: $showingPaywall) {
+                PaywallView()
             }
             .sheet(isPresented: $showingScanReceipt) {
                 ScanReceiptView()
@@ -357,4 +366,5 @@ struct AnalyticsRow: View {
     SpendingListView()
         .environmentObject(CardViewModel())
         .environmentObject(SpendingViewModel())
+        .environmentObject(SubscriptionManager.shared)
 }
