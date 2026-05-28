@@ -57,6 +57,10 @@ targets:
       properties:
         com.apple.security.application-groups:
           - group.com.smartcard.app
+    scheme:
+      testTargets:
+        - SmartCardTests
+      storeKitConfiguration: SmartCard.storekit
 
   SmartCardTests:
     type: bundle.unit-test

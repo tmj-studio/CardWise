@@ -169,6 +169,18 @@ struct TermsOfServiceView: View {
                             """
                         }
 
+                        section(title: "Subscriptions and Billing") {
+                            """
+                            SmartCard Pro is an auto-renewable subscription offered as a monthly or yearly plan.
+
+                            • Payment is charged to your Apple Account at confirmation of purchase.
+                            • The subscription automatically renews unless it is canceled at least 24 hours before the end of the current period.
+                            • Your account is charged for renewal within 24 hours prior to the end of the current period, at the price of the selected plan.
+                            • You can manage or cancel your subscription at any time in your Apple Account settings; cancellation takes effect at the end of the current billing period.
+                            • Prices may vary by region and are shown in the app before purchase.
+                            """
+                        }
+
                         section(title: "Disclaimer of Warranties") {
                             """
                             THE APP IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND. WE DO NOT GUARANTEE:
