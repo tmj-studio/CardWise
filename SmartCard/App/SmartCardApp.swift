@@ -22,6 +22,7 @@ struct SmartCardApp: App {
 
     @StateObject private var cardViewModel = CardViewModel()
     @StateObject private var spendingViewModel = SpendingViewModel()
+    // Hold a strong reference to the singleton so SwiftUI treats it as a StateObject owner.
     @StateObject private var subscription = SubscriptionManager.shared
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @Environment(\.scenePhase) private var scenePhase

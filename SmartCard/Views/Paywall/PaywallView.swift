@@ -2,8 +2,8 @@ import SwiftUI
 import StoreKit
 
 struct PaywallView: View {
-    @EnvironmentObject var subscription: SubscriptionManager
-    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject private var subscription: SubscriptionManager
+    @Environment(\.dismiss) private var dismiss
 
     @State private var isPurchasing = false
     @State private var showingPrivacy = false
@@ -93,7 +93,9 @@ struct PaywallView: View {
 
                     Button("Restore Purchases") {
                         Task {
+                            isPurchasing = true
                             await subscription.restorePurchases()
+                            isPurchasing = false
                             if subscription.isPro { dismiss() }
                         }
                     }
