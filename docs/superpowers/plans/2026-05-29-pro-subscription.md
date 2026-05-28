@@ -6,7 +6,7 @@
 
 **Architecture:** A pure `SubscriptionGate` holds testable entitlement logic. A `SubscriptionManager` (`@MainActor ObservableObject` singleton) wraps StoreKit 2 — loads products, purchases, restores, and derives `isPro` from `Transaction.currentEntitlements`. It's injected via `.environmentObject` like the existing view models. Gated entry points (add 4th card, link bank, advanced analytics) check `isPro` and present `PaywallView` when locked.
 
-**Tech Stack:** Swift, SwiftUI, StoreKit 2, XCTest, xcodegen (path-globbed sources — new files under `SmartCard/` and `SmartCardTests/` are auto-included after `xcodegen generate`).
+**Tech Stack:** Swift, SwiftUI, StoreKit 2, XCTest, xcodegen (path-globbed sources — new files under `SmartCard/` and `SmartCardTests/` are auto-included after `xcodegen generate`). Local toolchain: Xcode 26.5, simulator `iPhone 17`.
 
 ---
 
@@ -30,7 +30,7 @@
 **Test command used throughout** (adjust simulator name to one installed locally; list with `xcrun simctl list devices available`):
 ```bash
 xcodebuild test -project SmartCard.xcodeproj -scheme SmartCard \
-  -destination 'platform=iOS Simulator,name=iPhone 16' \
+  -destination 'platform=iOS Simulator,name=iPhone 17' \
   -only-testing:SmartCardTests/SubscriptionGateTests
 ```
 
@@ -93,7 +93,7 @@ Run:
 ```bash
 xcodegen generate
 xcodebuild test -project SmartCard.xcodeproj -scheme SmartCard \
-  -destination 'platform=iOS Simulator,name=iPhone 16' \
+  -destination 'platform=iOS Simulator,name=iPhone 17' \
   -only-testing:SmartCardTests/SubscriptionGateTests
 ```
 Expected: FAIL — compile error, `SubscriptionGate` / `ProFeature` not found.
@@ -137,7 +137,7 @@ enum SubscriptionGate {
 Run:
 ```bash
 xcodebuild test -project SmartCard.xcodeproj -scheme SmartCard \
-  -destination 'platform=iOS Simulator,name=iPhone 16' \
+  -destination 'platform=iOS Simulator,name=iPhone 17' \
   -only-testing:SmartCardTests/SubscriptionGateTests
 ```
 Expected: PASS — all 5 tests green.
@@ -353,7 +353,7 @@ Run:
 ```bash
 xcodegen generate
 xcodebuild build -project SmartCard.xcodeproj -scheme SmartCard \
-  -destination 'platform=iOS Simulator,name=iPhone 16'
+  -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 Expected: BUILD SUCCEEDED.
 
@@ -413,7 +413,7 @@ And the `OnboardingView` branch:
 Run:
 ```bash
 xcodebuild build -project SmartCard.xcodeproj -scheme SmartCard \
-  -destination 'platform=iOS Simulator,name=iPhone 16'
+  -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 Expected: BUILD SUCCEEDED.
 
@@ -449,12 +449,12 @@ struct PaywallView: View {
     @State private var showingPrivacy = false
     @State private var showingTerms = false
 
+    // v1 lists only the features actually enforced as Pro (see the plan's scope
+    // decision). Add cap alerts / widget here when their enforcement lands.
     private let features: [(icon: String, text: String)] = [
         ("creditcard.fill", "Unlimited cards"),
         ("building.columns.fill", "Auto bank detection"),
-        ("chart.bar.fill", "Advanced analytics & yearly summary"),
-        ("bell.fill", "Reward cap alerts"),
-        ("apps.iphone", "Home screen widget")
+        ("chart.bar.fill", "Advanced analytics & yearly summary")
     ]
 
     var body: some View {
@@ -541,9 +541,21 @@ struct PaywallView: View {
                     .font(.footnote)
                     .disabled(isPurchasing)
 
+                    // App Store-required auto-renewable subscription disclosure.
+                    Text("""
+                    Payment is charged to your Apple Account at confirmation of purchase. \
+                    The subscription automatically renews unless it is canceled at least 24 hours \
+                    before the end of the current period. Your account is charged for renewal within \
+                    24 hours prior to the end of the current period. You can manage or cancel your \
+                    subscription in your Apple Account settings after purchase.
+                    """)
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+
                     HStack(spacing: 16) {
                         Button("Privacy Policy") { showingPrivacy = true }
-                        Button("Terms of Service") { showingTerms = true }
+                        Button("Terms of Service (EULA)") { showingTerms = true }
                     }
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -575,7 +587,7 @@ Run:
 ```bash
 xcodegen generate
 xcodebuild build -project SmartCard.xcodeproj -scheme SmartCard \
-  -destination 'platform=iOS Simulator,name=iPhone 16'
+  -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 Expected: BUILD SUCCEEDED.
 
@@ -642,7 +654,7 @@ At the bottom of the file, update the `#Preview` so it compiles:
 Run:
 ```bash
 xcodebuild build -project SmartCard.xcodeproj -scheme SmartCard \
-  -destination 'platform=iOS Simulator,name=iPhone 16'
+  -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 Expected: BUILD SUCCEEDED.
 
@@ -669,6 +681,7 @@ In `struct SettingsView`, add near the other `@State` properties (lines 9-12):
 ```swift
     @EnvironmentObject var subscription: SubscriptionManager
     @State private var showingPaywall = false
+    @State private var showingManageSubscriptions = false
 ```
 
 - [ ] **Step 2: Gate the bank-connection button**
@@ -700,6 +713,11 @@ Add a new section near the top of the `Form` / `List` (above the "Bank Connectio
                                 .foregroundStyle(.green)
                             Spacer()
                         }
+                        Button {
+                            showingManageSubscriptions = true
+                        } label: {
+                            Label("Manage Subscription", systemImage: "gearshape")
+                        }
                     } else {
                         Button {
                             showingPaywall = true
@@ -713,8 +731,16 @@ Add a new section near the top of the `Form` / `List` (above the "Bank Connectio
                             }
                         }
                     }
+
+                    Button {
+                        Task { await subscription.restorePurchases() }
+                    } label: {
+                        Label("Restore Purchases", systemImage: "arrow.clockwise")
+                    }
                 }
 ```
+
+App Store requires a way to manage/cancel an auto-renewable subscription from within the app. `manageSubscriptionsSheet` (iOS 15+) presents Apple's native management UI. Restore Purchases is shown to all users so anyone who bought on another device can recover access.
 
 - [ ] **Step 4: Present the paywall sheet**
 
@@ -724,7 +750,10 @@ Next to the existing `.sheet(isPresented: $showingLinkBank)`, add:
             .sheet(isPresented: $showingPaywall) {
                 PaywallView()
             }
+            .manageSubscriptionsSheet(isPresented: $showingManageSubscriptions)
 ```
+
+`.manageSubscriptionsSheet` requires `import StoreKit` at the top of `SettingsView.swift` — add it if not already present.
 
 - [ ] **Step 5: Update the preview (if present)**
 
@@ -735,7 +764,7 @@ If the file ends with a `#Preview { SettingsView() ... }`, add `.environmentObje
 Run:
 ```bash
 xcodebuild build -project SmartCard.xcodeproj -scheme SmartCard \
-  -destination 'platform=iOS Simulator,name=iPhone 16'
+  -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 Expected: BUILD SUCCEEDED.
 
@@ -795,7 +824,7 @@ If the file has a `#Preview { SpendingListView() ... }`, add `.environmentObject
 Run:
 ```bash
 xcodebuild build -project SmartCard.xcodeproj -scheme SmartCard \
-  -destination 'platform=iOS Simulator,name=iPhone 16'
+  -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 Expected: BUILD SUCCEEDED.
 
@@ -825,7 +854,7 @@ Expected: project regenerated with all new files included.
 Run:
 ```bash
 xcodebuild test -project SmartCard.xcodeproj -scheme SmartCard \
-  -destination 'platform=iOS Simulator,name=iPhone 16'
+  -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 Expected: TEST SUCCEEDED — existing tests (RecommendationEngine, MerchantDatabase, Model, SearchHistory) plus the new SubscriptionGate tests all pass.
 
@@ -855,7 +884,26 @@ The spec lists five Pro features. This plan **enforces the three high-value, use
 
 Both are tracked as a follow-up so v1 ships the strong gates without speculative cross-process work. Marketing copy in `PaywallView` still lists all five as Pro benefits, which is accurate the moment enforcement lands.
 
+## App Store subscription-compliance checklist (mandatory — rejection causes)
+
+These are required for an auto-renewable subscription to pass review. Code items are built by the tasks above; admin items are done by the developer in App Store Connect.
+
+**In-app (code — covered by this plan):**
+- [x] Auto-renew disclosure text next to the purchase buttons (Task 5) — title, duration, price, "auto-renews unless canceled", how to manage.
+- [x] Functional Privacy Policy link in the paywall and Settings (Task 5 / existing `PrivacyPolicyView`).
+- [x] Functional Terms of Service / EULA link in the paywall and Settings (Task 5 / existing `TermsOfServiceView`). If using Apple's standard EULA instead, link to https://www.apple.com/legal/internet-services/itunes/dev/stdeula/ from the App Store Connect metadata.
+- [x] Restore Purchases button (Task 5 paywall + Task 7 Settings).
+- [x] Manage Subscription entry (Task 7 Settings, `manageSubscriptionsSheet`).
+- [x] Clear Data / account-data removal (already exists in Settings — `clearAllData`).
+
+**Admin (developer must do in App Store Connect — NOT code):**
+- [ ] Create the two subscription products (`com.smartcard.app.pro.monthly` $2.99, `com.smartcard.app.pro.yearly` $19.99) in subscription group "SmartCard Pro", with localized display names, descriptions, and a review screenshot of the paywall.
+- [ ] Fill the **App Privacy** ("nutrition label") questionnaire — declare data collected (e.g., financial info via Plaid, usage data) and linkage. Required before submission.
+- [ ] Provide a **support URL** and **support email** on the App Information page (store-page required field). Replace the placeholder `support@smartcardapp.com` in `SettingsView` with a real, monitored address.
+- [ ] Host the Privacy Policy at a public URL and enter it in App Store Connect (the in-app copy is not sufficient on its own).
+- [ ] Add the EULA (custom or Apple standard) in the app's metadata.
+
 ## Notes for the implementer
 - This branch is `feature/pro-subscription`.
-- The real App Store Connect products (`com.smartcard.app.pro.monthly`, `com.smartcard.app.pro.yearly`) must be created before the feature works in production; the `.storekit` file only covers local/simulator testing.
-- Admin follow-ups tracked elsewhere (out of scope here): Plaid Production application, support email, App Store rating URL, hosted privacy policy URL.
+- The real App Store Connect products must be created before the feature works in production; the `.storekit` file only covers local/simulator testing.
+- Other admin follow-ups tracked separately (out of scope for this plan): Plaid Production application, App Store rating URL.
