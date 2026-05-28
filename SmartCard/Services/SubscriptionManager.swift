@@ -9,7 +9,7 @@ final class SubscriptionManager: ObservableObject {
     enum ProductID {
         static let monthly = "com.smartcard.app.pro.monthly"
         static let yearly = "com.smartcard.app.pro.yearly"
-        static var all: [String] { [monthly, yearly] }
+        static let all = [monthly, yearly]
     }
 
     @Published private(set) var isPro = false
@@ -48,6 +48,7 @@ final class SubscriptionManager: ObservableObject {
             let result = try await product.purchase()
             switch result {
             case .success(let verification):
+                // .unverified means the JWS signature didn't validate — treat as not purchased.
                 guard case .verified(let transaction) = verification else { return false }
                 await transaction.finish()
                 await updateEntitlements()
@@ -69,7 +70,7 @@ final class SubscriptionManager: ObservableObject {
     }
 
     /// Derive `isPro` from current entitlements.
-    func updateEntitlements() async {
+    private func updateEntitlements() async {
         var active = false
         for await result in Transaction.currentEntitlements {
             guard case .verified(let transaction) = result else { continue }
@@ -81,12 +82,14 @@ final class SubscriptionManager: ObservableObject {
     }
 
     /// Listen for transaction updates outside the purchase flow (renewals, restores).
+    /// Non-detached so it inherits this @MainActor context; `self` is held strongly
+    /// because the singleton lives for the app's lifetime.
     private func listenForTransactions() -> Task<Void, Never> {
-        Task.detached { [weak self] in
+        Task {
             for await result in Transaction.updates {
                 guard case .verified(let transaction) = result else { continue }
                 await transaction.finish()
-                await self?.updateEntitlements()
+                await updateEntitlements()
             }
         }
     }
