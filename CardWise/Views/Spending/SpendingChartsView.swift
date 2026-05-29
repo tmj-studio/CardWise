@@ -3,6 +3,16 @@ import Charts
 
 // MARK: - Chart Data Models
 
+// Themed chart palette (cycles as needed)
+private let chartPalette: [Color] = [
+    Theme.accent,
+    Theme.success,
+    Theme.warning,
+    Theme.danger,
+    Color(rgb: 0xA855F7),
+    Color(rgb: 0x0EA5E9)
+]
+
 struct CategorySpendingData: Identifiable {
     let id = UUID()
     let category: SpendingCategory
@@ -10,21 +20,21 @@ struct CategorySpendingData: Identifiable {
     let color: Color
 
     static let categoryColors: [SpendingCategory: Color] = [
-        .dining: .orange,
-        .grocery: .green,
-        .gas: .yellow,
-        .travel: .blue,
-        .streaming: .purple,
-        .drugstore: .pink,
-        .homeImprovement: .brown,
-        .entertainment: .red,
-        .onlineShopping: .cyan,
-        .transit: .indigo,
-        .utilities: .gray,
-        .wholesale: .mint,
-        .paypal: .blue,
-        .amazon: .orange,
-        .other: .secondary
+        .dining: Theme.warning,
+        .grocery: Theme.success,
+        .gas: Theme.warning,
+        .travel: Theme.accent,
+        .streaming: Color(rgb: 0xA855F7),
+        .drugstore: Theme.danger,
+        .homeImprovement: Theme.warning,
+        .entertainment: Theme.danger,
+        .onlineShopping: Color(rgb: 0x0EA5E9),
+        .transit: Theme.accent,
+        .utilities: Theme.textSecondary,
+        .wholesale: Theme.success,
+        .paypal: Theme.accent,
+        .amazon: Theme.warning,
+        .other: Theme.textSecondary
     ]
 }
 
@@ -50,11 +60,12 @@ struct CategoryPieChart: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Spending by Category")
-                .font(.headline)
+                .font(.app(.headline, weight: .semibold))
+                .foregroundStyle(Theme.textPrimary)
 
             if data.isEmpty {
                 Text("No spending data")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.textSecondary)
                     .frame(height: 200)
             } else {
                 Chart(data) { item in
@@ -76,20 +87,19 @@ struct CategoryPieChart: View {
                                 .fill(item.color)
                                 .frame(width: 8, height: 8)
                             Text(item.category.displayName)
-                                .font(.caption)
+                                .font(.app(.caption))
+                                .foregroundStyle(Theme.textSecondary)
                                 .lineLimit(1)
                             Spacer()
                             Text("$\(Int(item.amount))")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .font(.app(.caption))
+                                .foregroundStyle(Theme.textSecondary)
                         }
                     }
                 }
             }
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .sectionCard()
     }
 }
 
@@ -101,11 +111,12 @@ struct MonthlyTrendChart: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Monthly Trend")
-                .font(.headline)
+                .font(.app(.headline, weight: .semibold))
+                .foregroundStyle(Theme.textPrimary)
 
             if data.isEmpty {
                 Text("No spending data")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.textSecondary)
                     .frame(height: 200)
             } else {
                 let maxSpending = data.map(\.amount).max() ?? 1
@@ -117,7 +128,7 @@ struct MonthlyTrendChart: View {
                             x: .value("Month", item.month, unit: .month),
                             y: .value("Amount", item.amount)
                         )
-                        .foregroundStyle(.blue.gradient)
+                        .foregroundStyle(Theme.accent.gradient)
                     }
 
                     ForEach(data) { item in
@@ -125,24 +136,26 @@ struct MonthlyTrendChart: View {
                             x: .value("Month", item.month, unit: .month),
                             y: .value("Rewards", maxRewards > 0 ? item.rewards / maxRewards * maxSpending : 0)
                         )
-                        .foregroundStyle(.green)
+                        .foregroundStyle(Theme.success)
                         .lineStyle(StrokeStyle(lineWidth: 2))
                     }
                 }
                 .frame(height: 200)
                 .chartXAxis {
                     AxisMarks(values: .stride(by: .month)) { _ in
-                        AxisGridLine()
+                        AxisGridLine().foregroundStyle(Theme.separator)
                         AxisValueLabel(format: .dateTime.month(.abbreviated))
+                            .foregroundStyle(Theme.textSecondary)
                     }
                 }
                 .chartYAxis {
                     AxisMarks(position: .leading) { value in
-                        AxisGridLine()
+                        AxisGridLine().foregroundStyle(Theme.separator)
                         AxisValueLabel {
                             if let amount = value.as(Double.self) {
                                 Text("$\(Int(amount))")
-                                    .font(.caption2)
+                                    .font(.app(.caption2))
+                                    .foregroundStyle(Theme.textSecondary)
                             }
                         }
                     }
@@ -151,8 +164,8 @@ struct MonthlyTrendChart: View {
                             if let scaled = value.as(Double.self), maxSpending > 0 {
                                 let reward = scaled / maxSpending * maxRewards
                                 Text("$\(String(format: "%.0f", reward))")
-                                    .font(.caption2)
-                                    .foregroundStyle(.green)
+                                    .font(.app(.caption2))
+                                    .foregroundStyle(Theme.success)
                             }
                         }
                     }
@@ -162,24 +175,24 @@ struct MonthlyTrendChart: View {
                 HStack(spacing: 16) {
                     HStack(spacing: 4) {
                         Rectangle()
-                            .fill(.blue)
+                            .fill(Theme.accent)
                             .frame(width: 12, height: 12)
                         Text("Spending")
-                            .font(.caption)
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.textSecondary)
                     }
                     HStack(spacing: 4) {
                         Rectangle()
-                            .fill(.green)
+                            .fill(Theme.success)
                             .frame(width: 12, height: 3)
                         Text("Rewards")
-                            .font(.caption)
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.textSecondary)
                     }
                 }
             }
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .sectionCard()
     }
 }
 
@@ -191,61 +204,51 @@ struct SpendingCapChart: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Spending Caps")
-                .font(.headline)
+                .font(.app(.headline, weight: .semibold))
+                .foregroundStyle(Theme.textPrimary)
 
             if caps.isEmpty {
                 Text("No spending caps to track")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.textSecondary)
             } else {
                 ForEach(caps.prefix(5)) { cap in
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
                             Text(cap.cardName)
-                                .font(.subheadline)
-                                .fontWeight(.medium)
+                                .font(.app(.subheadline, weight: .medium))
+                                .foregroundStyle(Theme.textPrimary)
                             Spacer()
                             Text(cap.formattedProgress)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .font(.app(.caption))
+                                .foregroundStyle(Theme.textSecondary)
                         }
 
                         if cap.isUnlimited {
                             HStack {
                                 Text(cap.category)
-                                    .font(.caption2)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption2))
+                                    .foregroundStyle(Theme.textSecondary)
                                 Spacer()
                                 Text("Unlimited")
-                                    .font(.caption2)
-                                    .fontWeight(.medium)
-                                    .foregroundStyle(.blue)
+                                    .font(.app(.caption2, weight: .medium))
+                                    .foregroundStyle(Theme.accent)
                             }
                         } else {
-                            GeometryReader { geo in
-                                ZStack(alignment: .leading) {
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(Color(.systemGray4))
-                                        .frame(height: 8)
-
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(cap.isAtCap ? .red : (cap.isNearCap ? .orange : .green))
-                                        .frame(width: geo.size.width * min(cap.percentage / 100, 1), height: 8)
-                                }
-                            }
-                            .frame(height: 8)
+                            AppProgressBar(
+                                value: min(cap.percentage / 100, 1),
+                                color: Theme.capColor(isAtCap: cap.isAtCap, isNearCap: cap.isNearCap)
+                            )
 
                             Text(cap.category)
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
+                                .font(.app(.caption2))
+                                .foregroundStyle(Theme.textSecondary)
                         }
                     }
                     .padding(.vertical, 4)
                 }
             }
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .sectionCard()
     }
 }
 
@@ -258,10 +261,15 @@ struct RewardsEfficiencyChart: View {
     var total: Double { earned + missed }
     var efficiency: Double { total > 0 ? (earned / total) * 100 : 100 }
 
+    var gaugeColor: Color {
+        efficiency > 80 ? Theme.success : (efficiency > 50 ? Theme.warning : Theme.danger)
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Reward Efficiency")
-                .font(.headline)
+                .font(.app(.headline, weight: .semibold))
+                .foregroundStyle(Theme.textPrimary)
 
             HStack(spacing: 20) {
                 // Gauge
@@ -269,38 +277,39 @@ struct RewardsEfficiencyChart: View {
                     Text("Efficiency")
                 } currentValueLabel: {
                     Text("\(Int(efficiency))%")
-                        .font(.title2)
-                        .fontWeight(.bold)
+                        .font(.app(.title2, weight: .bold))
                 }
                 .gaugeStyle(.accessoryCircular)
-                .tint(efficiency > 80 ? .green : (efficiency > 50 ? .orange : .red))
+                .tint(gaugeColor)
                 .scaleEffect(1.5)
                 .frame(width: 80, height: 80)
 
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        Circle().fill(.green).frame(width: 8, height: 8)
+                        Circle().fill(Theme.success).frame(width: 8, height: 8)
                         Text("Earned")
+                            .foregroundStyle(Theme.textSecondary)
                         Spacer()
                         Text("$\(String(format: "%.2f", earned))")
                             .fontWeight(.medium)
+                            .foregroundStyle(Theme.textPrimary)
                     }
-                    .font(.caption)
+                    .font(.app(.caption))
 
                     HStack {
-                        Circle().fill(.red).frame(width: 8, height: 8)
+                        Circle().fill(Theme.danger).frame(width: 8, height: 8)
                         Text("Missed")
+                            .foregroundStyle(Theme.textSecondary)
                         Spacer()
                         Text("$\(String(format: "%.2f", missed))")
                             .fontWeight(.medium)
+                            .foregroundStyle(Theme.textPrimary)
                     }
-                    .font(.caption)
+                    .font(.app(.caption))
                 }
             }
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .sectionCard()
     }
 }
 
@@ -356,12 +365,12 @@ struct EnhancedAnalyticsView: View {
                         SummaryCard(
                             title: "Total Spent",
                             value: "$\(Int(spendingViewModel.totalSpending))",
-                            color: .blue
+                            color: Theme.accent
                         )
                         SummaryCard(
                             title: "Rewards",
                             value: "$\(String(format: "%.2f", spendingViewModel.totalRewardsEarned))",
-                            color: .green
+                            color: Theme.success
                         )
                     }
 
@@ -384,6 +393,7 @@ struct EnhancedAnalyticsView: View {
                 }
                 .padding()
             }
+            .screenBackground()
             .navigationTitle("Analytics")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -403,17 +413,14 @@ struct SummaryCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
-                .font(.caption)
-                .foregroundStyle(.secondary)
+                .font(.app(.caption))
+                .foregroundStyle(Theme.textSecondary)
             Text(value)
-                .font(.title2)
-                .fontWeight(.bold)
+                .font(.app(.title2, weight: .bold))
                 .foregroundStyle(color)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .sectionCard()
     }
 }
 
