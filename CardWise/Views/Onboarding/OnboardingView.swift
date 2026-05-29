@@ -9,8 +9,7 @@ struct OnboardingView: View {
             TabView(selection: $currentPage) {
                 OnboardingPage(
                     imageName: "creditcard.fill",
-                    imageColor: .blue,
-                    title: "Welcome to CardWise",
+                    title: "Welcome to \(Brand.displayName)",
                     description: "Never miss out on credit card rewards again. We'll tell you which card to use for every purchase.",
                     page: 0
                 )
@@ -18,7 +17,6 @@ struct OnboardingView: View {
 
                 OnboardingPage(
                     imageName: "sparkles",
-                    imageColor: .yellow,
                     title: "Smart Recommendations",
                     description: "Just tell us what you're buying - we'll instantly show you the best card to maximize your rewards.",
                     page: 1
@@ -27,7 +25,6 @@ struct OnboardingView: View {
 
                 OnboardingPage(
                     imageName: "arrow.triangle.2.circlepath",
-                    imageColor: .orange,
                     title: "Track Rotating Categories",
                     description: "We'll remind you when quarterly bonus categories change and help you activate them on time.",
                     page: 2
@@ -36,7 +33,6 @@ struct OnboardingView: View {
 
                 OnboardingPage(
                     imageName: "chart.pie.fill",
-                    imageColor: .green,
                     title: "Spending Insights",
                     description: "Track your spending, see rewards earned, and discover opportunities you might have missed.",
                     page: 3
@@ -52,7 +48,7 @@ struct OnboardingView: View {
             HStack(spacing: 8) {
                 ForEach(0..<5) { index in
                     Circle()
-                        .fill(currentPage == index ? Color.blue : Color(.systemGray4))
+                        .fill(currentPage == index ? Theme.accent : Theme.surfaceAlt)
                         .frame(width: 8, height: 8)
                 }
             }
@@ -66,7 +62,8 @@ struct OnboardingView: View {
                             currentPage -= 1
                         }
                     }
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Theme.textSecondary)
+                    .font(.app(.body))
                 }
 
                 Spacer()
@@ -77,18 +74,19 @@ struct OnboardingView: View {
                             currentPage += 1
                         }
                     }
-                    .fontWeight(.semibold)
+                    .font(.app(.headline, weight: .semibold))
+                    .foregroundStyle(Theme.accent)
                 }
             }
             .padding(.horizontal, 30)
             .padding(.bottom, 30)
         }
+        .screenBackground()
     }
 }
 
 struct OnboardingPage: View {
     let imageName: String
-    let imageColor: Color
     let title: String
     let description: String
     let page: Int
@@ -97,26 +95,26 @@ struct OnboardingPage: View {
         VStack(spacing: 30) {
             Spacer()
 
-            // Icon
+            // Icon in accent soft circle
             ZStack {
                 Circle()
-                    .fill(imageColor.opacity(0.15))
+                    .fill(Theme.accentSoft())
                     .frame(width: 150, height: 150)
 
                 Image(systemName: imageName)
                     .font(.system(size: 60))
-                    .foregroundStyle(imageColor)
+                    .foregroundStyle(Theme.accent)
             }
 
             VStack(spacing: 16) {
                 Text(title)
-                    .font(.title)
-                    .fontWeight(.bold)
+                    .font(.app(.title, weight: .bold))
+                    .foregroundStyle(Theme.textPrimary)
                     .multilineTextAlignment(.center)
 
                 Text(description)
-                    .font(.body)
-                    .foregroundStyle(.secondary)
+                    .font(.app(.body))
+                    .foregroundStyle(Theme.textSecondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 40)
             }
@@ -135,26 +133,26 @@ struct OnboardingGetStartedPage: View {
         VStack(spacing: 30) {
             Spacer()
 
-            // Icon
+            // Icon in accent soft circle
             ZStack {
                 Circle()
-                    .fill(Color.green.opacity(0.15))
+                    .fill(Theme.accentSoft())
                     .frame(width: 150, height: 150)
 
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: 60))
-                    .foregroundStyle(.green)
+                    .foregroundStyle(Theme.accent)
             }
 
             VStack(spacing: 16) {
                 Text("You're All Set!")
-                    .font(.title)
-                    .fontWeight(.bold)
+                    .font(.app(.title, weight: .bold))
+                    .foregroundStyle(Theme.textPrimary)
                     .multilineTextAlignment(.center)
 
                 Text("Add your credit cards to get personalized recommendations.")
-                    .font(.body)
-                    .foregroundStyle(.secondary)
+                    .font(.app(.body))
+                    .foregroundStyle(Theme.textSecondary)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 40)
             }
@@ -166,18 +164,14 @@ struct OnboardingGetStartedPage: View {
                     hasCompletedOnboarding = true
                 } label: {
                     Text("Get Started")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
+                .buttonStyle(PrimaryButtonStyle())
+                .padding(.horizontal, 30)
 
                 if !cardViewModel.userCards.isEmpty {
                     Text("\(cardViewModel.userCards.count) cards already added")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
             }
             .padding(.horizontal, 30)

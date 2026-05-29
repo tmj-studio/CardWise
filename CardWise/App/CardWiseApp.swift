@@ -23,6 +23,10 @@ struct CardWiseApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     @StateObject private var cardViewModel = CardViewModel()
+
+    init() {
+        AppAppearance.apply()
+    }
     @StateObject private var spendingViewModel = SpendingViewModel()
     // Hold a strong reference to the singleton so SwiftUI treats it as a StateObject owner.
     @StateObject private var subscription = SubscriptionManager.shared

@@ -17,16 +17,13 @@ struct SpendingListView: View {
 
                 // Spending list
                 if spendingViewModel.spendings.isEmpty {
-                    ContentUnavailableView {
-                        Label("No Spending Records", systemImage: "chart.bar")
-                    } description: {
-                        Text("Track your spending to analyze rewards")
-                    } actions: {
-                        Button("Add Spending") {
-                            showingAddSpending = true
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
+                    AppEmptyState(
+                        icon: "chart.bar",
+                        title: "No Spending Records",
+                        message: "Track your spending to analyze rewards"
+                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    Spacer()
                 } else {
                     List {
                         ForEach(spendingViewModel.spendings) { spending in
@@ -35,8 +32,10 @@ struct SpendingListView: View {
                         .onDelete(perform: deleteSpendings)
                     }
                     .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
                 }
             }
+            .screenBackground()
             .navigationTitle("Spending")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -92,27 +91,26 @@ struct SpendingHeader: View {
         HStack(spacing: 16) {
             VStack(alignment: .leading) {
                 Text("Total Spent")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.app(.caption))
+                    .foregroundStyle(Theme.textSecondary)
                 Text(formatCurrency(spendingViewModel.totalSpending))
-                    .font(.title2)
-                    .fontWeight(.bold)
+                    .font(.app(.title2, weight: .bold))
+                    .foregroundStyle(Theme.textPrimary)
             }
 
             Spacer()
 
             VStack(alignment: .trailing) {
                 Text("Rewards Earned")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.app(.caption))
+                    .foregroundStyle(Theme.textSecondary)
                 Text(formatCurrency(spendingViewModel.totalRewardsEarned))
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.green)
+                    .font(.app(.title2, weight: .bold))
+                    .foregroundStyle(Theme.success)
             }
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(Theme.surface)
     }
 
     private func formatCurrency(_ value: Double) -> String {
@@ -133,27 +131,32 @@ struct SpendingRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            // Category icon
-            Image(systemName: spending.category.icon)
-                .font(.title2)
-                .foregroundStyle(.secondary)
-                .frame(width: 40)
+            // Category icon in themed circle
+            ZStack {
+                Circle()
+                    .fill(Theme.accentSoft())
+                    .frame(width: 36, height: 36)
+                Image(systemName: spending.category.icon)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Theme.accent)
+            }
 
             // Details
             VStack(alignment: .leading, spacing: 4) {
                 Text(spending.merchant)
-                    .font(.headline)
+                    .font(.app(.subheadline, weight: .medium))
+                    .foregroundStyle(Theme.textPrimary)
 
                 HStack(spacing: 8) {
                     if let card = card {
                         Text(card.name)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.textSecondary)
                     }
 
                     Text(spending.date, style: .date)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
 
                 // Missed reward indicator
@@ -162,8 +165,8 @@ struct SpendingRow: View {
                         Image(systemName: "exclamationmark.circle")
                         Text("Could have earned \(formatCurrency(missed)) more")
                     }
-                    .font(.caption2)
-                    .foregroundStyle(.orange)
+                    .font(.app(.caption2))
+                    .foregroundStyle(Theme.warning)
                 }
             }
 
@@ -172,11 +175,13 @@ struct SpendingRow: View {
             // Amount and reward
             VStack(alignment: .trailing, spacing: 4) {
                 Text(spending.formattedAmount)
-                    .font(.headline)
+                    .font(.app(.body))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.textPrimary)
 
                 Text("+\(spending.formattedReward)")
-                    .font(.caption)
-                    .foregroundStyle(.green)
+                    .font(.app(.caption))
+                    .foregroundStyle(Theme.success)
             }
         }
         .padding(.vertical, 4)
@@ -241,11 +246,11 @@ struct AddSpendingView: View {
                             Text("Category")
                             Spacer()
                             Label(effectiveCategory.displayName, systemImage: effectiveCategory.icon)
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(Theme.textSecondary)
                             if detectedCategory != nil {
                                 Text("(auto)")
-                                    .font(.caption)
-                                    .foregroundStyle(.blue)
+                                    .font(.app(.caption))
+                                    .foregroundStyle(Theme.accent)
                             }
                         }
                     }
@@ -258,7 +263,7 @@ struct AddSpendingView: View {
                 Section("Card Used") {
                     if cardViewModel.userCards.isEmpty {
                         Text("Add cards to track spending")
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Theme.textSecondary)
                     } else {
                         ForEach(cardViewModel.userCards) { userCard in
                             if let card = cardViewModel.getCard(for: userCard) {
@@ -274,12 +279,12 @@ struct AddSpendingView: View {
                                     // Show reward rate for this category
                                     if let rec = recommendations.first(where: { $0.userCard.id == userCard.id }) {
                                         Text(rec.displayReward)
-                                            .foregroundStyle(.green)
+                                            .foregroundStyle(Theme.success)
                                     }
 
                                     if selectedCardId == card.id {
                                         Image(systemName: "checkmark.circle.fill")
-                                            .foregroundStyle(.blue)
+                                            .foregroundStyle(Theme.accent)
                                     }
                                 }
                                 .contentShape(Rectangle())
@@ -294,9 +299,9 @@ struct AddSpendingView: View {
                     if let best = recommendations.first, selectedCardId != best.card.id {
                         HStack {
                             Image(systemName: "lightbulb.fill")
-                                .foregroundStyle(.yellow)
+                                .foregroundStyle(Theme.warning)
                             Text("Best choice: \(best.userCard.nickname ?? best.card.name) (\(best.displayReward))")
-                                .font(.caption)
+                                .font(.app(.caption))
                         }
                     }
                 }

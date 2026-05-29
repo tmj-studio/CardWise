@@ -19,120 +19,169 @@ struct PaywallView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 24) {
-                    VStack(spacing: 8) {
-                        Image(systemName: "star.circle.fill")
-                            .font(.system(size: 56))
-                            .foregroundStyle(.yellow)
-                        Text("CardWise Pro")
-                            .font(.largeTitle.bold())
-                        Text("Maximize every swipe.")
-                            .foregroundStyle(.secondary)
-                    }
-                    .padding(.top)
+                VStack(spacing: 0) {
+                    // MARK: Hero header
+                    heroHeader
 
-                    VStack(alignment: .leading, spacing: 14) {
-                        ForEach(features, id: \.text) { feature in
-                            HStack(spacing: 12) {
-                                Image(systemName: feature.icon)
-                                    .foregroundStyle(.blue)
-                                    .frame(width: 28)
-                                Text(feature.text)
-                                Spacer()
-                                Image(systemName: "checkmark")
-                                    .foregroundStyle(.green)
+                    // MARK: Scrollable body
+                    VStack(spacing: 20) {
+                        featureList
+
+                        productSection
+
+                        Button("Restore Purchases") {
+                            Task {
+                                isPurchasing = true
+                                await subscription.restorePurchases()
+                                isPurchasing = false
+                                if subscription.isPro { dismiss() }
                             }
                         }
-                    }
-                    .padding()
-                    .background(Color(.secondarySystemBackground))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .buttonStyle(SoftButtonStyle())
+                        .disabled(isPurchasing)
 
-                    if subscription.loadFailed {
-                        VStack(spacing: 8) {
-                            Text("Couldn't load plans. Please try again.")
-                                .foregroundStyle(.secondary)
-                            Button("Retry") {
-                                Task { await subscription.loadProducts() }
-                            }
-                            .buttonStyle(.bordered)
+                        // App Store-required auto-renewable subscription disclosure.
+                        Text("""
+                        Payment is charged to your Apple Account at confirmation of purchase. \
+                        The subscription automatically renews unless it is canceled at least 24 hours \
+                        before the end of the current period. Your account is charged for renewal within \
+                        24 hours prior to the end of the current period. You can manage or cancel your \
+                        subscription in your Apple Account settings after purchase.
+                        """)
+                        .font(.app(.caption2))
+                        .foregroundStyle(Theme.textSecondary)
+                        .multilineTextAlignment(.center)
+
+                        HStack(spacing: 16) {
+                            Button("Privacy Policy") { showingPrivacy = true }
+                            Button("Terms of Service (EULA)") { showingTerms = true }
                         }
-                    } else if subscription.products.isEmpty {
-                        ProgressView().padding()
-                    } else {
-                        ForEach(subscription.products, id: \.id) { product in
-                            Button {
-                                Task {
-                                    isPurchasing = true
-                                    let success = await subscription.purchase(product)
-                                    isPurchasing = false
-                                    if success { dismiss() }
-                                }
-                            } label: {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(product.displayName)
-                                            .fontWeight(.semibold)
-                                        if product.id == SubscriptionManager.ProductID.yearly {
-                                            Text("Best value — save ~44%")
-                                                .font(.caption)
-                                                .foregroundStyle(.green)
-                                        }
-                                    }
-                                    Spacer()
-                                    Text(product.displayPrice)
-                                        .fontWeight(.bold)
-                                }
-                                .frame(maxWidth: .infinity)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .controlSize(.large)
-                            .disabled(isPurchasing)
-                        }
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.accent)
                     }
-
-                    Button("Restore Purchases") {
-                        Task {
-                            isPurchasing = true
-                            await subscription.restorePurchases()
-                            isPurchasing = false
-                            if subscription.isPro { dismiss() }
-                        }
-                    }
-                    .font(.footnote)
-                    .disabled(isPurchasing)
-
-                    // App Store-required auto-renewable subscription disclosure.
-                    Text("""
-                    Payment is charged to your Apple Account at confirmation of purchase. \
-                    The subscription automatically renews unless it is canceled at least 24 hours \
-                    before the end of the current period. Your account is charged for renewal within \
-                    24 hours prior to the end of the current period. You can manage or cancel your \
-                    subscription in your Apple Account settings after purchase.
-                    """)
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-
-                    HStack(spacing: 16) {
-                        Button("Privacy Policy") { showingPrivacy = true }
-                        Button("Terms of Service (EULA)") { showingTerms = true }
-                    }
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .padding(Theme.Metric.pad)
                 }
-                .padding()
             }
-            .navigationTitle("Upgrade")
+            .screenBackground()
+            .ignoresSafeArea(edges: .top)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Close") { dismiss() }
+                        .foregroundStyle(.white)
                 }
             }
             .sheet(isPresented: $showingPrivacy) { PrivacyPolicyView() }
             .sheet(isPresented: $showingTerms) { TermsOfServiceView() }
         }
+    }
+
+    // MARK: - Subviews
+
+    private var heroHeader: some View {
+        VStack(spacing: 12) {
+            Image(systemName: "crown.fill")
+                .font(.system(size: 44))
+                .foregroundStyle(.white)
+
+            Text("\(Brand.displayName) Pro")
+                .font(.app(.largeTitle, weight: .bold))
+                .foregroundStyle(.white)
+
+            Text(Brand.tagline)
+                .font(.app(.subheadline))
+                .foregroundStyle(.white.opacity(0.85))
+                .multilineTextAlignment(.center)
+        }
+        .padding(.top, 72)
+        .padding(.bottom, 32)
+        .padding(.horizontal, Theme.Metric.pad)
+        .frame(maxWidth: .infinity)
+        .background(Theme.heroGradient)
+    }
+
+    private var featureList: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            ForEach(features, id: \.text) { feature in
+                HStack(spacing: 12) {
+                    Image(systemName: "checkmark.seal.fill")
+                        .foregroundStyle(Theme.accent)
+                        .frame(width: 28)
+                    Text(feature.text)
+                        .font(.app(.body))
+                        .foregroundStyle(Theme.textPrimary)
+                    Spacer()
+                }
+            }
+        }
+        .sectionCard()
+    }
+
+    @ViewBuilder
+    private var productSection: some View {
+        if subscription.loadFailed {
+            VStack(spacing: 12) {
+                Text("Couldn't load plans. Please try again.")
+                    .font(.app(.subheadline))
+                    .foregroundStyle(Theme.textSecondary)
+                    .multilineTextAlignment(.center)
+                Button("Retry") {
+                    Task { await subscription.loadProducts() }
+                }
+                .buttonStyle(SoftButtonStyle())
+            }
+            .sectionCard()
+        } else if subscription.products.isEmpty {
+            ProgressView()
+                .tint(Theme.accent)
+                .padding()
+        } else {
+            VStack(spacing: 12) {
+                ForEach(subscription.products, id: \.id) { product in
+                    productCard(for: product)
+                }
+            }
+        }
+    }
+
+    private func productCard(for product: Product) -> some View {
+        Button {
+            Task {
+                isPurchasing = true
+                let success = await subscription.purchase(product)
+                isPurchasing = false
+                if success { dismiss() }
+            }
+        } label: {
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(product.displayName)
+                        .font(.app(.headline, weight: .semibold))
+                        .foregroundStyle(Theme.textPrimary)
+                    if product.id == SubscriptionManager.ProductID.yearly {
+                        Text("Best value — save ~44%")
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.success)
+                    }
+                }
+                Spacer()
+                Text(product.displayPrice)
+                    .font(.app(.title3, weight: .bold))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.accent)
+            }
+            .padding(Theme.Metric.pad)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Theme.surface)
+            .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.cardRadius, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: Theme.Metric.cardRadius, style: .continuous)
+                    .stroke(Theme.accent, lineWidth: 1.5)
+            )
+            .softShadow()
+        }
+        .buttonStyle(.plain)
+        .disabled(isPurchasing)
     }
 }
 

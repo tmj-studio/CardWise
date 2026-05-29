@@ -11,12 +11,37 @@ struct HomeView: View {
     @AppStorage("dashboard.capsExpanded") private var capsExpanded = true
     @AppStorage("dashboard.transactionsExpanded") private var transactionsExpanded = true
 
+    var greeting: String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        switch hour {
+        case 0..<12: return "Good morning"
+        case 12..<17: return "Good afternoon"
+        default: return "Good evening"
+        }
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
+                    // Greeting header
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(greeting)
+                            .font(.app(.largeTitle, weight: .bold))
+                            .foregroundStyle(Theme.textPrimary)
+                        Text("Let's find your best card")
+                            .font(.app(.subheadline))
+                            .foregroundStyle(Theme.textSecondary)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
                     // Quick Search Bar
-                    QuickSearchBar(searchText: $searchText, showingSheet: $showingQuickRecommend)
+                    SearchBarButton(
+                        placeholder: "What are you buying?",
+                        text: searchText
+                    ) {
+                        showingQuickRecommend = true
+                    }
 
                     // Credit Utilization Overview
                     if hasAnyUtilizationData {
@@ -43,8 +68,12 @@ struct HomeView: View {
                 }
                 .padding()
             }
-            .navigationTitle("Dashboard")
+            .screenBackground()
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("").font(.app(.headline, weight: .semibold))
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
                         Button {
@@ -82,33 +111,6 @@ struct HomeView: View {
     }
 }
 
-// MARK: - Quick Search Bar
-
-struct QuickSearchBar: View {
-    @Binding var searchText: String
-    @Binding var showingSheet: Bool
-
-    var body: some View {
-        Button {
-            showingSheet = true
-        } label: {
-            HStack {
-                Image(systemName: "magnifyingglass")
-                    .foregroundStyle(.secondary)
-                Text(searchText.isEmpty ? "What are you buying?" : searchText)
-                    .foregroundStyle(searchText.isEmpty ? .secondary : .primary)
-                Spacer()
-                Image(systemName: "creditcard.fill")
-                    .foregroundStyle(.blue)
-            }
-            .padding()
-            .background(Color(.systemGray6))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-        }
-        .buttonStyle(.plain)
-    }
-}
-
 // MARK: - Collapsible Header
 
 struct CollapsibleHeader: View {
@@ -117,7 +119,7 @@ struct CollapsibleHeader: View {
     let subtitleColor: Color
     @Binding var isExpanded: Bool
 
-    init(title: String, subtitle: String? = nil, subtitleColor: Color = .secondary, isExpanded: Binding<Bool>) {
+    init(title: String, subtitle: String? = nil, subtitleColor: Color = Theme.textSecondary, isExpanded: Binding<Bool>) {
         self.title = title
         self.subtitle = subtitle
         self.subtitleColor = subtitleColor
@@ -132,20 +134,20 @@ struct CollapsibleHeader: View {
         } label: {
             HStack {
                 Text(title)
-                    .font(.headline)
-                    .foregroundStyle(.primary)
+                    .font(.app(.headline, weight: .semibold))
+                    .foregroundStyle(Theme.textPrimary)
 
                 Spacer()
 
                 if let subtitle = subtitle {
                     Text(subtitle)
-                        .font(.caption)
+                        .font(.app(.caption))
                         .foregroundStyle(subtitleColor)
                 }
 
                 Image(systemName: "chevron.right")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.app(.caption))
+                    .foregroundStyle(Theme.textSecondary)
                     .rotationEffect(.degrees(isExpanded ? 90 : 0))
             }
         }
@@ -172,7 +174,7 @@ struct CreditUtilizationCard: View {
             CollapsibleHeader(
                 title: "Credit Line Usage",
                 subtitle: cardViewModel.totalCreditUtilization.map { String(format: "%.0f%% total", $0) },
-                subtitleColor: cardViewModel.totalCreditUtilization.map { utilizationColor($0) } ?? .secondary,
+                subtitleColor: cardViewModel.totalCreditUtilization.map { Theme.utilizationColor($0) } ?? Theme.textSecondary,
                 isExpanded: $isExpanded
             )
 
@@ -183,20 +185,12 @@ struct CreditUtilizationCard: View {
 
                 if cardsWithLimits.isEmpty {
                     Text("Tap a card to set credit limit")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
             }
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-    }
-
-    func utilizationColor(_ percentage: Double) -> Color {
-        if percentage > 50 { return .red }
-        if percentage > 30 { return .orange }
-        return .green
+        .sectionCard()
     }
 }
 
@@ -223,42 +217,28 @@ struct UtilizationRow: View {
                 )
 
                 Text(userCard.nickname ?? card.name)
-                    .font(.subheadline)
+                    .font(.app(.subheadline))
 
                 Spacer()
 
                 if let balance = userCard.currentBalance, let limit = userCard.creditLimit {
                     Text("$\(Int(balance)) / $\(Int(limit))")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
             }
 
             if userCard.currentBalance != nil {
-                GeometryReader { geo in
-                    ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 3)
-                            .fill(Color(.systemGray4))
-                            .frame(height: 6)
-
-                        RoundedRectangle(cornerRadius: 3)
-                            .fill(utilizationColor)
-                            .frame(width: geo.size.width * min(utilization / 100, 1), height: 6)
-                    }
-                }
-                .frame(height: 6)
+                AppProgressBar(
+                    value: utilization / 100,
+                    color: Theme.utilizationColor(utilization)
+                )
             } else {
                 Text("No balance set")
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
+                    .font(.app(.caption2))
+                    .foregroundStyle(Theme.textSecondary)
             }
         }
-    }
-
-    var utilizationColor: Color {
-        if utilization > 50 { return .red }
-        if utilization > 30 { return .orange }
-        return .green
     }
 }
 
@@ -277,7 +257,7 @@ struct SpendingCapsCard: View {
     }
 
     var summaryColor: Color {
-        caps.contains { $0.isAtCap } ? .red : (caps.contains { $0.isNearCap } ? .orange : .green)
+        caps.contains { $0.isAtCap } ? Theme.danger : (caps.contains { $0.isNearCap } ? Theme.warning : Theme.success)
     }
 
     var body: some View {
@@ -294,47 +274,39 @@ struct SpendingCapsCard: View {
                     VStack(spacing: 4) {
                         HStack {
                             Text(cap.cardName)
-                                .font(.subheadline)
+                                .font(.app(.subheadline))
                             Spacer()
                             Text(cap.formattedProgress)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .font(.app(.caption))
+                                .foregroundStyle(Theme.textSecondary)
                         }
 
                         if cap.isUnlimited {
                             // No progress bar for unlimited
                             HStack {
                                 Text(cap.category)
-                                    .font(.caption2)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption2))
+                                    .foregroundStyle(Theme.textSecondary)
                                 Spacer()
                                 Text("Unlimited")
-                                    .font(.caption2)
+                                    .font(.app(.caption2))
                                     .fontWeight(.medium)
-                                    .foregroundStyle(.blue)
+                                    .foregroundStyle(Theme.accent)
                             }
                         } else {
-                            GeometryReader { geo in
-                                ZStack(alignment: .leading) {
-                                    RoundedRectangle(cornerRadius: 3)
-                                        .fill(Color(.systemGray4))
-                                        .frame(height: 6)
-
-                                    RoundedRectangle(cornerRadius: 3)
-                                        .fill(cap.isAtCap ? .red : (cap.isNearCap ? .orange : .green))
-                                        .frame(width: geo.size.width * min(cap.percentage / 100, 1), height: 6)
-                                }
-                            }
-                            .frame(height: 6)
+                            AppProgressBar(
+                                value: cap.percentage / 100,
+                                color: Theme.capColor(isAtCap: cap.isAtCap, isNearCap: cap.isNearCap)
+                            )
 
                             HStack {
                                 Text(cap.category)
-                                    .font(.caption2)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption2))
+                                    .foregroundStyle(Theme.textSecondary)
                                 Spacer()
                                 Text(cap.formattedRemaining)
-                                    .font(.caption2)
-                                    .foregroundStyle(cap.isNearCap ? .orange : .green)
+                                    .font(.app(.caption2))
+                                    .foregroundStyle(cap.isNearCap ? Theme.warning : Theme.success)
                             }
                         }
                     }
@@ -342,14 +314,12 @@ struct SpendingCapsCard: View {
 
                 if caps.count > 5 {
                     Text("+\(caps.count - 5) more")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
             }
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .sectionCard()
     }
 }
 
@@ -363,37 +333,26 @@ struct MonthlySummaryCard: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("This Month")
-                .font(.headline)
-
-            HStack(spacing: 0) {
-                SummaryStatItem(
+        HeroStatCard(
+            title: "This Month",
+            columns: [
+                (
                     title: "Spent",
                     value: formatCurrency(thisMonthSpendings.reduce(0) { $0 + $1.amount }),
-                    color: .primary
-                )
-
-                Divider().frame(height: 40)
-
-                SummaryStatItem(
+                    tint: .white
+                ),
+                (
                     title: "Rewards",
                     value: formatCurrency(thisMonthSpendings.reduce(0) { $0 + $1.rewardEarned }),
-                    color: .green
-                )
-
-                Divider().frame(height: 40)
-
-                SummaryStatItem(
+                    tint: Color(rgb: 0xBBF7D0)
+                ),
+                (
                     title: "Missed",
                     value: formatCurrency(thisMonthSpendings.compactMap { $0.missedReward }.reduce(0, +)),
-                    color: .red
+                    tint: Color(rgb: 0xFECDD3)
                 )
-            }
-        }
-        .padding()
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+            ]
+        )
     }
 
     func formatCurrency(_ value: Double) -> String {
@@ -402,24 +361,6 @@ struct MonthlySummaryCard: View {
         formatter.currencyCode = "USD"
         formatter.maximumFractionDigits = 0
         return formatter.string(from: NSNumber(value: value)) ?? "$0"
-    }
-}
-
-struct SummaryStatItem: View {
-    let title: String
-    let value: String
-    let color: Color
-
-    var body: some View {
-        VStack(spacing: 4) {
-            Text(title)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            Text(value)
-                .font(.headline)
-                .foregroundStyle(color)
-        }
-        .frame(maxWidth: .infinity)
     }
 }
 
@@ -451,26 +392,26 @@ struct RecentTransactionsCard: View {
                 ForEach(recentSpendings) { spending in
                     HStack(spacing: 12) {
                         Image(systemName: spending.category.icon)
-                            .font(.title3)
-                            .foregroundStyle(.secondary)
+                            .font(.app(.title3))
+                            .foregroundStyle(Theme.textSecondary)
                             .frame(width: 30)
 
                         VStack(alignment: .leading, spacing: 2) {
                             Text(spending.merchant)
-                                .font(.subheadline)
+                                .font(.app(.subheadline))
                             Text(spending.date, style: .date)
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
+                                .font(.app(.caption2))
+                                .foregroundStyle(Theme.textSecondary)
                         }
 
                         Spacer()
 
                         VStack(alignment: .trailing, spacing: 2) {
                             Text(spending.formattedAmount)
-                                .font(.subheadline)
+                                .font(.app(.subheadline))
                             Text("+\(spending.formattedReward)")
-                                .font(.caption2)
-                                .foregroundStyle(.green)
+                                .font(.app(.caption2))
+                                .foregroundStyle(Theme.success)
                         }
                     }
                 }
@@ -479,16 +420,14 @@ struct RecentTransactionsCard: View {
                     HStack {
                         Spacer()
                         Text("View all in Spending tab")
-                            .font(.caption)
-                            .foregroundStyle(.blue)
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.accent)
                         Spacer()
                     }
                 }
             }
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .sectionCard()
     }
 }
 
@@ -539,41 +478,25 @@ struct QuickRecommendSheet: View {
                 // Search input
                 VStack(spacing: 12) {
                     VStack(alignment: .leading, spacing: 0) {
-                        HStack {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundStyle(.secondary)
-                            TextField("Store name (e.g., Costco, Starbucks)", text: $searchText)
-                                .focused($isSearchFocused)
-                                .autocorrectionDisabled()
-                                .onChange(of: searchText) { _, newValue in
-                                    showingHistory = newValue.isEmpty && isSearchFocused
-                                }
-                                .onChange(of: isSearchFocused) { _, focused in
-                                    showingHistory = focused && searchText.isEmpty
-                                }
-
-                            if !searchText.isEmpty {
-                                Button {
-                                    searchText = ""
-                                    showingHistory = isSearchFocused
-                                } label: {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
+                        AppSearchField(
+                            placeholder: "Store name (e.g., Costco, Starbucks)",
+                            text: $searchText,
+                            focused: $isSearchFocused
+                        )
+                        .onChange(of: searchText) { _, newValue in
+                            showingHistory = newValue.isEmpty && isSearchFocused
                         }
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .onChange(of: isSearchFocused) { _, focused in
+                            showingHistory = focused && searchText.isEmpty
+                        }
 
                         // Search history
                         if showingHistory && !recentSearches.isEmpty {
                             VStack(alignment: .leading, spacing: 0) {
                                 HStack {
                                     Text("Recent")
-                                        .font(.caption)
-                                        .fontWeight(.medium)
-                                        .foregroundStyle(.secondary)
+                                        .font(.app(.caption, weight: .medium))
+                                        .foregroundStyle(Theme.textSecondary)
                                     Spacer()
                                 }
                                 .padding(.horizontal, 12)
@@ -587,13 +510,15 @@ struct QuickRecommendSheet: View {
                                     } label: {
                                         HStack {
                                             Image(systemName: "clock.arrow.circlepath")
-                                                .foregroundStyle(.secondary)
+                                                .foregroundStyle(Theme.textSecondary)
                                                 .frame(width: 24)
                                             Text(item.query)
+                                                .font(.app(.body))
+                                                .foregroundStyle(Theme.textPrimary)
                                             if let category = item.spendingCategory {
                                                 Text("(\(category.displayName))")
-                                                    .font(.caption)
-                                                    .foregroundStyle(.secondary)
+                                                    .font(.app(.caption))
+                                                    .foregroundStyle(Theme.textSecondary)
                                             }
                                             Spacer()
                                         }
@@ -601,11 +526,14 @@ struct QuickRecommendSheet: View {
                                         .padding(.vertical, 10)
                                     }
                                     .buttonStyle(.plain)
+
+                                    Divider()
+                                        .background(Theme.separator)
                                 }
                             }
-                            .background(Color(.systemBackground))
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
+                            .background(Theme.surface)
+                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                            .softShadow()
                         }
 
                         // Autocomplete suggestions
@@ -619,63 +547,66 @@ struct QuickRecommendSheet: View {
                                     } label: {
                                         HStack {
                                             Image(systemName: merchant.category.icon)
-                                                .foregroundStyle(.secondary)
+                                                .foregroundStyle(Theme.textSecondary)
                                                 .frame(width: 24)
                                             Text(merchant.name)
+                                                .font(.app(.body))
+                                                .foregroundStyle(Theme.textPrimary)
                                             Spacer()
                                             Text(merchant.category.displayName)
-                                                .font(.caption)
-                                                .foregroundStyle(.secondary)
+                                                .font(.app(.caption))
+                                                .foregroundStyle(Theme.textSecondary)
                                         }
                                         .padding(.horizontal, 12)
                                         .padding(.vertical, 8)
                                     }
                                     .buttonStyle(.plain)
+
+                                    Divider()
+                                        .background(Theme.separator)
                                 }
                             }
-                            .background(Color(.systemBackground))
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
+                            .background(Theme.surface)
+                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                            .softShadow()
                         }
                     }
 
                     // Detected category
                     if let category = detectedCategory {
-                        HStack {
-                            Image(systemName: category.icon)
-                            Text("Category: \(category.displayName)")
+                        HStack(spacing: 8) {
+                            CategoryChip(icon: category.icon, title: category.displayName, selected: true)
                             Spacer()
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(.green)
+                                .foregroundStyle(Theme.success)
                         }
-                        .font(.subheadline)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(Color.green.opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
                     } else if !searchText.isEmpty {
                         HStack {
                             Image(systemName: "questionmark.circle")
                             Text("Category: Other (type more to detect)")
                             Spacer()
                         }
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(.app(.subheadline))
+                        .foregroundStyle(Theme.textSecondary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .background(Theme.surfaceAlt)
+                        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                     }
 
                     // Amount
                     HStack {
                         Text("Amount")
+                            .font(.app(.body))
+                            .foregroundStyle(Theme.textPrimary)
                         Spacer()
                         Text("$")
+                            .foregroundStyle(Theme.textSecondary)
                         TextField("100", text: $amount)
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.trailing)
                             .frame(width: 80)
+                            .font(.app(.body))
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
@@ -683,19 +614,20 @@ struct QuickRecommendSheet: View {
                 .padding()
 
                 Divider()
+                    .background(Theme.separator)
 
                 // Recommendations
                 if cardViewModel.userCards.isEmpty {
-                    ContentUnavailableView(
-                        "No Cards",
-                        systemImage: "creditcard",
-                        description: Text("Add cards to your wallet to get recommendations")
+                    AppEmptyState(
+                        icon: "creditcard",
+                        title: "No Cards",
+                        message: "Add cards to your wallet to get recommendations"
                     )
                 } else if recommendations.isEmpty {
-                    ContentUnavailableView(
-                        "No Match",
-                        systemImage: "magnifyingglass",
-                        description: Text("Try searching for a different merchant")
+                    AppEmptyState(
+                        icon: "magnifyingglass",
+                        title: "No Match",
+                        message: "Try searching for a different merchant"
                     )
                 } else {
                     List {
@@ -770,29 +702,25 @@ struct QuickRecommendRow: View {
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(recommendation.userCard.nickname ?? recommendation.card.name)
-                        .font(.subheadline)
-                        .fontWeight(isTop ? .bold : .regular)
+                        .font(.app(.subheadline, weight: isTop ? .bold : .regular))
                     Text(recommendation.reason)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
 
                     if recommendation.needsActivation {
                         Label("Needs activation", systemImage: "exclamationmark.triangle")
-                            .font(.caption2)
-                            .foregroundStyle(.orange)
+                            .font(.app(.caption2))
+                            .foregroundStyle(Theme.warning)
                     }
                 }
 
                 Spacer()
 
                 VStack(alignment: .trailing, spacing: 2) {
-                    Text(recommendation.displayReward)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundStyle(isTop ? .green : .primary)
+                    RewardBadge(text: recommendation.displayReward, emphasized: isTop)
                     Text(recommendation.formattedEstimatedReward)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
             }
 
@@ -805,18 +733,12 @@ struct QuickRecommendRow: View {
                         Image(systemName: "plus.circle.fill")
                         Text("Add this spending")
                     }
-                    .font(.subheadline)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 8)
-                    .background(Color.blue.opacity(0.1))
-                    .foregroundStyle(.blue)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(SoftButtonStyle())
             }
         }
         .padding(.vertical, 4)
-        .listRowBackground(isTop ? Color.green.opacity(0.1) : Color.clear)
+        .listRowBackground(isTop ? Theme.accentSoft() : Color.clear)
     }
 }
 

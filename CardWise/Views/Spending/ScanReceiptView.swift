@@ -31,44 +31,50 @@ struct ScanReceiptView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(maxHeight: 200)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.cardRadius, style: .continuous))
                             .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color.secondary.opacity(0.3), lineWidth: 1)
+                                RoundedRectangle(cornerRadius: Theme.Metric.cardRadius, style: .continuous)
+                                    .stroke(Theme.separator, lineWidth: 1)
                             )
 
                         if isProcessing {
                             ProgressView("Processing receipt...")
+                                .foregroundStyle(Theme.textSecondary)
                         } else if let data = receiptData {
                             // Show confidence
                             HStack {
                                 Image(systemName: data.confidence > 0.7 ? "checkmark.circle.fill" : "exclamationmark.circle.fill")
-                                    .foregroundStyle(data.confidence > 0.7 ? .green : .orange)
+                                    .foregroundStyle(data.confidence > 0.7 ? Theme.success : Theme.warning)
                                 Text("Confidence: \(Int(data.confidence * 100))%")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption))
+                                    .foregroundStyle(Theme.textSecondary)
                             }
                         }
                     } else {
-                        // Image picker buttons
+                        // No-image empty state + picker buttons
                         VStack(spacing: 16) {
+                            AppEmptyState(
+                                icon: "camera.viewfinder",
+                                title: "Scan a Receipt",
+                                message: "Choose a photo from your library or take a new one"
+                            )
+
                             PhotosPicker(selection: $selectedItem, matching: .images) {
                                 Label("Choose from Library", systemImage: "photo.on.rectangle")
-                                    .frame(maxWidth: .infinity)
                             }
-                            .buttonStyle(.bordered)
+                            .buttonStyle(PrimaryButtonStyle())
 
                             Button {
                                 showCamera = true
                             } label: {
                                 Label("Take Photo", systemImage: "camera")
-                                    .frame(maxWidth: .infinity)
                             }
-                            .buttonStyle(.bordered)
+                            .buttonStyle(SoftButtonStyle())
                         }
                         .padding()
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .background(Theme.surface)
+                        .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.cardRadius, style: .continuous))
+                        .softShadow()
                     }
 
                     // Editable form (shown after OCR or manual entry)
@@ -77,30 +83,37 @@ struct ScanReceiptView: View {
                             // Merchant
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("Merchant")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption))
+                                    .foregroundStyle(Theme.textSecondary)
                                 TextField("Store name", text: $merchant)
-                                    .textFieldStyle(.roundedBorder)
+                                    .font(.app(.body))
+                                    .padding(10)
+                                    .background(Theme.surfaceAlt)
+                                    .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.fieldRadius, style: .continuous))
                             }
 
                             // Amount
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("Amount")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption))
+                                    .foregroundStyle(Theme.textSecondary)
                                 HStack {
                                     Text("$")
+                                        .foregroundStyle(Theme.textSecondary)
                                     TextField("0.00", text: $amount)
                                         .keyboardType(.decimalPad)
-                                        .textFieldStyle(.roundedBorder)
+                                        .font(.app(.body))
                                 }
+                                .padding(10)
+                                .background(Theme.surfaceAlt)
+                                .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.fieldRadius, style: .continuous))
                             }
 
                             // Category
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("Category")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption))
+                                    .foregroundStyle(Theme.textSecondary)
 
                                 Menu {
                                     ForEach(SpendingCategory.allCases) { category in
@@ -113,23 +126,28 @@ struct ScanReceiptView: View {
                                 } label: {
                                     HStack {
                                         Label(selectedCategory.displayName, systemImage: selectedCategory.icon)
+                                            .font(.app(.body))
+                                            .foregroundStyle(Theme.textPrimary)
                                         Spacer()
                                         Image(systemName: "chevron.down")
+                                            .foregroundStyle(Theme.textSecondary)
                                     }
-                                    .padding()
-                                    .background(Color(.systemGray6))
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    .padding(12)
+                                    .background(Theme.surfaceAlt)
+                                    .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.fieldRadius, style: .continuous))
                                 }
                             }
 
                             // Date
                             DatePicker("Date", selection: $date, displayedComponents: .date)
+                                .font(.app(.body))
+                                .tint(Theme.accent)
 
                             // Card selection
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Card Used")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption))
+                                    .foregroundStyle(Theme.textSecondary)
 
                                 ForEach(cardViewModel.userCards) { userCard in
                                     if let card = cardViewModel.getCard(for: userCard) {
@@ -139,19 +157,20 @@ struct ScanReceiptView: View {
                                                 .frame(width: 32, height: 20)
 
                                             Text(userCard.nickname ?? card.name)
-                                                .font(.subheadline)
+                                                .font(.app(.subheadline))
+                                                .foregroundStyle(Theme.textPrimary)
 
                                             Spacer()
 
                                             if selectedCardId == card.id {
                                                 Image(systemName: "checkmark.circle.fill")
-                                                    .foregroundStyle(.blue)
+                                                    .foregroundStyle(Theme.accent)
                                             }
                                         }
                                         .padding(.vertical, 8)
                                         .padding(.horizontal, 12)
-                                        .background(selectedCardId == card.id ? Color.blue.opacity(0.1) : Color(.systemGray6))
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        .background(selectedCardId == card.id ? Theme.accentSoft() : Theme.surfaceAlt)
+                                        .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.fieldRadius, style: .continuous))
                                         .onTapGesture {
                                             selectedCardId = card.id
                                         }
@@ -165,8 +184,8 @@ struct ScanReceiptView: View {
                     // Error message
                     if let error = errorMessage {
                         Text(error)
-                            .font(.caption)
-                            .foregroundStyle(.red)
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.danger)
                             .padding()
                     }
 
@@ -174,17 +193,19 @@ struct ScanReceiptView: View {
                     if let data = receiptData, !data.rawText.isEmpty {
                         DisclosureGroup("Raw Text") {
                             Text(data.rawText)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .font(.app(.caption))
+                                .foregroundStyle(Theme.textSecondary)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         .padding()
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .background(Theme.surface)
+                        .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.cardRadius, style: .continuous))
+                        .softShadow()
                     }
                 }
                 .padding()
             }
+            .screenBackground()
             .navigationTitle("Scan Receipt")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

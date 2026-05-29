@@ -13,19 +13,26 @@ struct AuthView: View {
             VStack(spacing: 32) {
                 Spacer()
 
-                // Logo
+                // Logo / brand header
                 VStack(spacing: 16) {
-                    Image(systemName: "creditcard.fill")
-                        .font(.system(size: 60))
-                        .foregroundStyle(.blue)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Theme.heroGradient)
+                            .frame(width: 80, height: 80)
+                            .softShadow()
 
-                    Text("CardWise")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
+                        Image(systemName: "creditcard.fill")
+                            .font(.system(size: 36))
+                            .foregroundStyle(.white)
+                    }
+
+                    Text(Brand.displayName)
+                        .font(.app(.largeTitle, weight: .bold))
+                        .foregroundStyle(Theme.textPrimary)
 
                     Text("Maximize your credit card rewards")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .font(.app(.subheadline))
+                        .foregroundStyle(Theme.textSecondary)
                 }
 
                 Spacer()
@@ -57,26 +64,32 @@ struct AuthView: View {
                     // Divider
                     HStack {
                         Rectangle()
-                            .fill(Color.secondary.opacity(0.3))
+                            .fill(Theme.separator)
                             .frame(height: 1)
                         Text("or")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.textSecondary)
                         Rectangle()
-                            .fill(Color.secondary.opacity(0.3))
+                            .fill(Theme.separator)
                             .frame(height: 1)
                     }
 
                     // Email/Password
                     VStack(spacing: 12) {
                         TextField("Email", text: $email)
-                            .textFieldStyle(.roundedBorder)
+                            .font(.app(.body))
                             .textContentType(.emailAddress)
                             .autocapitalization(.none)
+                            .padding(14)
+                            .background(Theme.surfaceAlt)
+                            .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.fieldRadius, style: .continuous))
 
                         SecureField("Password", text: $password)
-                            .textFieldStyle(.roundedBorder)
+                            .font(.app(.body))
                             .textContentType(isSignUp ? .newPassword : .password)
+                            .padding(14)
+                            .background(Theme.surfaceAlt)
+                            .clipShape(RoundedRectangle(cornerRadius: Theme.Metric.fieldRadius, style: .continuous))
 
                         Button {
                             Task {
@@ -88,16 +101,16 @@ struct AuthView: View {
                             }
                         } label: {
                             Text(isSignUp ? "Create Account" : "Sign In")
-                                .frame(maxWidth: .infinity)
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(PrimaryButtonStyle())
                         .disabled(email.isEmpty || password.count < 6)
 
                         Button {
                             isSignUp.toggle()
                         } label: {
                             Text(isSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign Up")
-                                .font(.caption)
+                                .font(.app(.caption))
+                                .foregroundStyle(Theme.accent)
                         }
                     }
 
@@ -108,8 +121,8 @@ struct AuthView: View {
                         }
                     } label: {
                         Text("Continue without account")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.textSecondary)
                     }
                 }
                 .padding(.horizontal)
@@ -117,14 +130,15 @@ struct AuthView: View {
                 // Error message
                 if let error = authService.errorMessage {
                     Text(error)
-                        .font(.caption)
-                        .foregroundStyle(.red)
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.danger)
                         .padding()
                 }
 
                 Spacer()
             }
             .padding()
+            .screenBackground()
             .overlay {
                 if authService.isLoading {
                     ProgressView()

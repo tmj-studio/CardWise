@@ -11,8 +11,8 @@ struct PrivacyPolicyView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     Group {
                         Text("Last Updated: February 2026")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.textSecondary)
 
                         section(title: "Introduction") {
                             """
@@ -103,11 +103,13 @@ struct PrivacyPolicyView: View {
                 }
                 .padding()
             }
+            .screenBackground()
             .navigationTitle("Privacy Policy")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") { dismiss() }
+                        .foregroundStyle(Theme.accent)
                 }
             }
         }
@@ -116,10 +118,11 @@ struct PrivacyPolicyView: View {
     private func section(title: String, content: () -> String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
-                .font(.headline)
+                .font(.app(.headline, weight: .semibold))
+                .foregroundStyle(Theme.textPrimary)
             Text(content())
-                .font(.body)
-                .foregroundStyle(.secondary)
+                .font(.app(.body))
+                .foregroundStyle(Theme.textPrimary)
         }
     }
 }
@@ -135,8 +138,8 @@ struct TermsOfServiceView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     Group {
                         Text("Last Updated: February 2026")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.textSecondary)
 
                         section(title: "Acceptance of Terms") {
                             """
@@ -242,11 +245,13 @@ struct TermsOfServiceView: View {
                 }
                 .padding()
             }
+            .screenBackground()
             .navigationTitle("Terms of Service")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") { dismiss() }
+                        .foregroundStyle(Theme.accent)
                 }
             }
         }
@@ -255,10 +260,11 @@ struct TermsOfServiceView: View {
     private func section(title: String, content: () -> String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
-                .font(.headline)
+                .font(.app(.headline, weight: .semibold))
+                .foregroundStyle(Theme.textPrimary)
             Text(content())
-                .font(.body)
-                .foregroundStyle(.secondary)
+                .font(.app(.body))
+                .foregroundStyle(Theme.textPrimary)
         }
     }
 }
