@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Discussions
-    url: https://github.com/Rich627/SmartCard/discussions
+    url: https://github.com/Rich627/CardWise/discussions
     about: Ask questions and discuss ideas here
   - name: Documentation
-    url: https://github.com/Rich627/SmartCard/blob/main/docs/README_EN.md
+    url: https://github.com/Rich627/CardWise/blob/main/docs/README_EN.md
     about: Check out our documentation

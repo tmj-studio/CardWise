@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+- Renamed project from SmartCard to **CardWise** across all docs, CI, and metadata
+
 ### Added
 - Open source community files (LICENSE, CODE_OF_CONDUCT, SECURITY, CHANGELOG)
 - CI/CD workflows for PR checks

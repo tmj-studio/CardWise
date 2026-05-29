@@ -1,7 +1,7 @@
 {
-  "name": "smartcard-scraper",
+  "name": "cardwise-scraper",
   "version": "1.0.0",
-  "description": "Credit card rewards data scraper for SmartCard",
+  "description": "Credit card rewards data scraper for CardWise",
   "main": "index.js",
   "scripts": {
     "scrape": "node index.js",

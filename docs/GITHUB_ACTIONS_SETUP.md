@@ -10,14 +10,14 @@
 ### Step 1: Get Firebase Service Account
 
 1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Select project `smartcard-c6e92`
+2. Select your CardWise project
 3. Click **Project Settings** > **Service accounts**
 4. Click **Generate new private key**
 5. Download the JSON file
 
 ### Step 2: Add GitHub Secret
 
-1. Go to your GitHub Repo: https://github.com/YOUR_USERNAME/SmartCard
+1. Go to your GitHub Repo: https://github.com/YOUR_USERNAME/CardWise
 2. Click **Settings** > **Secrets and variables** > **Actions**
 3. Click **New repository secret**
 4. Name: `FIREBASE_SERVICE_ACCOUNT`
