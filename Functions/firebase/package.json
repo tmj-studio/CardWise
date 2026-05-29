@@ -15,7 +15,7 @@
   "main": "index.js",
   "dependencies": {
     "firebase-admin": "^13.6.1",
-    "firebase-functions": "^7.2.2",
+    "firebase-functions": "^7.2.5",
     "plaid": "^41.3.0",
     "cors": "^2.8.6",
     "jsonwebtoken": "^9.0.2",
