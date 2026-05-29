@@ -1,7 +1,7 @@
-# SmartCard - App Store Metadata
+# CardWise - App Store Metadata
 
 ## App Name
-SmartCard - Credit Card Rewards
+CardWise - Credit Card Rewards
 
 ## Subtitle (30 characters max)
 Maximize Your Rewards
@@ -14,9 +14,9 @@ Secondary: Utilities
 
 ## Description (English)
 
-**SmartCard helps you choose the right credit card for every purchase to maximize your rewards.**
+**CardWise helps you choose the right credit card for every purchase to maximize your rewards.**
 
-Stop leaving money on the table! SmartCard analyzes your credit cards and instantly tells you which card to use for any purchase category or merchant.
+Stop leaving money on the table! CardWise analyzes your credit cards and instantly tells you which card to use for any purchase category or merchant.
 
 **KEY FEATURES:**
 
@@ -57,10 +57,10 @@ Stop leaving money on the table! SmartCard analyzes your credit cards and instan
 - US Bank Cash+
 - And many more!
 
-**WHY SMARTCARD?**
-Credit card rewards can be confusing with rotating categories, spending caps, and different multipliers. SmartCard cuts through the complexity and gives you simple, actionable recommendations.
+**WHY CARDWISE?**
+Credit card rewards can be confusing with rotating categories, spending caps, and different multipliers. CardWise cuts through the complexity and gives you simple, actionable recommendations.
 
-Download SmartCard today and start earning more rewards on every purchase!
+Download CardWise today and start earning more rewards on every purchase!
 
 ---
 
@@ -110,16 +110,16 @@ Initial release featuring:
 ## App Store Connect Information
 
 ### Privacy Policy URL
-https://smartcardapp.com/privacy
+https://cardwiseapp.com/privacy
 
 ### Support URL
-https://smartcardapp.com/support
+https://cardwiseapp.com/support
 
 ### Marketing URL
-https://smartcardapp.com
+https://cardwiseapp.com
 
 ### Copyright
-2024 SmartCard App
+2024 CardWise App
 
 ### Age Rating
 4+ (No objectionable content)
@@ -131,7 +131,7 @@ Free (with optional premium features)
 
 ## App Review Notes
 
-SmartCard is a personal finance tool that helps users optimize their credit card rewards. The app:
+CardWise is a personal finance tool that helps users optimize their credit card rewards. The app:
 
 1. Does NOT process actual financial transactions
 2. Does NOT store credit card numbers, CVVs, or sensitive financial data
@@ -146,4 +146,4 @@ Password: testpassword123
 ---
 
 ## Promotional Text (170 characters max)
-Never miss a reward again! SmartCard instantly shows you which credit card to use for maximum cashback, points, and miles on every purchase.
+Never miss a reward again! CardWise instantly shows you which credit card to use for maximum cashback, points, and miles on every purchase.

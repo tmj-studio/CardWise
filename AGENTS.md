@@ -4,7 +4,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Project Overview
 
-SmartCard is an iOS app that helps users maximize credit card rewards by recommending the best card for each purchase. Features include:
+CardWise is an iOS app that helps users maximize credit card rewards by recommending the best card for each purchase. Features include:
 - Credit card reward tracking (fixed, rotating, selectable categories)
 - Smart card recommendations based on merchant/category
 - Spending tracking and analytics
@@ -22,19 +22,19 @@ SmartCard is an iOS app that helps users maximize credit card rewards by recomme
 
 ## Build and Development
 
-Open `SmartCard.xcodeproj` in Xcode (requires Xcode 15+).
+Open `CardWise.xcodeproj` in Xcode (requires Xcode 15+).
 
 To create the Xcode project:
 1. Open Xcode → File → New → Project
 2. Select iOS → App
-3. Product Name: SmartCard
+3. Product Name: CardWise
 4. Interface: SwiftUI, Language: Swift
-5. Add all files from `SmartCard/` directory to the project
+5. Add all files from `CardWise/` directory to the project
 
 ## Architecture
 
 ```
-SmartCard/
+CardWise/
 ├── App/                    # App entry point
 ├── Models/                 # Data models
 │   ├── CreditCard.swift    # Card, rewards, rotating/selectable configs

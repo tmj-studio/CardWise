@@ -2,7 +2,7 @@
  * Credit Card Data Validation Script
  *
  * Validates all card data against the iOS CreditCard schema
- * to ensure compatibility with the SmartCard iOS app.
+ * to ensure compatibility with the CardWise iOS app.
  */
 
 const fs = require('fs');

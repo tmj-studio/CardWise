@@ -1,5 +1,5 @@
 name: Bug Report
-description: Report a bug or issue with SmartCard
+description: Report a bug or issue with CardWise
 title: "[Bug]: "
 labels: ["bug", "triage"]
 body:

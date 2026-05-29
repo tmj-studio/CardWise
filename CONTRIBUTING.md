@@ -1,6 +1,6 @@
-# Contributing to SmartCard
+# Contributing to CardWise
 
-Thank you for your interest in contributing to SmartCard! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to CardWise! This document provides guidelines and instructions for contributing.
 
 ## Table of Contents
 
@@ -43,12 +43,12 @@ Please report unacceptable behavior by opening an issue with the `conduct` label
 1. Fork the repository on GitHub
 2. Clone your fork locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/SmartCard.git
-   cd SmartCard
+   git clone https://github.com/YOUR_USERNAME/CardWise.git
+   cd CardWise
    ```
 3. Add the upstream repository:
    ```bash
-   git remote add upstream https://github.com/Rich627/SmartCard.git
+   git remote add upstream https://github.com/Rich627/CardWise.git
    ```
 
 ---
@@ -77,7 +77,7 @@ Look for issues labeled `good first issue` - these are great for newcomers!
 
 1. **Open the project**
    ```bash
-   open SmartCard.xcodeproj
+   open CardWise.xcodeproj
    ```
 
 2. **Select a simulator**
@@ -91,7 +91,7 @@ Look for issues labeled `good first issue` - these are great for newcomers!
 ### Project Structure
 
 ```
-SmartCard/
+CardWise/
 ├── App/           # App entry point
 ├── Models/        # Data models (Card, Spending, etc.)
 ├── Views/         # SwiftUI views

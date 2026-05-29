@@ -1,6 +1,6 @@
 {
-  "name": "smartcard-functions",
-  "description": "Firebase Cloud Functions for SmartCard",
+  "name": "cardwise-functions",
+  "description": "Firebase Cloud Functions for CardWise",
   "scripts": {
     "lint": "eslint .",
     "serve": "firebase emulators:start --only functions",
