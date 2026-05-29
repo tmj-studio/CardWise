@@ -92,3 +92,4 @@ coverage/
 *.tmp
 *.temp
 Functions/scraper/node_modules/
+.superpowers/

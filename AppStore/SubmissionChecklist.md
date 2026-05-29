@@ -1,4 +1,4 @@
-# SmartCard - App Store Submission Checklist
+# CardWise - App Store Submission Checklist
 
 ## Pre-Submission Requirements
 
@@ -43,7 +43,7 @@ Recommended screenshots:
 - [x] Privacy Policy created (in-app)
 - [x] Terms of Service created (in-app)
 - [ ] Host privacy policy online (required URL for App Store)
-- [ ] Set up support email: support@smartcardapp.com
+- [ ] Set up support email: support@cardwiseapp.com
 
 ### Build Preparation
 - [ ] Update DEVELOPMENT_TEAM in project.yml
@@ -87,10 +87,10 @@ Recommended screenshots:
 If you want to enable Firebase:
 
 1. Go to https://console.firebase.google.com
-2. Create new project "SmartCard"
-3. Add iOS app with bundle ID: com.smartcard.app
+2. Create new project "CardWise"
+3. Add iOS app with bundle ID: com.cardwise.app
 4. Download GoogleService-Info.plist
-5. Add to SmartCard/Resources/
+5. Add to CardWise/Resources/
 6. Enable Authentication (Email/Password, Apple)
 7. Create Firestore database
 
@@ -99,7 +99,7 @@ If you want to enable Firebase:
 ## Submission Steps
 
 1. **Archive Build**
-   - Open SmartCard.xcodeproj in Xcode
+   - Open CardWise.xcodeproj in Xcode
    - Select "Any iOS Device" as destination
    - Product → Archive
    - Wait for archive to complete
@@ -150,5 +150,5 @@ pip install Pillow
 python generate_app_icon.py
 
 # Open project in Xcode
-open SmartCard.xcodeproj
+open CardWise.xcodeproj
 ```

@@ -1,6 +1,6 @@
 <div align="center">
 
-# SmartCard
+# CardWise
 
 ### Maximize Your Credit Card Rewards
 
@@ -8,7 +8,7 @@
   <a href="https://swift.org/"><img src="https://img.shields.io/badge/Swift-5.9-orange.svg" alt="Swift"></a>
   <a href="https://developer.apple.com/ios/"><img src="https://img.shields.io/badge/Platform-iOS%2017+-blue.svg" alt="Platform"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
-  <a href="https://github.com/Rich627/SmartCard/stargazers"><img src="https://img.shields.io/github/stars/Rich627/SmartCard?style=social" alt="Stars"></a>
+  <a href="https://github.com/Rich627/CardWise/stargazers"><img src="https://img.shields.io/github/stars/Rich627/CardWise?style=social" alt="Stars"></a>
 </p>
 
 <p>
@@ -26,7 +26,7 @@
 
 ---
 
-## What is SmartCard?
+## What is CardWise?
 
 An iOS app that recommends the best credit card for every purchase. Supports 60+ US credit cards with accurate reward tracking for fixed, rotating, and selectable categories.
 
@@ -50,9 +50,9 @@ An iOS app that recommends the best credit card for every purchase. Supports 60+
 ## Quick Start
 
 ```bash
-git clone https://github.com/Rich627/SmartCard.git
-cd SmartCard
-open SmartCard.xcodeproj
+git clone https://github.com/Rich627/CardWise.git
+cd CardWise
+open CardWise.xcodeproj
 # Press Cmd + R to build and run
 ```
 
@@ -86,9 +86,9 @@ SwiftUI · MVVM · Combine · WidgetKit · Vision (OCR) · Firebase
 
 ## Support
 
-- [Report Bug](https://github.com/Rich627/SmartCard/issues)
-- [Request Feature](https://github.com/Rich627/SmartCard/issues)
-- [Discussions](https://github.com/Rich627/SmartCard/discussions)
+- [Report Bug](https://github.com/Rich627/CardWise/issues)
+- [Request Feature](https://github.com/Rich627/CardWise/issues)
+- [Discussions](https://github.com/Rich627/CardWise/discussions)
 
 ---
 
@@ -96,8 +96,8 @@ SwiftUI · MVVM · Combine · WidgetKit · Vision (OCR) · Firebase
 
 **If this project helps you, please give it a star!**
 
-<a href="https://github.com/Rich627/SmartCard/stargazers">
-  <img src="https://img.shields.io/github/stars/Rich627/SmartCard?style=for-the-badge&logo=github" alt="GitHub Stars">
+<a href="https://github.com/Rich627/CardWise/stargazers">
+  <img src="https://img.shields.io/github/stars/Rich627/CardWise?style=for-the-badge&logo=github" alt="GitHub Stars">
 </a>
 
 </div>

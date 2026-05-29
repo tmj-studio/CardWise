@@ -10,10 +10,10 @@ set -e
 
 PROJ_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 DEVICE="iPhone 17 Pro"
-BUNDLE_ID="com.smartcard.app"
-SCHEME="SmartCard"
+BUNDLE_ID="com.cardwise.app"
+SCHEME="CardWise"
 SCREENSHOT_DIR="$PROJ_DIR/Screenshots"
-TAB_VIEW="$PROJ_DIR/SmartCard/Views/MainTabView.swift"
+TAB_VIEW="$PROJ_DIR/CardWise/Views/MainTabView.swift"
 
 mkdir -p "$SCREENSHOT_DIR"
 
@@ -29,14 +29,14 @@ trap cleanup EXIT
 
 # ----- Build -----
 echo "==> Building app..."
-xcodebuild -project "$PROJ_DIR/SmartCard.xcodeproj" \
+xcodebuild -project "$PROJ_DIR/CardWise.xcodeproj" \
   -scheme "$SCHEME" \
   -sdk iphonesimulator \
   -destination "platform=iOS Simulator,name=$DEVICE" \
   -configuration Debug \
   build 2>&1 | tail -5
 
-APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -path "*/SmartCard*/Build/Products/Debug-iphonesimulator/SmartCard.app" -maxdepth 5 | head -1)
+APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -path "*/CardWise*/Build/Products/Debug-iphonesimulator/CardWise.app" -maxdepth 5 | head -1)
 if [ -z "$APP_PATH" ]; then
   echo "ERROR: Could not find built .app"
   exit 1

@@ -8,8 +8,37 @@ const { generateCardId, mapCategory } = require('../utils/categories');
 
 // Fallback annual fees for cards where scraping fails
 const KNOWN_ANNUAL_FEES = {
+  'sapphire-preferred': 95,
+  'sapphire-reserve': 795,
+  'freedom-unlimited': 0,
+  'freedom-flex': 0,
+  'freedom-rise': 0,
+  'freedom-student': 0,
+  'ink-preferred': 95,
+  'ink-cash': 0,
+  'ink-unlimited': 0,
+  'ink-premier': 195,
+  'united-quest': 350,
   'marriott-bountiful': 250,
+  'united-gateway': 0,
   'united-explorer': 150,  // After first year intro $0
+  'united-club-infinite': 695,
+  'southwest-priority': 229,
+  'southwest-plus': 99,
+  'southwest-premier': 149,
+  'marriott-boundless': 95,
+  'marriott-bold': 0,
+  'ihg-premier': 99,
+  'ihg-traveler': 0,
+  'hyatt': 95,
+  'amazon-prime': 0,
+  'amazon-rewards': 0,
+  'disney-visa': 0,
+  'disney-premier': 49,
+  'instacart': 0,
+  'doordash': 0,
+  'aeroplan': 95,
+  'british-airways': 95,
 };
 
 // Chase card URLs - organized by product line
@@ -480,7 +509,7 @@ async function scrapeCard(cardInfo) {
     let annualFee = extractAnnualFee(html);
     
     // Use fallback if annual fee couldn't be scraped
-    if (annualFee === null && KNOWN_ANNUAL_FEES[cardInfo.slug]) {
+    if (annualFee === null && Object.prototype.hasOwnProperty.call(KNOWN_ANNUAL_FEES, cardInfo.slug)) {
       console.log(`    ℹ️ Using fallback annual fee for ${cardInfo.slug}: $${KNOWN_ANNUAL_FEES[cardInfo.slug]}`);
       annualFee = KNOWN_ANNUAL_FEES[cardInfo.slug];
     }

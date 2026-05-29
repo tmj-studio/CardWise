@@ -1,8 +1,8 @@
 /**
- * SmartCard Credit Card Rewards Scraper
+ * CardWise Credit Card Rewards Scraper
  *
  * This script scrapes credit card reward information from official issuer websites
- * and aggregates the data into a unified format for the SmartCard app.
+ * and aggregates the data into a unified format for the CardWise app.
  *
  * Usage:
  * - npm run scrape        # Run all scrapers

@@ -1,7 +1,7 @@
 {
-  "name": "smartcard-scraper",
+  "name": "cardwise-scraper",
   "version": "1.0.0",
-  "description": "Credit card rewards data scraper for SmartCard",
+  "description": "Credit card rewards data scraper for CardWise",
   "main": "index.js",
   "scripts": {
     "scrape": "node index.js",
@@ -19,11 +19,11 @@
     "full": "node index.js && node upload-to-firestore.js"
   },
   "dependencies": {
-    "puppeteer": "^24.40.0",
+    "puppeteer": "^25.1.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
-    "firebase-admin": "^13.6.1",
+    "firebase-admin": "^13.10.0",
     "cheerio": "^1.2.0",
-    "axios": "^1.13.6"
+    "axios": "^1.16.1"
   }
 }

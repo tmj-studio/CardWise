@@ -1,4 +1,4 @@
-# SmartCard
+# CardWise
 
 > Maximize your credit card rewards with smart recommendations.
 
@@ -76,11 +76,11 @@ An iOS app that helps you choose the best credit card for every purchase, so you
 
 ```bash
 # Clone the repository
-git clone https://github.com/Rich627/SmartCard.git
+git clone https://github.com/Rich627/CardWise.git
 
 # Open in Xcode
-cd SmartCard
-open SmartCard.xcodeproj
+cd CardWise
+open CardWise.xcodeproj
 
 # Build and run (Cmd + R)
 ```
@@ -114,7 +114,7 @@ The **RecommendationEngine** evaluates all your cards considering:
 ## Architecture
 
 ```
-SmartCard/
+CardWise/
 ├── App/                    # App entry point
 ├── Models/                 # Data models
 │   ├── CreditCard.swift    # Card definitions & reward configs
@@ -166,7 +166,7 @@ Functions/                  # Backend services
 # Run all tests (Cmd + U in Xcode)
 
 # Or via command line
-xcodebuild test -scheme SmartCard -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -scheme CardWise -destination 'platform=iOS Simulator,name=iPhone 15'
 ```
 
 **Test Coverage:**
@@ -198,14 +198,14 @@ This project is dual-licensed:
 - **Open Source License:** [AGPL-3.0](../LICENSE) - Free for personal and non-commercial use
 - **Commercial License:** [Available for purchase](../COMMERCIAL_LICENSE.md) - For commercial/proprietary use
 
-If you want to use SmartCard in a commercial product without open-sourcing your code, please [contact us](mailto:your@email.com) for commercial licensing options.
+If you want to use CardWise in a commercial product without open-sourcing your code, please [contact us](mailto:your@email.com) for commercial licensing options.
 
 ---
 
 ## Support
 
-- [Report Bug](https://github.com/Rich627/SmartCard/issues)
-- [Request Feature](https://github.com/Rich627/SmartCard/issues)
+- [Report Bug](https://github.com/Rich627/CardWise/issues)
+- [Request Feature](https://github.com/Rich627/CardWise/issues)
 - Star this repo if you find it useful!
 
 ---
