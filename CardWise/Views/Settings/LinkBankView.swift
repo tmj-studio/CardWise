@@ -12,20 +12,24 @@ struct LinkBankView: View {
     var body: some View {
         NavigationStack {
             List {
-                // Linked Accounts Section
+                // MARK: Linked Accounts Section
                 if !plaidService.linkedAccounts.isEmpty {
-                    Section("Linked Accounts") {
+                    Section {
                         ForEach(plaidService.linkedAccounts) { account in
                             HStack {
                                 Image(systemName: "building.columns")
-                                    .foregroundStyle(.blue)
+                                    .foregroundStyle(Theme.accent)
+                                    .frame(width: 28, height: 28)
+                                    .background(Theme.accentSoft())
+                                    .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
 
                                 VStack(alignment: .leading) {
                                     Text(account.displayName)
-                                        .font(.subheadline)
+                                        .font(.app(.subheadline))
+                                        .foregroundStyle(Theme.textPrimary)
                                     Text(account.institutionName)
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
+                                        .font(.app(.caption))
+                                        .foregroundStyle(Theme.textSecondary)
                                 }
 
                                 Spacer()
@@ -34,13 +38,29 @@ struct LinkBankView: View {
                                     plaidService.unlinkAccount(account)
                                 } label: {
                                     Image(systemName: "trash")
+                                        .foregroundStyle(Theme.danger)
                                 }
                             }
                         }
+                    } header: {
+                        Text("Linked Accounts")
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.textSecondary)
+                    }
+                } else {
+                    // Empty state when no accounts linked
+                    Section {
+                        AppEmptyState(
+                            icon: "building.columns",
+                            title: "No Accounts Linked",
+                            message: "Connect your credit card accounts to automatically import transactions."
+                        )
+                        .frame(maxWidth: .infinity)
+                        .listRowBackground(Color.clear)
                     }
                 }
 
-                // Add Account Section
+                // MARK: Add Account Section
                 Section {
                     Button {
                         Task {
@@ -48,49 +68,65 @@ struct LinkBankView: View {
                         }
                     } label: {
                         HStack {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundStyle(.green)
-                            Text("Link Bank Account")
-
-                            Spacer()
-
+                            Text(isLoading ? "Connecting…" : "Link Bank Account")
+                                .font(.app(.headline, weight: .semibold))
+                                .foregroundStyle(.white)
                             if isLoading {
+                                Spacer()
                                 ProgressView()
+                                    .tint(.white)
                             }
                         }
+                        .frame(maxWidth: .infinity)
                     }
+                    .buttonStyle(PrimaryButtonStyle())
                     .disabled(isLoading)
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 } footer: {
                     Text("Connect your credit card accounts to automatically import transactions.")
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
 
-                // Error Message
+                // MARK: Error Message
                 if let error = errorMessage {
                     Section {
-                        HStack {
-                            Image(systemName: "exclamationmark.triangle.fill")
-                                .foregroundStyle(.orange)
-                            Text(error)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
+                        AppEmptyState(
+                            icon: "exclamationmark.triangle.fill",
+                            title: "Connection Error",
+                            message: error
+                        )
+                        .frame(maxWidth: .infinity)
+                        .listRowBackground(Color.clear)
                     }
                 }
 
-                // Info Section
+                // MARK: Info Section
                 Section {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Label("Secure Connection", systemImage: "lock.shield")
-                            .font(.subheadline)
-                            .fontWeight(.medium)
+                    HStack(alignment: .top, spacing: 12) {
+                        Image(systemName: "lock.shield")
+                            .foregroundStyle(Theme.accent)
+                            .frame(width: 28, height: 28)
+                            .background(Theme.accentSoft())
+                            .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
 
-                        Text("CardWise uses Plaid to securely connect to your bank. Your login credentials are never stored on our servers.")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Secure Connection")
+                                .font(.app(.subheadline, weight: .semibold))
+                                .foregroundStyle(Theme.textPrimary)
+
+                            Text("\(Brand.displayName) uses Plaid to securely connect to your bank. Your login credentials are never stored on our servers.")
+                                .font(.app(.caption))
+                                .foregroundStyle(Theme.textSecondary)
+                        }
                     }
                     .padding(.vertical, 4)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Theme.bg)
+            .tint(Theme.accent)
             .navigationTitle("Link Bank")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

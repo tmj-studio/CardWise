@@ -18,40 +18,63 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("CardWise Pro") {
+                // MARK: Pro Section
+                Section {
                     if subscription.isPro {
                         HStack {
                             Label("Pro Active", systemImage: "star.circle.fill")
-                                .foregroundStyle(.green)
+                                .foregroundStyle(Theme.success)
                             Spacer()
                         }
                         Button {
                             showingManageSubscriptions = true
                         } label: {
-                            Label("Manage Subscription", systemImage: "gearshape")
+                            settingsRow(icon: "gearshape", label: "Manage Subscription")
                         }
                     } else {
+                        // Gradient Pro upsell banner
                         Button {
                             showingPaywall = true
                         } label: {
-                            HStack {
-                                Label("Upgrade to Pro", systemImage: "star.circle.fill")
-                                    .foregroundStyle(.yellow)
+                            HStack(spacing: 12) {
+                                Image(systemName: "star.circle.fill")
+                                    .font(.title2)
+                                    .foregroundStyle(.white)
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("Upgrade to \(Brand.displayName) Pro")
+                                        .font(.app(.headline, weight: .semibold))
+                                        .foregroundStyle(.white)
+                                    Text("Unlock all features")
+                                        .font(.app(.caption))
+                                        .foregroundStyle(.white.opacity(0.85))
+                                }
                                 Spacer()
                                 Image(systemName: "chevron.right")
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.subheadline, weight: .semibold))
+                                    .foregroundStyle(.white.opacity(0.8))
                             }
+                            .padding(.vertical, 4)
                         }
+                        .listRowBackground(
+                            Theme.heroGradient
+                                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                                .padding(.horizontal, 4)
+                                .padding(.vertical, 2)
+                        )
                     }
 
                     Button {
                         Task { await subscription.restorePurchases() }
                     } label: {
-                        Label("Restore Purchases", systemImage: "arrow.clockwise")
+                        settingsRow(icon: "arrow.clockwise", label: "Restore Purchases")
                     }
+                } header: {
+                    Text("\(Brand.displayName) Pro")
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
 
-                // Bank Connection
+                // MARK: Bank Connection
                 Section {
                     Button {
                         if !FirebaseService.hasValidConfiguration {
@@ -63,40 +86,53 @@ struct SettingsView: View {
                         }
                     } label: {
                         HStack {
-                            Label("Link Bank Account", systemImage: "building.columns")
+                            settingsRow(icon: "building.columns", label: "Link Bank Account")
                             Spacer()
                             Text(bankConnectionStatus)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .font(.app(.caption))
+                                .foregroundStyle(Theme.textSecondary)
                         }
                     }
                     .disabled(!FirebaseService.hasValidConfiguration)
                 } header: {
                     Text("Bank Connection")
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 } footer: {
                     if !FirebaseService.hasValidConfiguration {
                         Text("Bank linking requires a production Firebase and Plaid configuration.")
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.textSecondary)
                     }
                 }
 
-                Section("About") {
+                // MARK: About
+                Section {
                     HStack {
                         Text("Version")
+                            .foregroundStyle(Theme.textPrimary)
                         Spacer()
                         Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0")
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Theme.textSecondary)
                     }
 
                     HStack {
                         Text("Cards in Database")
+                            .foregroundStyle(Theme.textPrimary)
                         Spacer()
                         Text("\(cardViewModel.allCards.count)")
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Theme.textSecondary)
                     }
+                } header: {
+                    Text("About")
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
 
-                Section("Notifications") {
+                // MARK: Notifications
+                Section {
                     Toggle("Enable Notifications", isOn: $notificationsEnabled)
+                        .foregroundStyle(Theme.textPrimary)
                         .onChange(of: notificationsEnabled) { _, newValue in
                             if newValue {
                                 NotificationService.shared.requestAuthorization { _ in }
@@ -104,66 +140,87 @@ struct SettingsView: View {
                         }
 
                     Toggle("Rotating Category Reminders", isOn: $rotatingReminders)
+                        .foregroundStyle(Theme.textPrimary)
                         .disabled(!notificationsEnabled)
 
                     if SubscriptionGate.isUnlocked(.capAlerts, isPro: subscription.isPro) {
                         Toggle("Spending Cap Alerts", isOn: $spendingCapAlerts)
+                            .foregroundStyle(Theme.textPrimary)
                             .disabled(!notificationsEnabled)
                     } else {
                         Button {
                             showingPaywall = true
                         } label: {
                             HStack {
-                                Label("Spending Cap Alerts", systemImage: "lock.fill")
+                                settingsRow(icon: "lock.fill", label: "Spending Cap Alerts")
                                 Spacer()
                                 Text("Pro")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption, weight: .semibold))
+                                    .foregroundStyle(Theme.accent)
                             }
                         }
                     }
+                } header: {
+                    Text("Notifications")
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
 
-                Section("Your Data") {
+                // MARK: Your Data
+                Section {
                     HStack {
                         Text("Cards in Wallet")
+                            .foregroundStyle(Theme.textPrimary)
                         Spacer()
                         Text("\(cardViewModel.userCards.count)")
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Theme.textSecondary)
                     }
 
                     HStack {
                         Text("Spending Records")
+                            .foregroundStyle(Theme.textPrimary)
                         Spacer()
                         Text("\(spendingViewModel.spendings.count)")
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Theme.textSecondary)
                     }
 
                     HStack {
                         Text("Total Rewards Earned")
+                            .foregroundStyle(Theme.textPrimary)
                         Spacer()
                         Text(formatCurrency(spendingViewModel.totalRewardsEarned))
-                            .foregroundStyle(.green)
+                            .foregroundStyle(Theme.success)
                     }
+                } header: {
+                    Text("Your Data")
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
 
-                Section("Data Management") {
+                // MARK: Data Management
+                Section {
                     Button(role: .destructive) {
                         showingClearDataAlert = true
                     } label: {
                         Text("Clear All Data")
+                            .foregroundStyle(Theme.danger)
                     }
+                } header: {
+                    Text("Data Management")
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
 
-                Section("Support") {
+                // MARK: Support
+                Section {
                     if let appReviewURL {
                         Link(destination: appReviewURL) {
                             HStack {
-                                Label("Rate on App Store", systemImage: "star")
+                                settingsRow(icon: "star", label: "Rate on App Store")
                                 Spacer()
                                 Image(systemName: "arrow.up.right")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption))
+                                    .foregroundStyle(Theme.textSecondary)
                             }
                         }
                     }
@@ -171,38 +228,47 @@ struct SettingsView: View {
                     Button {
                         showingPrivacyPolicy = true
                     } label: {
-                        Label("Privacy Policy", systemImage: "hand.raised")
+                        settingsRow(icon: "hand.raised", label: "Privacy Policy")
                     }
 
                     Button {
                         showingTermsOfService = true
                     } label: {
-                        Label("Terms of Service", systemImage: "doc.text")
+                        settingsRow(icon: "doc.text", label: "Terms of Service")
                     }
 
                     Link(destination: URL(string: "mailto:support@cardwiseapp.com")!) {
                         HStack {
-                            Label("Contact Support", systemImage: "envelope")
+                            settingsRow(icon: "envelope", label: "Contact Support")
                             Spacer()
                             Image(systemName: "arrow.up.right")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .font(.app(.caption))
+                                .foregroundStyle(Theme.textSecondary)
                         }
                     }
+                } header: {
+                    Text("Support")
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.textSecondary)
                 }
 
+                // MARK: Footer branding
                 Section {
                     VStack(spacing: 8) {
-                        Text("CardWise")
-                            .font(.headline)
+                        Text(Brand.displayName)
+                            .font(.app(.headline, weight: .semibold))
+                            .foregroundStyle(Theme.textPrimary)
                         Text("Maximize your credit card rewards")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.textSecondary)
                     }
                     .frame(maxWidth: .infinity)
                     .listRowBackground(Color.clear)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Theme.bg)
+            .tint(Theme.accent)
             .navigationTitle("Settings")
             .sheet(isPresented: $showingPrivacyPolicy) {
                 PrivacyPolicyView()
@@ -226,6 +292,21 @@ struct SettingsView: View {
             } message: {
                 Text("This will delete all your cards, spending records, and preferences. This action cannot be undone.")
             }
+        }
+    }
+
+    // MARK: - Row helper: icon in accentSoft tile + label
+    @ViewBuilder
+    private func settingsRow(icon: String, label: String) -> some View {
+        Label {
+            Text(label)
+                .foregroundStyle(Theme.textPrimary)
+        } icon: {
+            Image(systemName: icon)
+                .foregroundStyle(Theme.accent)
+                .frame(width: 28, height: 28)
+                .background(Theme.accentSoft())
+                .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
         }
     }
 
