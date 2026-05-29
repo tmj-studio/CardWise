@@ -9,16 +9,49 @@ struct CardListView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(cardViewModel.userCards) { userCard in
-                    if let card = cardViewModel.getCard(for: userCard) {
-                        CardRow(userCard: userCard, card: card)
-                            .onTapGesture {
-                                selectedCard = userCard
-                            }
+            Group {
+                if cardViewModel.userCards.isEmpty {
+                    // Empty state
+                    VStack {
+                        Spacer()
+                        AppEmptyState(
+                            icon: "creditcard",
+                            title: "No Cards Yet",
+                            message: "Add your credit cards to get started and find the best card for every purchase."
+                        )
+                        Button("Add Your First Card") {
+                            attemptAddCard()
+                        }
+                        .buttonStyle(PrimaryButtonStyle())
+                        .padding(.horizontal, 32)
+                        Spacer()
                     }
+                    .screenBackground()
+                } else {
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            ForEach(cardViewModel.userCards) { userCard in
+                                if let card = cardViewModel.getCard(for: userCard) {
+                                    CardRow(userCard: userCard, card: card)
+                                        .onTapGesture {
+                                            selectedCard = userCard
+                                        }
+                                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                            Button(role: .destructive) {
+                                                if let index = cardViewModel.userCards.firstIndex(where: { $0.id == userCard.id }) {
+                                                    deleteCards(at: IndexSet(integer: index))
+                                                }
+                                            } label: {
+                                                Label("Delete", systemImage: "trash")
+                                            }
+                                        }
+                                }
+                            }
+                        }
+                        .padding()
+                    }
+                    .screenBackground()
                 }
-                .onDelete(perform: deleteCards)
             }
             .navigationTitle("My Cards")
             .toolbar {
@@ -27,6 +60,7 @@ struct CardListView: View {
                         attemptAddCard()
                     } label: {
                         Image(systemName: "plus")
+                            .foregroundStyle(Theme.accent)
                     }
                 }
             }
@@ -39,20 +73,6 @@ struct CardListView: View {
             .sheet(item: $selectedCard) { userCard in
                 if let card = cardViewModel.getCard(for: userCard) {
                     CardDetailView(userCard: userCard, card: card)
-                }
-            }
-            .overlay {
-                if cardViewModel.userCards.isEmpty {
-                    ContentUnavailableView {
-                        Label("No Cards", systemImage: "creditcard")
-                    } description: {
-                        Text("Add your credit cards to get started")
-                    } actions: {
-                        Button("Add Card") {
-                            attemptAddCard()
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
                 }
             }
         }
@@ -90,40 +110,50 @@ struct CardRow: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(userCard.nickname ?? card.name)
-                    .font(.headline)
+                    .font(.app(.headline, weight: .semibold))
+                    .foregroundStyle(Theme.textPrimary)
                 Text(card.issuer)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.app(.caption))
+                    .foregroundStyle(Theme.textSecondary)
 
                 // Show key benefits
-                HStack(spacing: 8) {
+                HStack(spacing: 6) {
                     if !card.categoryRewards.isEmpty {
                         let topReward = card.categoryRewards.max(by: { $0.multiplier < $1.multiplier })
                         if let reward = topReward {
-                            Text("\(reward.displayMultiplier) \(reward.category.displayName)")
-                                .font(.caption2)
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 2)
-                                .background(Color.green.opacity(0.2))
-                                .clipShape(Capsule())
+                            HStack(spacing: 4) {
+                                Text(reward.displayMultiplier)
+                                    .font(.app(.caption2))
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(Theme.success)
+                                Text(reward.category.displayName)
+                                    .font(.app(.caption2))
+                                    .foregroundStyle(Theme.success)
+                            }
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(Theme.success.opacity(0.12))
+                            .clipShape(Capsule())
                         }
                     }
 
                     if card.rotatingCategories != nil {
                         Text("Rotating")
-                            .font(.caption2)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(Color.orange.opacity(0.2))
+                            .font(.app(.caption2))
+                            .foregroundStyle(Theme.warning)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(Theme.warning.opacity(0.12))
                             .clipShape(Capsule())
                     }
 
                     if card.selectableConfig != nil {
                         Text("Selectable")
-                            .font(.caption2)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(Color.blue.opacity(0.2))
+                            .font(.app(.caption2))
+                            .foregroundStyle(Theme.accent)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(Theme.accentSoft())
                             .clipShape(Capsule())
                     }
                 }
@@ -132,9 +162,11 @@ struct CardRow: View {
             Spacer()
 
             Image(systemName: "chevron.right")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Theme.textSecondary)
+                .font(.app(.caption))
         }
         .padding(.vertical, 8)
+        .sectionCard()
     }
 }
 
@@ -315,18 +347,18 @@ struct CardSelectionRow: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(card.name)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
+                    .font(.app(.subheadline, weight: .medium))
+                    .foregroundStyle(Theme.textPrimary)
                 Text("\(card.issuer) | \(card.annualFee == 0 ? "No AF" : "$\(Int(card.annualFee)) AF")")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.app(.caption))
+                    .foregroundStyle(Theme.textSecondary)
             }
 
             Spacer()
 
             Text(card.displayBaseReward)
-                .font(.caption)
-                .foregroundStyle(.secondary)
+                .font(.app(.caption))
+                .foregroundStyle(Theme.textSecondary)
         }
     }
 }
@@ -357,10 +389,11 @@ struct CardDetailView: View {
 
                         VStack(alignment: .leading) {
                             Text(card.name)
-                                .font(.headline)
+                                .font(.app(.headline, weight: .semibold))
+                                .foregroundStyle(Theme.textPrimary)
                             Text("$\(Int(card.annualFee)) annual fee")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .font(.app(.caption))
+                                .foregroundStyle(Theme.textSecondary)
                         }
                     }
                 }
@@ -398,7 +431,7 @@ struct CardDetailView: View {
                             Text("Utilization")
                             Spacer()
                             Text(String(format: "%.0f%%", utilization))
-                                .foregroundStyle(utilization > 30 ? (utilization > 50 ? .red : .orange) : .green)
+                                .foregroundStyle(utilization > 50 ? Theme.danger : (utilization > 30 ? Theme.warning : Theme.success))
                                 .fontWeight(.semibold)
                         }
                     }
@@ -414,7 +447,7 @@ struct CardDetailView: View {
                         Text("Base Reward")
                         Spacer()
                         Text(card.displayBaseReward)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Theme.textSecondary)
                     }
 
                     ForEach(card.categoryRewards) { reward in
@@ -423,11 +456,11 @@ struct CardDetailView: View {
                             Spacer()
                             VStack(alignment: .trailing) {
                                 Text(reward.displayMultiplier)
-                                    .foregroundStyle(.green)
+                                    .foregroundStyle(Theme.success)
                                 if let cap = reward.cap {
                                     Text("Cap: $\(Int(cap))/\(reward.capPeriod?.displayName ?? "")")
-                                        .font(.caption2)
-                                        .foregroundStyle(.secondary)
+                                        .font(.app(.caption2))
+                                        .foregroundStyle(Theme.textSecondary)
                                 }
                             }
                         }
@@ -444,11 +477,11 @@ struct CardDetailView: View {
                                         .fontWeight(.medium)
                                     Spacer()
                                     Text(rot.displayMultiplier)
-                                        .foregroundStyle(.green)
+                                        .foregroundStyle(Theme.success)
                                 }
                                 Text(rot.categories.map { $0.displayName }.joined(separator: ", "))
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption))
+                                    .foregroundStyle(Theme.textSecondary)
                             }
                             .padding(.vertical, 4)
                         }
@@ -466,7 +499,7 @@ struct CardDetailView: View {
 
                                 if selectedCategories.contains(category) {
                                     Image(systemName: "checkmark.circle.fill")
-                                        .foregroundStyle(.green)
+                                        .foregroundStyle(Theme.success)
                                 }
                             }
                             .contentShape(Rectangle())
@@ -483,7 +516,7 @@ struct CardDetailView: View {
                             Text("Selected category reward")
                             Spacer()
                             Text("\(Int(config.multiplier))\(config.isPercentage ? "%" : "x")")
-                                .foregroundStyle(.green)
+                                .foregroundStyle(Theme.success)
                         }
 
                         if let cap = config.cap {
@@ -491,7 +524,7 @@ struct CardDetailView: View {
                                 Text("Spending cap")
                                 Spacer()
                                 Text("$\(Int(cap))/\(config.capPeriod?.displayName ?? "")")
-                                    .foregroundStyle(.secondary)
+                                    .foregroundStyle(Theme.textSecondary)
                             }
                         }
                     }
