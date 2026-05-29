@@ -45,58 +45,41 @@ struct RecommendView: View {
                 VStack(spacing: 12) {
                     // Merchant search with autocomplete
                     VStack(alignment: .leading, spacing: 0) {
-                        HStack {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundStyle(.secondary)
-                            TextField("Search merchant (e.g., Costco, Starbucks)", text: $searchText)
-                                .focused($isSearchFocused)
-                                .autocorrectionDisabled()
-                                .onChange(of: searchText) { _, newValue in
-                                    showingSuggestions = !newValue.isEmpty && isSearchFocused
-                                    showingHistory = newValue.isEmpty && isSearchFocused
-                                }
-                                .onChange(of: isSearchFocused) { _, focused in
-                                    showingHistory = focused && searchText.isEmpty
-                                    showingSuggestions = focused && !searchText.isEmpty
-                                }
-                                .onSubmit {
-                                    // Save search to history when user submits
-                                    if !searchText.isEmpty {
-                                        SearchHistoryManager.shared.addSearch(searchText, category: detectedCategory)
-                                    }
-                                }
-
+                        AppSearchField(
+                            placeholder: "Search merchant (e.g., Costco, Starbucks)",
+                            text: $searchText,
+                            focused: $isSearchFocused
+                        )
+                        .onChange(of: searchText) { _, newValue in
+                            showingSuggestions = !newValue.isEmpty && isSearchFocused
+                            showingHistory = newValue.isEmpty && isSearchFocused
+                        }
+                        .onChange(of: isSearchFocused) { _, focused in
+                            showingHistory = focused && searchText.isEmpty
+                            showingSuggestions = focused && !searchText.isEmpty
+                        }
+                        .onSubmit {
+                            // Save search to history when user submits
                             if !searchText.isEmpty {
-                                Button {
-                                    searchText = ""
-                                    showingSuggestions = false
-                                    showingHistory = isSearchFocused
-                                } label: {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .foregroundStyle(.secondary)
-                                }
+                                SearchHistoryManager.shared.addSearch(searchText, category: detectedCategory)
                             }
                         }
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
 
                         // Search history (when empty)
                         if showingHistory && !recentSearches.isEmpty {
                             VStack(alignment: .leading, spacing: 0) {
                                 HStack {
                                     Text("Recent")
-                                        .font(.caption)
-                                        .fontWeight(.medium)
-                                        .foregroundStyle(.secondary)
+                                        .font(.app(.caption, weight: .medium))
+                                        .foregroundStyle(Theme.textSecondary)
                                     Spacer()
                                     Button {
                                         SearchHistoryManager.shared.clearHistory()
                                         showingHistory = false
                                     } label: {
                                         Text("Clear")
-                                            .font(.caption)
-                                            .foregroundStyle(.blue)
+                                            .font(.app(.caption))
+                                            .foregroundStyle(Theme.accent)
                                     }
                                 }
                                 .padding(.horizontal, 12)
@@ -111,25 +94,27 @@ struct RecommendView: View {
                                     } label: {
                                         HStack {
                                             Image(systemName: "clock.arrow.circlepath")
-                                                .foregroundStyle(.secondary)
+                                                .foregroundStyle(Theme.textSecondary)
                                                 .frame(width: 24)
                                             Text(item.query)
+                                                .foregroundStyle(Theme.textPrimary)
                                             if let category = item.spendingCategory {
                                                 Text("(\(category.displayName))")
-                                                    .font(.caption)
-                                                    .foregroundStyle(.secondary)
+                                                    .font(.app(.caption))
+                                                    .foregroundStyle(Theme.textSecondary)
                                             }
                                             Spacer()
                                         }
+                                        .font(.app(.body))
                                         .padding(.horizontal, 12)
                                         .padding(.vertical, 10)
                                     }
                                     .buttonStyle(.plain)
                                 }
                             }
-                            .background(Color(.systemBackground))
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
+                            .background(Theme.surface)
+                            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            .softShadow()
                         }
 
                         // Autocomplete suggestions
@@ -144,63 +129,57 @@ struct RecommendView: View {
                                     } label: {
                                         HStack {
                                             Image(systemName: merchant.category.icon)
-                                                .foregroundStyle(.secondary)
+                                                .foregroundStyle(Theme.textSecondary)
                                                 .frame(width: 24)
                                             Text(merchant.name)
+                                                .foregroundStyle(Theme.textPrimary)
                                             Spacer()
                                             Text(merchant.category.displayName)
-                                                .font(.caption)
-                                                .foregroundStyle(.secondary)
+                                                .font(.app(.caption))
+                                                .foregroundStyle(Theme.textSecondary)
                                         }
+                                        .font(.app(.body))
                                         .padding(.horizontal, 12)
                                         .padding(.vertical, 10)
                                     }
                                     .buttonStyle(.plain)
 
                                     if merchant.id != matchingMerchants.prefix(5).last?.id {
-                                        Divider().padding(.leading, 48)
+                                        Divider()
+                                            .overlay(Theme.separator)
+                                            .padding(.leading, 48)
                                     }
                                 }
                             }
-                            .background(Color(.systemBackground))
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                            .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
+                            .background(Theme.surface)
+                            .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            .softShadow()
                         }
                     }
 
                     // Detected category or manual selection
                     if let detected = detectedCategory {
-                        HStack {
-                            Image(systemName: detected.icon)
-                                .foregroundStyle(.green)
-                            Text("Category: \(detected.displayName)")
-                                .font(.subheadline)
+                        HStack(spacing: 10) {
+                            CategoryChip(icon: detected.icon, title: detected.displayName, selected: true)
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(.green)
+                                .foregroundStyle(Theme.success)
                             Spacer()
                         }
-                        .padding(10)
-                        .background(Color.green.opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
                     } else {
                         // Manual category selection
                         Button {
                             showCategoryPicker = true
                         } label: {
                             HStack {
-                                Image(systemName: selectedCategory.icon)
-                                Text(selectedCategory.displayName)
+                                CategoryChip(icon: selectedCategory.icon, title: selectedCategory.displayName)
                                 Spacer()
                                 Text("Tap to change")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption))
+                                    .foregroundStyle(Theme.textSecondary)
                                 Image(systemName: "chevron.right")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
+                                    .font(.app(.caption))
+                                    .foregroundStyle(Theme.textSecondary)
                             }
-                            .padding()
-                            .background(Color(.systemGray6))
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
                         .buttonStyle(.plain)
                     }
@@ -208,16 +187,19 @@ struct RecommendView: View {
                     // Amount input
                     HStack {
                         Text("Amount")
+                            .font(.app(.body))
+                            .foregroundStyle(Theme.textPrimary)
                         Spacer()
                         Text("$")
+                            .foregroundStyle(Theme.textPrimary)
                         TextField("100", text: $amount)
                             .keyboardType(.decimalPad)
                             .focused($isAmountFocused)
                             .multilineTextAlignment(.trailing)
                             .frame(width: 80)
                             .padding(8)
-                            .background(Color(.systemGray6))
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .background(Theme.surfaceAlt)
+                            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                     }
                 }
                 .padding()
@@ -232,20 +214,23 @@ struct RecommendView: View {
                 }
 
                 Divider()
+                    .overlay(Theme.separator)
 
                 // Recommendations
                 if cardViewModel.userCards.isEmpty {
-                    ContentUnavailableView {
-                        Label("No Cards", systemImage: "creditcard")
-                    } description: {
-                        Text("Add cards to your wallet to get recommendations")
-                    }
+                    AppEmptyState(
+                        icon: "creditcard",
+                        title: "No Cards",
+                        message: "Add cards to your wallet to get recommendations"
+                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else if recommendations.isEmpty {
-                    ContentUnavailableView {
-                        Label("No Recommendations", systemImage: "questionmark.circle")
-                    } description: {
-                        Text("No cards match this category")
-                    }
+                    AppEmptyState(
+                        icon: "questionmark.circle",
+                        title: "No Recommendations",
+                        message: "No cards match this category"
+                    )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     List {
                         ForEach(Array(recommendations.enumerated()), id: \.element.id) { index, rec in
@@ -259,6 +244,7 @@ struct RecommendView: View {
                     .listStyle(.plain)
                 }
             }
+            .screenBackground()
             .navigationTitle("Recommend")
             .sheet(isPresented: $showCategoryPicker) {
                 CategoryPickerView(selectedCategory: $selectedCategory)
@@ -280,14 +266,7 @@ struct RecommendationDetailRow: View {
     var body: some View {
         HStack(spacing: 16) {
             // Rank
-            ZStack {
-                Circle()
-                    .fill(isTop ? Color.green : Color(.systemGray5))
-                    .frame(width: 32, height: 32)
-                Text("\(rank)")
-                    .font(.headline)
-                    .foregroundStyle(isTop ? .white : .primary)
-            }
+            RankBadge(rank: rank)
 
             // Card info
             VStack(alignment: .leading, spacing: 6) {
@@ -302,21 +281,22 @@ struct RecommendationDetailRow: View {
 
                     VStack(alignment: .leading) {
                         Text(recommendation.userCard.nickname ?? recommendation.card.name)
-                            .font(.headline)
+                            .font(.app(.headline))
+                            .foregroundStyle(Theme.textPrimary)
                         Text(recommendation.card.issuer)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.textSecondary)
                     }
                 }
 
                 Text(recommendation.reason)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(.app(.caption))
+                    .foregroundStyle(Theme.textSecondary)
 
                 if recommendation.needsActivation {
                     Label("Needs activation", systemImage: "exclamationmark.triangle.fill")
-                        .font(.caption)
-                        .foregroundStyle(.orange)
+                        .font(.app(.caption))
+                        .foregroundStyle(Theme.warning)
                 }
             }
 
@@ -324,22 +304,20 @@ struct RecommendationDetailRow: View {
 
             // Reward info
             VStack(alignment: .trailing, spacing: 4) {
-                Text(recommendation.displayReward)
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundStyle(isTop ? .green : .primary)
+                RewardBadge(text: recommendation.displayReward, emphasized: isTop)
 
                 Text(recommendation.formattedEstimatedReward)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .font(.app(.subheadline))
+                    .foregroundStyle(Theme.textSecondary)
 
                 Text("estimated")
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
+                    .font(.app(.caption2))
+                    .foregroundStyle(Theme.textSecondary)
             }
         }
         .padding(.vertical, 8)
-        .listRowBackground(isTop ? Color.green.opacity(0.1) : Color.clear)
+        .listRowBackground(isTop ? Theme.accentSoft() : Color.clear)
+        .listRowSeparatorTint(Theme.separator)
     }
 }
 
@@ -362,30 +340,19 @@ struct CategoryPickerView: View {
                             selectedCategory = category
                             dismiss()
                         } label: {
-                            VStack(spacing: 8) {
-                                Image(systemName: category.icon)
-                                    .font(.title2)
-                                Text(category.displayName)
-                                    .font(.caption)
-                                    .multilineTextAlignment(.center)
-                            }
+                            CategoryChip(
+                                icon: category.icon,
+                                title: category.displayName,
+                                selected: selectedCategory == category
+                            )
                             .frame(maxWidth: .infinity)
-                            .padding(.vertical, 20)
-                            .background(
-                                selectedCategory == category ?
-                                Color.blue.opacity(0.2) : Color(.systemGray6)
-                            )
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(selectedCategory == category ? Color.blue : Color.clear, lineWidth: 2)
-                            )
                         }
                         .buttonStyle(.plain)
                     }
                 }
                 .padding()
             }
+            .screenBackground()
             .navigationTitle("Select Category")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
