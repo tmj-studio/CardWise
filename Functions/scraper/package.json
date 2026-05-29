@@ -24,6 +24,6 @@
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "firebase-admin": "^13.6.1",
     "cheerio": "^1.2.0",
-    "axios": "^1.13.6"
+    "axios": "^1.16.1"
   }
 }
