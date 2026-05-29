@@ -5,26 +5,18 @@ struct LaunchScreen: View {
 
     var body: some View {
         ZStack {
-            // Background gradient
-            LinearGradient(
-                colors: [
-                    Color(red: 0.1, green: 0.4, blue: 0.8),
-                    Color(red: 0.2, green: 0.6, blue: 0.9)
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+            Theme.bg.ignoresSafeArea()
 
             VStack(spacing: 20) {
-                // App icon representation
+                // Gradient app icon mark
                 ZStack {
                     RoundedRectangle(cornerRadius: 24)
-                        .fill(.white.opacity(0.2))
-                        .frame(width: 120, height: 120)
+                        .fill(Theme.heroGradient)
+                        .frame(width: 100, height: 100)
+                        .softShadow()
 
                     Image(systemName: "creditcard.fill")
-                        .font(.system(size: 50))
+                        .font(.system(size: 44))
                         .foregroundStyle(.white)
                         .scaleEffect(isAnimating ? 1.1 : 1.0)
                         .animation(
@@ -33,15 +25,15 @@ struct LaunchScreen: View {
                         )
                 }
 
-                // App name
-                Text("CardWise")
-                    .font(.system(size: 36, weight: .bold, design: .rounded))
-                    .foregroundStyle(.white)
+                // App name wordmark
+                Text(Brand.displayName)
+                    .font(.app(.largeTitle, weight: .bold))
+                    .foregroundStyle(Theme.accent)
 
                 // Tagline
-                Text("Maximize Your Credit Card Rewards")
-                    .font(.subheadline)
-                    .foregroundStyle(.white.opacity(0.8))
+                Text(Brand.tagline)
+                    .font(.app(.subheadline))
+                    .foregroundStyle(Theme.textSecondary)
             }
         }
         .onAppear {
