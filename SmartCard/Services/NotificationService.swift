@@ -67,6 +67,17 @@ class NotificationService {
         UNUserNotificationCenter.current().add(request)
     }
 
+    func shouldSendSpendingCapAlerts(isPro: Bool) -> Bool {
+        guard SubscriptionGate.isUnlocked(.capAlerts, isPro: isPro) else {
+            return false
+        }
+
+        let defaults = UserDefaults.standard
+        let notificationsEnabled = defaults.object(forKey: "notificationsEnabled") as? Bool ?? true
+        let capAlertsEnabled = defaults.object(forKey: "spendingCapAlerts") as? Bool ?? true
+        return notificationsEnabled && capAlertsEnabled
+    }
+
     // MARK: - Clear Notifications
 
     func clearAllNotifications() {

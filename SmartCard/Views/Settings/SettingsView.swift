@@ -52,9 +52,11 @@ struct SettingsView: View {
                 }
 
                 // Bank Connection
-                Section("Bank Connection") {
+                Section {
                     Button {
-                        if SubscriptionGate.isUnlocked(.bankLinking, isPro: subscription.isPro) {
+                        if !FirebaseService.hasValidConfiguration {
+                            return
+                        } else if SubscriptionGate.isUnlocked(.bankLinking, isPro: subscription.isPro) {
                             showingLinkBank = true
                         } else {
                             showingPaywall = true
@@ -63,10 +65,17 @@ struct SettingsView: View {
                         HStack {
                             Label("Link Bank Account", systemImage: "building.columns")
                             Spacer()
-                            Text("\(PlaidService.shared.linkedAccounts.count) linked")
+                            Text(bankConnectionStatus)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
+                    }
+                    .disabled(!FirebaseService.hasValidConfiguration)
+                } header: {
+                    Text("Bank Connection")
+                } footer: {
+                    if !FirebaseService.hasValidConfiguration {
+                        Text("Bank linking requires a production Firebase and Plaid configuration.")
                     }
                 }
 
@@ -97,8 +106,22 @@ struct SettingsView: View {
                     Toggle("Rotating Category Reminders", isOn: $rotatingReminders)
                         .disabled(!notificationsEnabled)
 
-                    Toggle("Spending Cap Alerts", isOn: $spendingCapAlerts)
-                        .disabled(!notificationsEnabled)
+                    if SubscriptionGate.isUnlocked(.capAlerts, isPro: subscription.isPro) {
+                        Toggle("Spending Cap Alerts", isOn: $spendingCapAlerts)
+                            .disabled(!notificationsEnabled)
+                    } else {
+                        Button {
+                            showingPaywall = true
+                        } label: {
+                            HStack {
+                                Label("Spending Cap Alerts", systemImage: "lock.fill")
+                                Spacer()
+                                Text("Pro")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
                 }
 
                 Section("Your Data") {
@@ -133,14 +156,15 @@ struct SettingsView: View {
                 }
 
                 Section("Support") {
-                    // TODO: Replace with actual App Store URL after submission
-                    Link(destination: URL(string: "https://apps.apple.com/app/smartcard/id000000000")!) {
-                        HStack {
-                            Label("Rate on App Store", systemImage: "star")
-                            Spacer()
-                            Image(systemName: "arrow.up.right")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                    if let appReviewURL {
+                        Link(destination: appReviewURL) {
+                            HStack {
+                                Label("Rate on App Store", systemImage: "star")
+                                Spacer()
+                                Image(systemName: "arrow.up.right")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
                         }
                     }
 
@@ -210,6 +234,18 @@ struct SettingsView: View {
         formatter.numberStyle = .currency
         formatter.currencyCode = "USD"
         return formatter.string(from: NSNumber(value: value)) ?? "$0"
+    }
+
+    private var bankConnectionStatus: String {
+        if !FirebaseService.hasValidConfiguration {
+            return "Setup required"
+        }
+
+        return "\(PlaidService.shared.linkedAccounts.count) linked"
+    }
+
+    private var appReviewURL: URL? {
+        nil
     }
 }
 

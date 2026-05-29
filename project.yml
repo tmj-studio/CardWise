@@ -30,6 +30,7 @@ targets:
       base:
         INFOPLIST_GENERATION_MODE: GeneratedFile
         PRODUCT_BUNDLE_IDENTIFIER: com.smartcard.app
+        TARGETED_DEVICE_FAMILY: "1"
         MARKETING_VERSION: "1.0.0"
         CURRENT_PROJECT_VERSION: "1"
         GENERATE_INFOPLIST_FILE: YES
@@ -52,6 +53,8 @@ targets:
         product: FirebaseFirestore
       - package: PlaidLink
         product: LinkKit
+      - target: SmartCardWidget
+        embed: true
     entitlements:
       path: SmartCard/SmartCard.entitlements
       properties:
@@ -61,6 +64,26 @@ targets:
       testTargets:
         - SmartCardTests
       storeKitConfiguration: SmartCard.storekit
+
+  SmartCardWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: SmartCardWidget
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.smartcard.app.widget
+        TARGETED_DEVICE_FAMILY: "1"
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: SmartCardWidget/Info.plist
+        APPLICATION_EXTENSION_API_ONLY: YES
+    entitlements:
+      path: SmartCardWidget/SmartCardWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.smartcard.app
 
   SmartCardTests:
     type: bundle.unit-test
@@ -73,4 +96,3 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.smartcard.app.tests
         GENERATE_INFOPLIST_FILE: YES
-

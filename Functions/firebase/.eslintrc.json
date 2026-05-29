@@ -1,0 +1,17 @@
+{
+  "root": true,
+  "env": {
+    "commonjs": true,
+    "es2022": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 2022
+  },
+  "rules": {
+    "camelcase": "off",
+    "max-len": "off",
+    "no-console": "off"
+  }
+}

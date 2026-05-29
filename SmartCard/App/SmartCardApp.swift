@@ -5,7 +5,9 @@ import FirebaseCore
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        FirebaseApp.configure()
+        if FirebaseService.hasValidConfiguration {
+            FirebaseApp.configure()
+        }
         return true
     }
 
@@ -66,7 +68,8 @@ struct SmartCardApp: App {
     private func updateWidgetData() {
         WidgetDataManager.shared.updateWidgetData(
             cardViewModel: cardViewModel,
-            spendingViewModel: spendingViewModel
+            spendingViewModel: spendingViewModel,
+            isPro: subscription.isPro
         )
     }
 }

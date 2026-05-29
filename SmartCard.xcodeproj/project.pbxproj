@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E036E02BB5E717D80E171E /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D265CE88892AB5AFDEA86F9 /* FirebaseService.swift */; };
 		09A08C38D1B941DDB0622543 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB9506A7C815DE0EB0FB83C9 /* Preview Assets.xcassets */; };
+		0A8AEE2BA887191E7AE89C58 /* SmartCardWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B60B66852EE35936441FCD /* SmartCardWidget.swift */; };
 		0DDA33E26392ACE70A0FE697 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B567E5B617EDD122C686A475 /* PaywallView.swift */; };
 		0E1E48F8A75ED22AFBD2DDF1 /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3455E4E8589C12AF42460E82 /* SearchHistoryManager.swift */; };
 		13C39A1BC7014E151723712E /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0823AFFE4E9FBE74563F3E /* CardViewModel.swift */; };
@@ -47,6 +48,7 @@
 		D09BC15B4B41F83D5EBD5D69 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD9B608F6F8B84BAA9BAB40 /* Extensions.swift */; };
 		D105E9C099E3EA34368B2424 /* SpendingChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D234424F8E8D5656CFA75698 /* SpendingChartsView.swift */; };
 		D274E62C1B125FF3B7BF9F6C /* LinkKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5D0D881F03EA7066DB5E21D /* LinkKit */; };
+		D319F1E99069666E33806815 /* SmartCardWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A3572F477540637BC960E722 /* SmartCardWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D49E84405EB3D6E3D934B119 /* RecommendationEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714F8C157D16A6AADC3BE766 /* RecommendationEngineTests.swift */; };
 		DB0EFA9D5E6BC26A0BE01574 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B90AD9987F00FB94E8BC708 /* SettingsView.swift */; };
 		DD1AB5D52FF3D0E086C8A07A /* OCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0253BB7E9C67F1E1078788E6 /* OCRService.swift */; };
@@ -65,7 +67,28 @@
 			remoteGlobalIDString = 9A0C74C0EE43F7BB7846736C;
 			remoteInfo = SmartCard;
 		};
+		F404B3C4967F16BFB155C8C7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 56581228AC194D0AA388D4F1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 82E5184DAB2EB8DB1E7E5A6A;
+			remoteInfo = SmartCardWidget;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1180ACA737D08B237700459B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D319F1E99069666E33806815 /* SmartCardWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0253BB7E9C67F1E1078788E6 /* OCRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRService.swift; sourceTree = "<group>"; };
@@ -75,6 +98,7 @@
 		3103655286D9DD1AFD0A87F3 /* LinkBankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkBankView.swift; sourceTree = "<group>"; };
 		3455E4E8589C12AF42460E82 /* SearchHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
 		3509FA7389B840C7B9823B37 /* SmartCardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardApp.swift; sourceTree = "<group>"; };
+		39B60B66852EE35936441FCD /* SmartCardWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartCardWidget.swift; sourceTree = "<group>"; };
 		3D265CE88892AB5AFDEA86F9 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		4A677588886B73B2EC02694B /* SpendingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingCategory.swift; sourceTree = "<group>"; };
 		4C2E41D41B69F930C795146A /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
@@ -92,11 +116,14 @@
 		85F70B182C8C39B74C043557 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		860C20EE17308D0170F10BFF /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		87F2DD28694EA11AC875C407 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		885C1D9A58525FC537A3D674 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8865B56E2F800187B340E4F2 /* SmartCard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SmartCard.entitlements; sourceTree = "<group>"; };
 		88967CA0E3EC808053EC8C13 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		8B90AD9987F00FB94E8BC708 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		951760E33EB3D7F4011CDF59 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A189D557F3089F8D0C823484 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		A3572F477540637BC960E722 /* SmartCardWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SmartCardWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A60004A7D6AA37EF49A1268D /* SmartCardWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SmartCardWidget.entitlements; sourceTree = "<group>"; };
 		AA2F1B895146D82EF9CEA099 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		AAEAA2FE7812B480AD349838 /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
 		B567E5B617EDD122C686A475 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
@@ -138,6 +165,7 @@
 			children = (
 				DDF88FE29A0DE0439A16D085 /* SmartCard */,
 				32927C9B0739438E826BB76D /* SmartCardTests */,
+				37597F9477CD1917860D6211 /* SmartCardWidget */,
 				E8B1DED220F16A4222FBAA1C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -174,6 +202,16 @@
 				70D493DF557267B9E5257F4F /* SubscriptionGateTests.swift */,
 			);
 			path = SmartCardTests;
+			sourceTree = "<group>";
+		};
+		37597F9477CD1917860D6211 /* SmartCardWidget */ = {
+			isa = PBXGroup;
+			children = (
+				885C1D9A58525FC537A3D674 /* Info.plist */,
+				A60004A7D6AA37EF49A1268D /* SmartCardWidget.entitlements */,
+				39B60B66852EE35936441FCD /* SmartCardWidget.swift */,
+			);
+			path = SmartCardWidget;
 			sourceTree = "<group>";
 		};
 		396B3BA3B0B380A8A6D61C93 /* Spending */ = {
@@ -336,6 +374,7 @@
 			children = (
 				67BFADACB2FB4BDD194B05C5 /* SmartCard.app */,
 				C8D6DFF907FBC7F2C723F4C8 /* SmartCardTests.xctest */,
+				A3572F477540637BC960E722 /* SmartCardWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -343,6 +382,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		82E5184DAB2EB8DB1E7E5A6A /* SmartCardWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B5573B834E89185BFFD53A11 /* Build configuration list for PBXNativeTarget "SmartCardWidget" */;
+			buildPhases = (
+				F773AF0CCC85FFA5C36EEAD1 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SmartCardWidget;
+			packageProductDependencies = (
+			);
+			productName = SmartCardWidget;
+			productReference = A3572F477540637BC960E722 /* SmartCardWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8D439BE91604FEA61E042DC9 /* SmartCardTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 72D7CBEB3BCCDB719D4D1C04 /* Build configuration list for PBXNativeTarget "SmartCardTests" */;
@@ -368,10 +424,12 @@
 				394D1DF7CD3EC8152A6A7883 /* Sources */,
 				DBFC4BF5C735769F59FA1511 /* Resources */,
 				3DD65543946962238C4D5B29 /* Frameworks */,
+				1180ACA737D08B237700459B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				58C73A7D79D57DE0B843DB59 /* PBXTargetDependency */,
 			);
 			name = SmartCard;
 			packageProductDependencies = (
@@ -392,6 +450,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					82E5184DAB2EB8DB1E7E5A6A = {
+						DevelopmentTeam = "";
+					};
 					8D439BE91604FEA61E042DC9 = {
 						DevelopmentTeam = "";
 					};
@@ -420,6 +481,7 @@
 			targets = (
 				9A0C74C0EE43F7BB7846736C /* SmartCard */,
 				8D439BE91604FEA61E042DC9 /* SmartCardTests */,
+				82E5184DAB2EB8DB1E7E5A6A /* SmartCardWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -494,6 +556,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F773AF0CCC85FFA5C36EEAD1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A8AEE2BA887191E7AE89C58 /* SmartCardWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -502,9 +572,34 @@
 			target = 9A0C74C0EE43F7BB7846736C /* SmartCard */;
 			targetProxy = DA5A206DDE25239796E6D437 /* PBXContainerItemProxy */;
 		};
+		58C73A7D79D57DE0B843DB59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 82E5184DAB2EB8DB1E7E5A6A /* SmartCardWidget */;
+			targetProxy = F404B3C4967F16BFB155C8C7 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1649825B3B28AAD2070102B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = SmartCardWidget/SmartCardWidget.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SmartCardWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smartcard.app.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
 		263934A2D5D6C186A85F04C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -521,6 +616,26 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SmartCard.app/SmartCard";
 			};
 			name = Debug;
+		};
+		2D01B4785400F9A8FC517622 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = SmartCardWidget/SmartCardWidget.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SmartCardWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smartcard.app.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
 		};
 		2E75A2DBDDE847963D6E2875 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -564,7 +679,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartcard.app;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -657,7 +772,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartcard.app;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -744,6 +859,15 @@
 			buildConfigurations = (
 				263934A2D5D6C186A85F04C3 /* Debug */,
 				2E75A2DBDDE847963D6E2875 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B5573B834E89185BFFD53A11 /* Build configuration list for PBXNativeTarget "SmartCardWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1649825B3B28AAD2070102B4 /* Debug */,
+				2D01B4785400F9A8FC517622 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

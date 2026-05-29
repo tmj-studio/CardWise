@@ -1,14 +1,12 @@
 import Foundation
 import WidgetKit
-import CryptoKit
 
 @MainActor
 class WidgetDataManager {
     static let shared = WidgetDataManager()
 
     private static let appGroupID = "group.com.smartcard.app"
-    private static let widgetDataKey = "widget_encrypted_data"
-    private static let symmetricKeyKeychainKey = "widgetEncryptionKey"
+    private static let widgetDataKey = "widget_data"
 
     private let defaults: UserDefaults? = {
         let suite = UserDefaults(suiteName: appGroupID)
@@ -20,52 +18,7 @@ class WidgetDataManager {
 
     private init() {}
 
-    // MARK: - Symmetric Key Management
-
-    /// Get or create the symmetric key for widget data encryption (stored in shared Keychain).
-    private func getOrCreateSymmetricKey() -> SymmetricKey {
-        // Try loading from shared Keychain
-        if let keyData: Data = try? KeychainHelper.shared.load(
-            forKey: Self.symmetricKeyKeychainKey,
-            accessGroup: Self.appGroupID
-        ) {
-            return SymmetricKey(data: keyData)
-        }
-
-        // Generate and save a new key
-        let key = SymmetricKey(size: .bits256)
-        let keyData = key.withUnsafeBytes { Data($0) }
-        try? KeychainHelper.shared.save(
-            keyData,
-            forKey: Self.symmetricKeyKeychainKey,
-            accessGroup: Self.appGroupID
-        )
-        return key
-    }
-
-    // MARK: - Encryption / Decryption
-
-    private func encryptData(_ data: Data) -> Data? {
-        let key = getOrCreateSymmetricKey()
-        do {
-            let sealedBox = try AES.GCM.seal(data, using: key)
-            return sealedBox.combined
-        } catch {
-            return nil
-        }
-    }
-
-    private func decryptData(_ data: Data) -> Data? {
-        let key = getOrCreateSymmetricKey()
-        do {
-            let sealedBox = try AES.GCM.SealedBox(combined: data)
-            return try AES.GCM.open(sealedBox, using: key)
-        } catch {
-            return nil
-        }
-    }
-
-    // MARK: - Widget Data Model (for encrypted blob)
+    // MARK: - Widget Data Model
 
     struct WidgetPayload: Codable {
         let topCategory: String
@@ -79,12 +32,30 @@ class WidgetDataManager {
         let rewardsThisMonth: Double
     }
 
-    // MARK: - Write Encrypted Widget Data
+    // MARK: - Write Widget Data
 
     func updateWidgetData(
         cardViewModel: CardViewModel,
-        spendingViewModel: SpendingViewModel
+        spendingViewModel: SpendingViewModel,
+        isPro: Bool
     ) {
+        guard SubscriptionGate.isUnlocked(.widget, isPro: isPro) else {
+            writePayload(
+                WidgetPayload(
+                    topCategory: "SmartCard Pro",
+                    topCategoryIcon: "star.circle",
+                    bestCard: "Upgrade to Pro",
+                    bestCardColor: "#808080",
+                    rewardRate: "Pro",
+                    rotatingCategories: [],
+                    rotatingCard: nil,
+                    spendingThisMonth: 0,
+                    rewardsThisMonth: 0
+                )
+            )
+            return
+        }
+
         // Find best card for common category (Dining as default)
         let diningRecs = RecommendationEngine.shared.getRecommendations(
             for: .dining,
@@ -149,30 +120,25 @@ class WidgetDataManager {
             )
         }
 
-        // Encrypt and store
-        if let jsonData = try? JSONEncoder().encode(payload),
-           let encrypted = encryptData(jsonData) {
-            defaults?.set(encrypted, forKey: Self.widgetDataKey)
+        writePayload(payload)
+    }
+
+    private func writePayload(_ payload: WidgetPayload) {
+        if let jsonData = try? JSONEncoder().encode(payload) {
+            defaults?.set(jsonData, forKey: Self.widgetDataKey)
         }
 
-        // Refresh widgets
         WidgetCenter.shared.reloadAllTimelines()
     }
 
-    // MARK: - Read Encrypted Widget Data (for Widget extension)
+    // MARK: - Read Widget Data (for Widget extension)
 
     static func loadWidgetPayload() -> WidgetPayload? {
         let defaults = UserDefaults(suiteName: appGroupID)
-        guard let encrypted = defaults?.data(forKey: widgetDataKey) else {
+        guard let data = defaults?.data(forKey: widgetDataKey) else {
             return nil
         }
 
-        // Decrypt using shared Keychain key
-        let manager = WidgetDataManager.shared
-        guard let decrypted = manager.decryptData(encrypted) else {
-            return nil
-        }
-
-        return try? JSONDecoder().decode(WidgetPayload.self, from: decrypted)
+        return try? JSONDecoder().decode(WidgetPayload.self, from: data)
     }
 }

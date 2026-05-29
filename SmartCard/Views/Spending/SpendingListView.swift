@@ -194,6 +194,7 @@ struct AddSpendingView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var cardViewModel: CardViewModel
     @EnvironmentObject var spendingViewModel: SpendingViewModel
+    @EnvironmentObject private var subscription: SubscriptionManager
 
     @State private var amount = ""
     @State private var merchant = ""
@@ -312,7 +313,8 @@ struct AddSpendingView: View {
                             cardUsed: cardId,
                             date: date,
                             note: note.isEmpty ? nil : note,
-                            cardViewModel: cardViewModel
+                            cardViewModel: cardViewModel,
+                            notifyCapAlerts: NotificationService.shared.shouldSendSpendingCapAlerts(isPro: subscription.isPro)
                         )
                         dismiss()
                     }

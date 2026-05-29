@@ -62,7 +62,8 @@ class SpendingViewModel: ObservableObject {
         cardUsed: String,
         date: Date = Date(),
         note: String? = nil,
-        cardViewModel: CardViewModel
+        cardViewModel: CardViewModel,
+        notifyCapAlerts: Bool = false
     ) throws {
         // Calculate reward earned
         guard let userCard = cardViewModel.getUserCard(byCardId: cardUsed),
@@ -112,6 +113,14 @@ class SpendingViewModel: ObservableObject {
 
         spendings.insert(spending, at: 0)
         saveSpendings()
+
+        if notifyCapAlerts {
+            SpendingCapTracker.shared.checkAndNotify(
+                userCards: cardViewModel.userCards,
+                allCards: cardViewModel.allCards,
+                spendings: spendings
+            )
+        }
     }
 
     func deleteSpending(_ spending: Spending) {

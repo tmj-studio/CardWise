@@ -498,6 +498,7 @@ struct QuickRecommendSheet: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var cardViewModel: CardViewModel
     @EnvironmentObject var spendingViewModel: SpendingViewModel
+    @EnvironmentObject private var subscription: SubscriptionManager
     @State var initialSearch: String
     @State private var searchText = ""
     @State private var amount: String = "100"
@@ -728,7 +729,8 @@ struct QuickRecommendSheet: View {
                             cardUsed: rec.card.id,
                             date: Date(),
                             note: nil,
-                            cardViewModel: cardViewModel
+                            cardViewModel: cardViewModel,
+                            notifyCapAlerts: NotificationService.shared.shouldSendSpendingCapAlerts(isPro: subscription.isPro)
                         )
                         dismiss()
                     }

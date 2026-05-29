@@ -11,13 +11,18 @@ class PlaidService: ObservableObject {
 
     private static let keychainKey = "plaidLinkedAccounts"
 
-    // Firebase Cloud Functions URL — reads from GoogleService-Info.plist; no hardcoded fallback
-    private let cloudFunctionsBaseURL: String = {
+    // Firebase Cloud Functions URL — reads from a real GoogleService-Info.plist.
+    private let cloudFunctionsBaseURL: String? = {
         guard let plistPath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
               let plist = NSDictionary(contentsOfFile: plistPath),
               let projectID = plist["PROJECT_ID"] as? String else {
-            fatalError("GoogleService-Info.plist not found or missing PROJECT_ID. Cannot configure Cloud Functions URL.")
+            return nil
         }
+
+        guard FirebaseService.hasValidConfiguration else {
+            return nil
+        }
+
         return "https://us-central1-\(projectID).cloudfunctions.net"
     }()
 
@@ -52,8 +57,9 @@ class PlaidService: ObservableObject {
 
     /// Get a link token from your backend (Firebase Cloud Functions)
     func getLinkToken() async throws -> String {
-        guard let url = URL(string: "\(cloudFunctionsBaseURL)/createLinkToken") else {
-            throw URLError(.badURL)
+        guard let cloudFunctionsBaseURL,
+              let url = URL(string: "\(cloudFunctionsBaseURL)/createLinkToken") else {
+            throw PlaidError.configurationMissing
         }
 
         var request = try await authenticatedRequest(url: url)
@@ -80,8 +86,9 @@ class PlaidService: ObservableObject {
 
     /// Exchange public token for access token (happens on backend)
     func exchangePublicToken(_ publicToken: String, institutionName: String) async throws {
-        guard let url = URL(string: "\(cloudFunctionsBaseURL)/exchangePublicToken") else {
-            throw URLError(.badURL)
+        guard let cloudFunctionsBaseURL,
+              let url = URL(string: "\(cloudFunctionsBaseURL)/exchangePublicToken") else {
+            throw PlaidError.configurationMissing
         }
 
         var request = try await authenticatedRequest(url: url)
@@ -128,8 +135,9 @@ class PlaidService: ObservableObject {
 
     /// Fetch transactions from Plaid (through backend)
     func fetchTransactions(accountId: String, startDate: Date, endDate: Date) async throws -> [PlaidTransaction] {
-        guard let url = URL(string: "\(cloudFunctionsBaseURL)/getTransactions") else {
-            throw URLError(.badURL)
+        guard let cloudFunctionsBaseURL,
+              let url = URL(string: "\(cloudFunctionsBaseURL)/getTransactions") else {
+            throw PlaidError.configurationMissing
         }
 
         var request = try await authenticatedRequest(url: url)
@@ -185,8 +193,9 @@ class PlaidService: ObservableObject {
     }
 
     private func revokeAccessToken() async throws {
-        guard let url = URL(string: "\(cloudFunctionsBaseURL)/unlinkAccount") else {
-            throw URLError(.badURL)
+        guard let cloudFunctionsBaseURL,
+              let url = URL(string: "\(cloudFunctionsBaseURL)/unlinkAccount") else {
+            throw PlaidError.configurationMissing
         }
 
         var request = try await authenticatedRequest(url: url)
@@ -249,6 +258,7 @@ enum PlaidError: Error, LocalizedError {
     case invalidResponse
     case notLinked
     case accountUpgradeRequired
+    case configurationMissing
 
     var errorDescription: String? {
         switch self {
@@ -262,6 +272,8 @@ enum PlaidError: Error, LocalizedError {
             return "No bank account linked"
         case .accountUpgradeRequired:
             return "Please sign in with an account to link your bank"
+        case .configurationMissing:
+            return "Bank linking is not configured for this build"
         }
     }
 }

@@ -1,7 +1,5 @@
 import WidgetKit
 import SwiftUI
-import CryptoKit
-import Security
 
 // MARK: - Widget Data
 
@@ -31,8 +29,7 @@ struct WidgetData {
     )
 
     static func load() -> WidgetData {
-        // Decrypt widget data from shared App Group storage
-        if let payload = WidgetCryptoHelper.loadPayload() {
+        if let payload = WidgetStorageHelper.loadPayload() {
             return WidgetData(
                 topCategory: payload.topCategory,
                 topCategoryIcon: payload.topCategoryIcon,
@@ -47,7 +44,6 @@ struct WidgetData {
             )
         }
 
-        // Fallback if decryption fails
         return WidgetData(
             topCategory: "Dining",
             topCategoryIcon: "fork.knife",
@@ -63,7 +59,7 @@ struct WidgetData {
     }
 }
 
-// MARK: - Widget Crypto Helper (mirrors WidgetDataManager encryption)
+// MARK: - Widget Storage Helper
 
 private struct WidgetPayload: Codable {
     let topCategory: String
@@ -77,51 +73,17 @@ private struct WidgetPayload: Codable {
     let rewardsThisMonth: Double
 }
 
-private enum WidgetCryptoHelper {
+private enum WidgetStorageHelper {
     static let appGroupID = "group.com.smartcard.app"
-    static let widgetDataKey = "widget_encrypted_data"
-    static let symmetricKeyKeychainKey = "widgetEncryptionKey"
+    static let widgetDataKey = "widget_data"
 
     static func loadPayload() -> WidgetPayload? {
         let defaults = UserDefaults(suiteName: appGroupID)
-        guard let encrypted = defaults?.data(forKey: widgetDataKey) else {
+        guard let data = defaults?.data(forKey: widgetDataKey) else {
             return nil
         }
 
-        guard let key = loadSymmetricKey() else { return nil }
-
-        do {
-            let sealedBox = try AES.GCM.SealedBox(combined: encrypted)
-            let decryptedData = try AES.GCM.open(sealedBox, using: key)
-            return try JSONDecoder().decode(WidgetPayload.self, from: decryptedData)
-        } catch {
-            return nil
-        }
-    }
-
-    private static func loadSymmetricKey() -> SymmetricKey? {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: "com.smartcard.app",
-            kSecAttrAccount as String: symmetricKeyKeychainKey,
-            kSecAttrAccessGroup as String: appGroupID,
-            kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne,
-        ]
-
-        var result: AnyObject?
-        let status = SecItemCopyMatching(query as CFDictionary, &result)
-
-        guard status == errSecSuccess, let keyJsonData = result as? Data else {
-            return nil
-        }
-
-        // KeychainHelper stores Data as JSON-encoded (with quotes), so decode it
-        guard let keyData = try? JSONDecoder().decode(Data.self, from: keyJsonData) else {
-            return nil
-        }
-
-        return SymmetricKey(data: keyData)
+        return try? JSONDecoder().decode(WidgetPayload.self, from: data)
     }
 }
 
