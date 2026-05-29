@@ -28,16 +28,12 @@ After comparing four directions in the visual companion, the user chose the **pl
 6. **Light & dark both first-class.** All tokens adapt.
 7. **Accessibility:** Dynamic Type respected, contrast ≥ WCAG AA, tap targets ≥ 44pt.
 
-## 3. Brand Name (to confirm)
+## 3. Brand Name — **CardWise** (decided)
 
-The name should fall out of this identity (friendly, rewards-focused, violet). Candidates, recommendation first:
+Chosen name: **CardWise** — clear, confident, says what it does, works as a lowercase/title-case wordmark and fits the friendly identity.
 
-- **Perk** *(recommended)* — literally means a reward/benefit; short, warm, brandable. App display name "Perk", later rename of repo/targets to match.
-- **Plum** — violet fruit + "a plum deal"; friendly (note: a UK fintech uses this — possible confusion).
-- **Kudo** — reward/praise, playful.
-- **Maxa** — from "maximize your rewards."
-
-**Decision needed from user before the rename task.** The redesign itself does not block on the final name — we use a `Theme`/`Brand` constant for the display name so it changes in one place.
+- Used now as the app **display name**, routed through a single `Brand.displayName` constant so the redesign doesn't hard-code it.
+- Drives the separate **rename/rebrand** task: GitHub repo `tmj-studio/SmartCard` → `CardWise`, local folder, Xcode project/targets/schemes, bundle IDs, `SmartCard*` source/test directories. (Scope of the GitHub-side rename — local-only vs. also renaming the remote — to be confirmed when planning that task.)
 
 ## 4. Design Tokens — `Theme.swift` (new)
 
