@@ -1,0 +1,915 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0281D1EB5399AB722D80F408 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2B4656F04A27CDA45B53B /* KeychainHelper.swift */; };
+		07D349BE1B1D702BC3A2411C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC2EACAE9B6AC051343C040 /* HomeView.swift */; };
+		0AC1CA2AFE63E12C00DA4F94 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D190866A1D3D807F1F0AE5A3 /* CacheManager.swift */; };
+		22DF95431EEA5E77BC622198 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499416ED0BFBDDCEB3E51E95 /* LegalView.swift */; };
+		3012601BD25ACC4DC867DF12 /* PlaidService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264172B231E01E635FF62E3F /* PlaidService.swift */; };
+		3053BD38689869691D821BC5 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E304F5D3034F498361136AA /* MockData.swift */; };
+		30880DE765588CBA6F139C52 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE1DCCFDDF6B72991D5CD9E6 /* FirebaseAuth */; };
+		32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */; };
+		3495EA4C145807AC2907B0BF /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274F2E9B6A333220D5F8B0C /* CardViewModel.swift */; };
+		34B6A72A6477E7C18BAEEA4B /* SubscriptionGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E416D51AE5110BBA9FB51 /* SubscriptionGate.swift */; };
+		3DCC2372FA629D5C4CDBF39E /* WidgetDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46793A72523BFCB316D74A7C /* WidgetDataManager.swift */; };
+		3EC01DB11EC48653F556D15B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACB054B1C57355D04F18D873 /* Preview Assets.xcassets */; };
+		43A08F2CCF292ADEEA09871F /* CardWiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EAFE3ACDD24CFDCFE2C00F /* CardWiseApp.swift */; };
+		43B1B89DB3683C7C94D0CC5A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D59481BFB663A57ABCEBB3 /* OnboardingView.swift */; };
+		4CA6C4A993FA953AED6E1320 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C6BF613F458BF874472D1C /* SubscriptionManager.swift */; };
+		4E2ED4D6F93B88B8611E20B2 /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AEAFE49F6A0E286A10992 /* CreditCard.swift */; };
+		586D539D6C1BE855D1416EE5 /* SpendingChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AEB3F7B708EF50EA876A1B /* SpendingChartsView.swift */; };
+		6347C2D1FB8141F3DAA3A62A /* CardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C4D7C60F516C97591535FC /* CardListView.swift */; };
+		6E0E8EBFD55FCD2495F8AC43 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7870DE42C4C0B2548257A910 /* AuthService.swift */; };
+		6F7426CF8359220205EAB6EC /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8A1728678B3BE23F22B66D /* FirebaseService.swift */; };
+		758956DDC83C2B00D4693D76 /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F1C56C38BC1CDE28F15596 /* LaunchScreen.swift */; };
+		7763CE35ACB2B150CA1F1238 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F0A498B90BF641C9725DD /* Extensions.swift */; };
+		8280E62FD06ACC0294590CBF /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530C41DD9A8ACF4889D327DD /* ModelTests.swift */; };
+		84B582DBA535831757D11106 /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */; };
+		883027E57857D945A9BC93D3 /* RecommendationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */; };
+		8C5E57B8CE14DC1589E78235 /* SpendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7949151505BEE1862FD1298 /* SpendingViewModel.swift */; };
+		93DBF7456906A5431E2F2BD8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125792622D2A5A023026842B /* NotificationService.swift */; };
+		9ADDA5165C33C2A1CDAF05C9 /* LinkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 702AA4A9A0EC5C958D10A91B /* LinkKit */; };
+		9DB7B64BC6BA35194AFB9BFB /* NetworkSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC23F2A1F4B524A8AEF858 /* NetworkSecurity.swift */; };
+		A0217AABF217FCE8653FEE3E /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FCEA4FD255E668367B4531 /* AuthView.swift */; };
+		A33B7DA955D6553ACB2C5722 /* SubscriptionGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB74E56706B077691C35024C /* SubscriptionGateTests.swift */; };
+		B784C4F6658C0D27D05CF34D /* Spending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3634BD391B66B7F84216F4 /* Spending.swift */; };
+		BA604566E8422326172923AE /* Merchant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86876CAF6DBE2FCAC53B18F /* Merchant.swift */; };
+		BB63D85F01F5692B25BC8ADF /* SpendingCapTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371EDCF327C645E7DD3ACB1E /* SpendingCapTracker.swift */; };
+		C08167554BA69F7A218183AF /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4254DD4847EED4B6AFD12F /* PaywallView.swift */; };
+		C999291A6B5967A73AC0D6D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DBC8E84F4174A2A378805CA /* Assets.xcassets */; };
+		CF8D6A693BFD78D075960F59 /* CardWiseWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762CD900EF202B47B17FBCD3 /* CardWiseWidget.swift */; };
+		D0DF4C869B670BA660E5BA0A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD08F1150EBDD5C41E992C0 /* SettingsView.swift */; };
+		D20A1538FCDE389777EFCFF8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C1DB37946ACA00C41FD4791D /* FirebaseFirestore */; };
+		DB509AB60F4D5175E7E74CEE /* SearchHistoryManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AE329C5BF824AC8FC7375E /* SearchHistoryManagerTests.swift */; };
+		DDEEC2333086FFB0D8DACB53 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D637B1A133EF52259A1D7C03 /* GoogleService-Info.plist */; };
+		DFC5CDDA2577E1B7061511CE /* CardWiseWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 56CEFF1604E21E24C22E8048 /* CardWiseWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E54F9F9A47A612CFD6744460 /* RecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40BCAD3A0B02D4BB31F13A /* RecommendView.swift */; };
+		E6625F53AA37BA060FF62531 /* LinkBankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF97CF22051CB0B9C2E943 /* LinkBankView.swift */; };
+		E6EABFC9726CC26D628F43D2 /* SpendingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19A21D57BB7FC98B67DFA4C /* SpendingListView.swift */; };
+		E96600BFC9F671E826EA13A0 /* OCRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB4C0064CA01D693739E78B /* OCRService.swift */; };
+		EC6A3D10C9A3C2B6AD6AB3CC /* MerchantDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F173864CFC6B3CF85B28DB /* MerchantDatabaseTests.swift */; };
+		EC7AE85A1ADEC89378C80C44 /* ScanReceiptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FFB2FBE8A1C01745D63948 /* ScanReceiptView.swift */; };
+		F071521DE211DD5E2AC981AD /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2B7435406B695A2AC41E68 /* MainTabView.swift */; };
+		F23A8E082BAE1CE57A1E2289 /* SpendingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ACE63934BA7D10758F38A2 /* SpendingCategory.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		90DA3D7B31DCAC3C914194C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C617ABDF28EE0081495696D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4F1F82530D23B328D484BBA1;
+			remoteInfo = CardWise;
+		};
+		B6BF3727453007EFE8CAF8B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5C617ABDF28EE0081495696D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4834B5136DDB110C9C186A1E;
+			remoteInfo = CardWiseWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		733B8DCBC38493F9D7562284 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DFC5CDDA2577E1B7061511CE /* CardWiseWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		01E9B623D713D31BC7B1FD8D /* CardWiseWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CardWiseWidget.entitlements; sourceTree = "<group>"; };
+		03FCEA4FD255E668367B4531 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		07D59481BFB663A57ABCEBB3 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		0B30C0AFC4E819A77F51E987 /* CardWise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CardWise.entitlements; sourceTree = "<group>"; };
+		0E304F5D3034F498361136AA /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		0EB4C0064CA01D693739E78B /* OCRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRService.swift; sourceTree = "<group>"; };
+		0ECC23F2A1F4B524A8AEF858 /* NetworkSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSecurity.swift; sourceTree = "<group>"; };
+		125792622D2A5A023026842B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		137EA6547C7BFB8F919B98B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		264172B231E01E635FF62E3F /* PlaidService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidService.swift; sourceTree = "<group>"; };
+		296E416D51AE5110BBA9FB51 /* SubscriptionGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionGate.swift; sourceTree = "<group>"; };
+		2DBC8E84F4174A2A378805CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2E6F0A498B90BF641C9725DD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		371EDCF327C645E7DD3ACB1E /* SpendingCapTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingCapTracker.swift; sourceTree = "<group>"; };
+		43AE329C5BF824AC8FC7375E /* SearchHistoryManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManagerTests.swift; sourceTree = "<group>"; };
+		46793A72523BFCB316D74A7C /* WidgetDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataManager.swift; sourceTree = "<group>"; };
+		499416ED0BFBDDCEB3E51E95 /* LegalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalView.swift; sourceTree = "<group>"; };
+		530C41DD9A8ACF4889D327DD /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
+		56CEFF1604E21E24C22E8048 /* CardWiseWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = CardWiseWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B8A1728678B3BE23F22B66D /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		7274F2E9B6A333220D5F8B0C /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		762CD900EF202B47B17FBCD3 /* CardWiseWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardWiseWidget.swift; sourceTree = "<group>"; };
+		7870DE42C4C0B2548257A910 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		7DD08F1150EBDD5C41E992C0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7F3634BD391B66B7F84216F4 /* Spending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spending.swift; sourceTree = "<group>"; };
+		80ACE63934BA7D10758F38A2 /* SpendingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingCategory.swift; sourceTree = "<group>"; };
+		81AEB3F7B708EF50EA876A1B /* SpendingChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingChartsView.swift; sourceTree = "<group>"; };
+		84FF97CF22051CB0B9C2E943 /* LinkBankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkBankView.swift; sourceTree = "<group>"; };
+		89112E68051435F4ECA85FCE /* CardWiseTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CardWiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationEngineTests.swift; sourceTree = "<group>"; };
+		8F2B7435406B695A2AC41E68 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		91E2B4656F04A27CDA45B53B /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		9EF88FBB29B10BEDD26919AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A19A21D57BB7FC98B67DFA4C /* SpendingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingListView.swift; sourceTree = "<group>"; };
+		A2EAFE3ACDD24CFDCFE2C00F /* CardWiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardWiseApp.swift; sourceTree = "<group>"; };
+		A9C4D7C60F516C97591535FC /* CardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListView.swift; sourceTree = "<group>"; };
+		ACB054B1C57355D04F18D873 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
+		BB74E56706B077691C35024C /* SubscriptionGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionGateTests.swift; sourceTree = "<group>"; };
+		BF3AEAFE49F6A0E286A10992 /* CreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCard.swift; sourceTree = "<group>"; };
+		C5C6BF613F458BF874472D1C /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		C7949151505BEE1862FD1298 /* SpendingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingViewModel.swift; sourceTree = "<group>"; };
+		CB4254DD4847EED4B6AFD12F /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		CF40BCAD3A0B02D4BB31F13A /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
+		CFA49935D5C8A86F1693BA70 /* CardWise.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CardWise.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D190866A1D3D807F1F0AE5A3 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		D637B1A133EF52259A1D7C03 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D86876CAF6DBE2FCAC53B18F /* Merchant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Merchant.swift; sourceTree = "<group>"; };
+		E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationEngine.swift; sourceTree = "<group>"; };
+		E8F1C56C38BC1CDE28F15596 /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
+		EDC2EACAE9B6AC051343C040 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F7F173864CFC6B3CF85B28DB /* MerchantDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MerchantDatabaseTests.swift; sourceTree = "<group>"; };
+		F7FFB2FBE8A1C01745D63948 /* ScanReceiptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanReceiptView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		07D12F388C4BCD13579B25B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30880DE765588CBA6F139C52 /* FirebaseAuth in Frameworks */,
+				D20A1538FCDE389777EFCFF8 /* FirebaseFirestore in Frameworks */,
+				9ADDA5165C33C2A1CDAF05C9 /* LinkKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00B3E2886287682670D05946 /* Paywall */ = {
+			isa = PBXGroup;
+			children = (
+				CB4254DD4847EED4B6AFD12F /* PaywallView.swift */,
+			);
+			path = Paywall;
+			sourceTree = "<group>";
+		};
+		0BFE969BAAB7DC6101C6558A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2DBC8E84F4174A2A378805CA /* Assets.xcassets */,
+				454AF5A141C17080857C0EC4 /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0D0F76BC18DB47371AFF8681 /* CardWiseTests */ = {
+			isa = PBXGroup;
+			children = (
+				F7F173864CFC6B3CF85B28DB /* MerchantDatabaseTests.swift */,
+				530C41DD9A8ACF4889D327DD /* ModelTests.swift */,
+				8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */,
+				43AE329C5BF824AC8FC7375E /* SearchHistoryManagerTests.swift */,
+				BB74E56706B077691C35024C /* SubscriptionGateTests.swift */,
+			);
+			path = CardWiseTests;
+			sourceTree = "<group>";
+		};
+		454AF5A141C17080857C0EC4 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				ACB054B1C57355D04F18D873 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4566630DCD04CD9439083EAC /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				A9C4D7C60F516C97591535FC /* CardListView.swift */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		4964EC7DDA4E353A6A618DC4 /* CardWiseWidget */ = {
+			isa = PBXGroup;
+			children = (
+				01E9B623D713D31BC7B1FD8D /* CardWiseWidget.entitlements */,
+				762CD900EF202B47B17FBCD3 /* CardWiseWidget.swift */,
+				137EA6547C7BFB8F919B98B3 /* Info.plist */,
+			);
+			path = CardWiseWidget;
+			sourceTree = "<group>";
+		};
+		5623F6953E8CD8CF903B118C /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				EDC2EACAE9B6AC051343C040 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		698A93A367959901F36389EE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				499416ED0BFBDDCEB3E51E95 /* LegalView.swift */,
+				84FF97CF22051CB0B9C2E943 /* LinkBankView.swift */,
+				7DD08F1150EBDD5C41E992C0 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		72B83406BC5F893CB5B4B9A3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E8F1C56C38BC1CDE28F15596 /* LaunchScreen.swift */,
+				8F2B7435406B695A2AC41E68 /* MainTabView.swift */,
+				D856B87EF69D2440A7C98401 /* Auth */,
+				4566630DCD04CD9439083EAC /* Cards */,
+				5623F6953E8CD8CF903B118C /* Home */,
+				A9653B8C2A4D4F12B4DBC057 /* Onboarding */,
+				00B3E2886287682670D05946 /* Paywall */,
+				FB0A761ADB736DAA21AEC904 /* Recommend */,
+				698A93A367959901F36389EE /* Settings */,
+				7FDB9687C9D10A5D3E35B4BD /* Spending */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		72F95C25A28A219DCE7B9347 = {
+			isa = PBXGroup;
+			children = (
+				BF22589E623ADA6FC8592C4F /* CardWise */,
+				0D0F76BC18DB47371AFF8681 /* CardWiseTests */,
+				4964EC7DDA4E353A6A618DC4 /* CardWiseWidget */,
+				99B4E26EF68D63BB6C99DAEA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		771C635859DC186C24C2350F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7870DE42C4C0B2548257A910 /* AuthService.swift */,
+				D190866A1D3D807F1F0AE5A3 /* CacheManager.swift */,
+				5B8A1728678B3BE23F22B66D /* FirebaseService.swift */,
+				91E2B4656F04A27CDA45B53B /* KeychainHelper.swift */,
+				0ECC23F2A1F4B524A8AEF858 /* NetworkSecurity.swift */,
+				125792622D2A5A023026842B /* NotificationService.swift */,
+				0EB4C0064CA01D693739E78B /* OCRService.swift */,
+				264172B231E01E635FF62E3F /* PlaidService.swift */,
+				E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */,
+				B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */,
+				371EDCF327C645E7DD3ACB1E /* SpendingCapTracker.swift */,
+				296E416D51AE5110BBA9FB51 /* SubscriptionGate.swift */,
+				C5C6BF613F458BF874472D1C /* SubscriptionManager.swift */,
+				46793A72523BFCB316D74A7C /* WidgetDataManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7FDB9687C9D10A5D3E35B4BD /* Spending */ = {
+			isa = PBXGroup;
+			children = (
+				F7FFB2FBE8A1C01745D63948 /* ScanReceiptView.swift */,
+				81AEB3F7B708EF50EA876A1B /* SpendingChartsView.swift */,
+				A19A21D57BB7FC98B67DFA4C /* SpendingListView.swift */,
+			);
+			path = Spending;
+			sourceTree = "<group>";
+		};
+		8926F90124229F322A7FC2CD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BF3AEAFE49F6A0E286A10992 /* CreditCard.swift */,
+				D86876CAF6DBE2FCAC53B18F /* Merchant.swift */,
+				0E304F5D3034F498361136AA /* MockData.swift */,
+				7F3634BD391B66B7F84216F4 /* Spending.swift */,
+				80ACE63934BA7D10758F38A2 /* SpendingCategory.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		99B4E26EF68D63BB6C99DAEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CFA49935D5C8A86F1693BA70 /* CardWise.app */,
+				89112E68051435F4ECA85FCE /* CardWiseTests.xctest */,
+				56CEFF1604E21E24C22E8048 /* CardWiseWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9CA1B130C54D3D0771CCDEEE /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				7274F2E9B6A333220D5F8B0C /* CardViewModel.swift */,
+				C7949151505BEE1862FD1298 /* SpendingViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A8EF4607AD3940E7D15D5754 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2E6F0A498B90BF641C9725DD /* Extensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		A9653B8C2A4D4F12B4DBC057 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				07D59481BFB663A57ABCEBB3 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		B490077796E9748E890877DC /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A2EAFE3ACDD24CFDCFE2C00F /* CardWiseApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		BF22589E623ADA6FC8592C4F /* CardWise */ = {
+			isa = PBXGroup;
+			children = (
+				0B30C0AFC4E819A77F51E987 /* CardWise.entitlements */,
+				D637B1A133EF52259A1D7C03 /* GoogleService-Info.plist */,
+				9EF88FBB29B10BEDD26919AD /* Info.plist */,
+				B490077796E9748E890877DC /* App */,
+				8926F90124229F322A7FC2CD /* Models */,
+				0BFE969BAAB7DC6101C6558A /* Resources */,
+				771C635859DC186C24C2350F /* Services */,
+				A8EF4607AD3940E7D15D5754 /* Utils */,
+				9CA1B130C54D3D0771CCDEEE /* ViewModels */,
+				72B83406BC5F893CB5B4B9A3 /* Views */,
+			);
+			path = CardWise;
+			sourceTree = "<group>";
+		};
+		D856B87EF69D2440A7C98401 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				03FCEA4FD255E668367B4531 /* AuthView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		FB0A761ADB736DAA21AEC904 /* Recommend */ = {
+			isa = PBXGroup;
+			children = (
+				CF40BCAD3A0B02D4BB31F13A /* RecommendView.swift */,
+			);
+			path = Recommend;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4834B5136DDB110C9C186A1E /* CardWiseWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E81D34AC8EF24681AE4E0ED9 /* Build configuration list for PBXNativeTarget "CardWiseWidget" */;
+			buildPhases = (
+				79E0E39A22FB6B2C5D74FAB7 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CardWiseWidget;
+			packageProductDependencies = (
+			);
+			productName = CardWiseWidget;
+			productReference = 56CEFF1604E21E24C22E8048 /* CardWiseWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		4F1F82530D23B328D484BBA1 /* CardWise */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1D5188DBC09EE5FF0C3E296 /* Build configuration list for PBXNativeTarget "CardWise" */;
+			buildPhases = (
+				76B19A2CED7657150E39A0ED /* Sources */,
+				CBB46134D32C016B0DFFA3B2 /* Resources */,
+				07D12F388C4BCD13579B25B2 /* Frameworks */,
+				733B8DCBC38493F9D7562284 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4767B53BFFDB1A02FA25D972 /* PBXTargetDependency */,
+			);
+			name = CardWise;
+			packageProductDependencies = (
+				CE1DCCFDDF6B72991D5CD9E6 /* FirebaseAuth */,
+				C1DB37946ACA00C41FD4791D /* FirebaseFirestore */,
+				702AA4A9A0EC5C958D10A91B /* LinkKit */,
+			);
+			productName = CardWise;
+			productReference = CFA49935D5C8A86F1693BA70 /* CardWise.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CAE66B47D710F56EA580459F /* CardWiseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 25B81A07EA12374ACE8DBE1B /* Build configuration list for PBXNativeTarget "CardWiseTests" */;
+			buildPhases = (
+				8BDD4EAA1D94D6E9EE618F48 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				729B59607453D55E08012796 /* PBXTargetDependency */,
+			);
+			name = CardWiseTests;
+			packageProductDependencies = (
+			);
+			productName = CardWiseTests;
+			productReference = 89112E68051435F4ECA85FCE /* CardWiseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5C617ABDF28EE0081495696D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					4834B5136DDB110C9C186A1E = {
+						DevelopmentTeam = "";
+					};
+					4F1F82530D23B328D484BBA1 = {
+						DevelopmentTeam = "";
+					};
+					CAE66B47D710F56EA580459F = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = AEFBC0CD7325DD110D1BE870 /* Build configuration list for PBXProject "CardWise" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 72F95C25A28A219DCE7B9347;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				907EB35C40E276DF64E8438E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C724EA0D8358FBEC1DE50939 /* XCRemoteSwiftPackageReference "plaid-link-ios" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 99B4E26EF68D63BB6C99DAEA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4F1F82530D23B328D484BBA1 /* CardWise */,
+				CAE66B47D710F56EA580459F /* CardWiseTests */,
+				4834B5136DDB110C9C186A1E /* CardWiseWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CBB46134D32C016B0DFFA3B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C999291A6B5967A73AC0D6D4 /* Assets.xcassets in Resources */,
+				DDEEC2333086FFB0D8DACB53 /* GoogleService-Info.plist in Resources */,
+				3EC01DB11EC48653F556D15B /* Preview Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		76B19A2CED7657150E39A0ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E0E8EBFD55FCD2495F8AC43 /* AuthService.swift in Sources */,
+				A0217AABF217FCE8653FEE3E /* AuthView.swift in Sources */,
+				0AC1CA2AFE63E12C00DA4F94 /* CacheManager.swift in Sources */,
+				6347C2D1FB8141F3DAA3A62A /* CardListView.swift in Sources */,
+				3495EA4C145807AC2907B0BF /* CardViewModel.swift in Sources */,
+				43A08F2CCF292ADEEA09871F /* CardWiseApp.swift in Sources */,
+				4E2ED4D6F93B88B8611E20B2 /* CreditCard.swift in Sources */,
+				7763CE35ACB2B150CA1F1238 /* Extensions.swift in Sources */,
+				6F7426CF8359220205EAB6EC /* FirebaseService.swift in Sources */,
+				07D349BE1B1D702BC3A2411C /* HomeView.swift in Sources */,
+				0281D1EB5399AB722D80F408 /* KeychainHelper.swift in Sources */,
+				758956DDC83C2B00D4693D76 /* LaunchScreen.swift in Sources */,
+				22DF95431EEA5E77BC622198 /* LegalView.swift in Sources */,
+				E6625F53AA37BA060FF62531 /* LinkBankView.swift in Sources */,
+				F071521DE211DD5E2AC981AD /* MainTabView.swift in Sources */,
+				BA604566E8422326172923AE /* Merchant.swift in Sources */,
+				3053BD38689869691D821BC5 /* MockData.swift in Sources */,
+				9DB7B64BC6BA35194AFB9BFB /* NetworkSecurity.swift in Sources */,
+				93DBF7456906A5431E2F2BD8 /* NotificationService.swift in Sources */,
+				E96600BFC9F671E826EA13A0 /* OCRService.swift in Sources */,
+				43B1B89DB3683C7C94D0CC5A /* OnboardingView.swift in Sources */,
+				C08167554BA69F7A218183AF /* PaywallView.swift in Sources */,
+				3012601BD25ACC4DC867DF12 /* PlaidService.swift in Sources */,
+				E54F9F9A47A612CFD6744460 /* RecommendView.swift in Sources */,
+				883027E57857D945A9BC93D3 /* RecommendationEngine.swift in Sources */,
+				EC7AE85A1ADEC89378C80C44 /* ScanReceiptView.swift in Sources */,
+				84B582DBA535831757D11106 /* SearchHistoryManager.swift in Sources */,
+				D0DF4C869B670BA660E5BA0A /* SettingsView.swift in Sources */,
+				B784C4F6658C0D27D05CF34D /* Spending.swift in Sources */,
+				BB63D85F01F5692B25BC8ADF /* SpendingCapTracker.swift in Sources */,
+				F23A8E082BAE1CE57A1E2289 /* SpendingCategory.swift in Sources */,
+				586D539D6C1BE855D1416EE5 /* SpendingChartsView.swift in Sources */,
+				E6EABFC9726CC26D628F43D2 /* SpendingListView.swift in Sources */,
+				8C5E57B8CE14DC1589E78235 /* SpendingViewModel.swift in Sources */,
+				34B6A72A6477E7C18BAEEA4B /* SubscriptionGate.swift in Sources */,
+				4CA6C4A993FA953AED6E1320 /* SubscriptionManager.swift in Sources */,
+				3DCC2372FA629D5C4CDBF39E /* WidgetDataManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79E0E39A22FB6B2C5D74FAB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF8D6A693BFD78D075960F59 /* CardWiseWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8BDD4EAA1D94D6E9EE618F48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC6A3D10C9A3C2B6AD6AB3CC /* MerchantDatabaseTests.swift in Sources */,
+				8280E62FD06ACC0294590CBF /* ModelTests.swift in Sources */,
+				32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */,
+				DB509AB60F4D5175E7E74CEE /* SearchHistoryManagerTests.swift in Sources */,
+				A33B7DA955D6553ACB2C5722 /* SubscriptionGateTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4767B53BFFDB1A02FA25D972 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4834B5136DDB110C9C186A1E /* CardWiseWidget */;
+			targetProxy = B6BF3727453007EFE8CAF8B6 /* PBXContainerItemProxy */;
+		};
+		729B59607453D55E08012796 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4F1F82530D23B328D484BBA1 /* CardWise */;
+			targetProxy = 90DA3D7B31DCAC3C914194C0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1E587B254C3E0F618DA8243E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CardWise/CardWise.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CardWise/Info.plist;
+				INFOPLIST_GENERATION_MODE = GeneratedFile;
+				INFOPLIST_KEY_CFBundleDisplayName = CardWise;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NSCameraUsageDescription = "CardWise uses the camera to scan receipts for quick transaction entry.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CardWise accesses your photo library to import receipt images.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardwise.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		23A0285125A9B1E218AC051D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		2F07D9798BE155A796C7700D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = CardWiseWidget/CardWiseWidget.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CardWiseWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardwise.app.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		5A10EDAC72D986AD55990CA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		9AEA6E8F2F29BCC4F911FDA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CardWise/CardWise.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CardWise/Info.plist;
+				INFOPLIST_GENERATION_MODE = GeneratedFile;
+				INFOPLIST_KEY_CFBundleDisplayName = CardWise;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NSCameraUsageDescription = "CardWise uses the camera to scan receipts for quick transaction entry.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CardWise accesses your photo library to import receipt images.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardwise.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		CD6DA5007255F5C646B0045C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = CardWiseWidget/CardWiseWidget.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CardWiseWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardwise.app.widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		D8EFA4F60FB3E5BD8F147A1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardwise.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CardWise.app/CardWise";
+			};
+			name = Debug;
+		};
+		DE551C9EB7707310E44411F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardwise.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CardWise.app/CardWise";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		25B81A07EA12374ACE8DBE1B /* Build configuration list for PBXNativeTarget "CardWiseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D8EFA4F60FB3E5BD8F147A1B /* Debug */,
+				DE551C9EB7707310E44411F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AEFBC0CD7325DD110D1BE870 /* Build configuration list for PBXProject "CardWise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A10EDAC72D986AD55990CA6 /* Debug */,
+				23A0285125A9B1E218AC051D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C1D5188DBC09EE5FF0C3E296 /* Build configuration list for PBXNativeTarget "CardWise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E587B254C3E0F618DA8243E /* Debug */,
+				9AEA6E8F2F29BCC4F911FDA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E81D34AC8EF24681AE4E0ED9 /* Build configuration list for PBXNativeTarget "CardWiseWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD6DA5007255F5C646B0045C /* Debug */,
+				2F07D9798BE155A796C7700D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		907EB35C40E276DF64E8438E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
+		C724EA0D8358FBEC1DE50939 /* XCRemoteSwiftPackageReference "plaid-link-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/plaid/plaid-link-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		702AA4A9A0EC5C958D10A91B /* LinkKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C724EA0D8358FBEC1DE50939 /* XCRemoteSwiftPackageReference "plaid-link-ios" */;
+			productName = LinkKit;
+		};
+		C1DB37946ACA00C41FD4791D /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 907EB35C40E276DF64E8438E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		CE1DCCFDDF6B72991D5CD9E6 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 907EB35C40E276DF64E8438E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 5C617ABDF28EE0081495696D /* Project object */;
+}

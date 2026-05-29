@@ -5,7 +5,7 @@ import WidgetKit
 class WidgetDataManager {
     static let shared = WidgetDataManager()
 
-    private static let appGroupID = "group.com.smartcard.app"
+    private static let appGroupID = "group.com.cardwise.app"
     private static let widgetDataKey = "widget_data"
 
     private let defaults: UserDefaults? = {
@@ -42,7 +42,7 @@ class WidgetDataManager {
         guard SubscriptionGate.isUnlocked(.widget, isPro: isPro) else {
             writePayload(
                 WidgetPayload(
-                    topCategory: "SmartCard Pro",
+                    topCategory: "CardWise Pro",
                     topCategoryIcon: "star.circle",
                     bestCard: "Upgrade to Pro",
                     bestCardColor: "#808080",

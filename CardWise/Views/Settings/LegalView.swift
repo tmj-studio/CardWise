@@ -16,7 +16,7 @@ struct PrivacyPolicyView: View {
 
                         section(title: "Introduction") {
                             """
-                            SmartCard ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.
+                            CardWise ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.
                             """
                         }
 
@@ -76,7 +76,7 @@ struct PrivacyPolicyView: View {
                             • Export your data
                             • Opt-out of marketing communications
 
-                            To exercise these rights, please contact us at support@smartcardapp.com.
+                            To exercise these rights, please contact us at support@cardwiseapp.com.
                             """
                         }
 
@@ -96,7 +96,7 @@ struct PrivacyPolicyView: View {
                             """
                             If you have questions about this Privacy Policy, please contact us at:
 
-                            Email: support@smartcardapp.com
+                            Email: support@cardwiseapp.com
                             """
                         }
                     }
@@ -140,20 +140,20 @@ struct TermsOfServiceView: View {
 
                         section(title: "Acceptance of Terms") {
                             """
-                            By downloading, installing, or using SmartCard, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the app.
+                            By downloading, installing, or using CardWise, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the app.
                             """
                         }
 
                         section(title: "Description of Service") {
                             """
-                            SmartCard is a credit card rewards optimization tool that:
+                            CardWise is a credit card rewards optimization tool that:
 
                             • Helps you track your credit cards and their reward categories
                             • Recommends which card to use for specific purchases
                             • Tracks your spending and rewards earned
                             • Provides notifications about rotating categories and spending limits
 
-                            SmartCard is an informational tool and does not provide financial advice.
+                            CardWise is an informational tool and does not provide financial advice.
                             """
                         }
 
@@ -171,7 +171,7 @@ struct TermsOfServiceView: View {
 
                         section(title: "Subscriptions and Billing") {
                             """
-                            SmartCard Pro is an auto-renewable subscription offered as a monthly or yearly plan.
+                            CardWise Pro is an auto-renewable subscription offered as a monthly or yearly plan.
 
                             • Payment is charged to your Apple Account at confirmation of purchase.
                             • The subscription automatically renews unless it is canceled at least 24 hours before the end of the current period.
@@ -197,7 +197,7 @@ struct TermsOfServiceView: View {
                     Group {
                         section(title: "Limitation of Liability") {
                             """
-                            TO THE MAXIMUM EXTENT PERMITTED BY LAW, SMARTCARD SHALL NOT BE LIABLE FOR:
+                            TO THE MAXIMUM EXTENT PERMITTED BY LAW, CARDWISE SHALL NOT BE LIABLE FOR:
 
                             • Any indirect, incidental, or consequential damages
                             • Loss of profits or data
@@ -209,7 +209,7 @@ struct TermsOfServiceView: View {
 
                         section(title: "Intellectual Property") {
                             """
-                            All content, features, and functionality of SmartCard are owned by us and protected by intellectual property laws. You may not copy, modify, or distribute any part of the app without our permission.
+                            All content, features, and functionality of CardWise are owned by us and protected by intellectual property laws. You may not copy, modify, or distribute any part of the app without our permission.
                             """
                         }
 
@@ -235,7 +235,7 @@ struct TermsOfServiceView: View {
                             """
                             For questions about these Terms of Service, contact us at:
 
-                            Email: support@smartcardapp.com
+                            Email: support@cardwiseapp.com
                             """
                         }
                     }

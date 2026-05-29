@@ -19,7 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 @main
-struct SmartCardApp: App {
+struct CardWiseApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     @StateObject private var cardViewModel = CardViewModel()

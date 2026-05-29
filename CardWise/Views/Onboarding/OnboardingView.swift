@@ -10,7 +10,7 @@ struct OnboardingView: View {
                 OnboardingPage(
                     imageName: "creditcard.fill",
                     imageColor: .blue,
-                    title: "Welcome to SmartCard",
+                    title: "Welcome to CardWise",
                     description: "Never miss out on credit card rewards again. We'll tell you which card to use for every purchase.",
                     page: 0
                 )

@@ -5,7 +5,7 @@ final class CacheManager {
     static let shared = CacheManager()
 
     private var cache: [String: CacheEntry] = [:]
-    private let queue = DispatchQueue(label: "com.smartcard.cache", attributes: .concurrent)
+    private let queue = DispatchQueue(label: "com.cardwise.cache", attributes: .concurrent)
 
     private init() {}
 

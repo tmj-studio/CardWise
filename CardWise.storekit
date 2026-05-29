@@ -1,5 +1,5 @@
 {
-  "identifier" : "SMARTCARD_PRO",
+  "identifier" : "CARDWISE_PRO",
   "nonRenewingSubscriptions" : [],
   "products" : [],
   "settings" : {
@@ -8,9 +8,9 @@
   },
   "subscriptionGroups" : [
     {
-      "id" : "SMARTCARD_PRO_GROUP",
+      "id" : "CARDWISE_PRO_GROUP",
       "localizations" : [],
-      "name" : "SmartCard Pro",
+      "name" : "CardWise Pro",
       "subscriptions" : [
         {
           "adHocOffers" : [],
@@ -23,14 +23,14 @@
           "localizations" : [
             {
               "description" : "Unlimited cards, auto bank detection, advanced analytics",
-              "displayName" : "SmartCard Pro (Monthly)",
+              "displayName" : "CardWise Pro (Monthly)",
               "locale" : "en_US"
             }
           ],
-          "productID" : "com.smartcard.app.pro.monthly",
+          "productID" : "com.cardwise.app.pro.monthly",
           "recurringSubscriptionPeriod" : "P1M",
           "referenceName" : "Pro Monthly",
-          "subscriptionGroupID" : "SMARTCARD_PRO_GROUP",
+          "subscriptionGroupID" : "CARDWISE_PRO_GROUP",
           "type" : "RecurringSubscription"
         },
         {
@@ -44,14 +44,14 @@
           "localizations" : [
             {
               "description" : "Unlimited cards, auto bank detection, advanced analytics",
-              "displayName" : "SmartCard Pro (Yearly)",
+              "displayName" : "CardWise Pro (Yearly)",
               "locale" : "en_US"
             }
           ],
-          "productID" : "com.smartcard.app.pro.yearly",
+          "productID" : "com.cardwise.app.pro.yearly",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Pro Yearly",
-          "subscriptionGroupID" : "SMARTCARD_PRO_GROUP",
+          "subscriptionGroupID" : "CARDWISE_PRO_GROUP",
           "type" : "RecurringSubscription"
         }
       ]

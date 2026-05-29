@@ -34,7 +34,7 @@ struct LaunchScreen: View {
                 }
 
                 // App name
-                Text("SmartCard")
+                Text("CardWise")
                     .font(.system(size: 36, weight: .bold, design: .rounded))
                     .foregroundStyle(.white)
 

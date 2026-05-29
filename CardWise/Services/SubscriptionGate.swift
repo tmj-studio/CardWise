@@ -1,6 +1,6 @@
 import Foundation
 
-/// Features reserved for SmartCard Pro subscribers.
+/// Features reserved for CardWise Pro subscribers.
 enum ProFeature: CaseIterable {
     case unlimitedCards
     case bankLinking

@@ -18,7 +18,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("SmartCard Pro") {
+                Section("CardWise Pro") {
                     if subscription.isPro {
                         HStack {
                             Label("Pro Active", systemImage: "star.circle.fill")
@@ -180,7 +180,7 @@ struct SettingsView: View {
                         Label("Terms of Service", systemImage: "doc.text")
                     }
 
-                    Link(destination: URL(string: "mailto:support@smartcardapp.com")!) {
+                    Link(destination: URL(string: "mailto:support@cardwiseapp.com")!) {
                         HStack {
                             Label("Contact Support", systemImage: "envelope")
                             Spacer()
@@ -193,7 +193,7 @@ struct SettingsView: View {
 
                 Section {
                     VStack(spacing: 8) {
-                        Text("SmartCard")
+                        Text("CardWise")
                             .font(.headline)
                         Text("Maximize your credit card rewards")
                             .font(.caption)

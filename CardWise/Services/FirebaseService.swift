@@ -22,7 +22,7 @@ class FirebaseService {
 
         return !projectID.isEmpty &&
             !apiKey.isEmpty &&
-            projectID != "smartcard-placeholder" &&
+            projectID != "cardwise-placeholder" &&
             apiKey != "placeholder"
     }
 

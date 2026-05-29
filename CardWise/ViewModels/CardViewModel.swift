@@ -4,7 +4,7 @@ import os
 
 @MainActor
 class CardViewModel: ObservableObject {
-    private static let logger = Logger(subsystem: "com.smartcard.app", category: "CardViewModel")
+    private static let logger = Logger(subsystem: "com.cardwise.app", category: "CardViewModel")
     @Published var allCards: [CreditCard] = []
     @Published var userCards: [UserCard] = []
     @Published var isLoading = false

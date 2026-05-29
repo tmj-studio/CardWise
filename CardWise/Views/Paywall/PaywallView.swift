@@ -24,7 +24,7 @@ struct PaywallView: View {
                         Image(systemName: "star.circle.fill")
                             .font(.system(size: 56))
                             .foregroundStyle(.yellow)
-                        Text("SmartCard Pro")
+                        Text("CardWise Pro")
                             .font(.largeTitle.bold())
                         Text("Maximize every swipe.")
                             .foregroundStyle(.secondary)

@@ -19,7 +19,7 @@ struct AuthView: View {
                         .font(.system(size: 60))
                         .foregroundStyle(.blue)
 
-                    Text("SmartCard")
+                    Text("CardWise")
                         .font(.largeTitle)
                         .fontWeight(.bold)
 

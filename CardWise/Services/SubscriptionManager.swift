@@ -7,8 +7,8 @@ final class SubscriptionManager: ObservableObject {
     static let shared = SubscriptionManager()
 
     enum ProductID {
-        static let monthly = "com.smartcard.app.pro.monthly"
-        static let yearly = "com.smartcard.app.pro.yearly"
+        static let monthly = "com.cardwise.app.pro.monthly"
+        static let yearly = "com.cardwise.app.pro.yearly"
         static let all = [monthly, yearly]
     }
 

@@ -1,5 +1,5 @@
 import XCTest
-@testable import SmartCard
+@testable import CardWise
 
 final class ModelTests: XCTestCase {
 

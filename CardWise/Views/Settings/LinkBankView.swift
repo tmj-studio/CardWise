@@ -84,7 +84,7 @@ struct LinkBankView: View {
                             .font(.subheadline)
                             .fontWeight(.medium)
 
-                        Text("SmartCard uses Plaid to securely connect to your bank. Your login credentials are never stored on our servers.")
+                        Text("CardWise uses Plaid to securely connect to your bank. Your login credentials are never stored on our servers.")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }

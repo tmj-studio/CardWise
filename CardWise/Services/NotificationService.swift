@@ -3,7 +3,7 @@ import UserNotifications
 import os
 
 class NotificationService {
-    private static let logger = Logger(subsystem: "com.smartcard.app", category: "NotificationService")
+    private static let logger = Logger(subsystem: "com.cardwise.app", category: "NotificationService")
     static let shared = NotificationService()
 
     private init() {}

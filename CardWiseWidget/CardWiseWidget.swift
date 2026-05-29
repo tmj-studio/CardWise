@@ -74,7 +74,7 @@ private struct WidgetPayload: Codable {
 }
 
 private enum WidgetStorageHelper {
-    static let appGroupID = "group.com.smartcard.app"
+    static let appGroupID = "group.com.cardwise.app"
     static let widgetDataKey = "widget_data"
 
     static func loadPayload() -> WidgetPayload? {
@@ -89,18 +89,18 @@ private enum WidgetStorageHelper {
 
 // MARK: - Timeline Provider
 
-struct SmartCardProvider: TimelineProvider {
-    func placeholder(in context: Context) -> SmartCardEntry {
-        SmartCardEntry(date: Date(), data: .placeholder)
+struct CardWiseProvider: TimelineProvider {
+    func placeholder(in context: Context) -> CardWiseEntry {
+        CardWiseEntry(date: Date(), data: .placeholder)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SmartCardEntry) -> Void) {
-        let entry = SmartCardEntry(date: Date(), data: WidgetData.load())
+    func getSnapshot(in context: Context, completion: @escaping (CardWiseEntry) -> Void) {
+        let entry = CardWiseEntry(date: Date(), data: WidgetData.load())
         completion(entry)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<SmartCardEntry>) -> Void) {
-        let entry = SmartCardEntry(date: Date(), data: WidgetData.load())
+    func getTimeline(in context: Context, completion: @escaping (Timeline<CardWiseEntry>) -> Void) {
+        let entry = CardWiseEntry(date: Date(), data: WidgetData.load())
         // Update every hour
         let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
         let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
@@ -108,15 +108,15 @@ struct SmartCardProvider: TimelineProvider {
     }
 }
 
-struct SmartCardEntry: TimelineEntry {
+struct CardWiseEntry: TimelineEntry {
     let date: Date
     let data: WidgetData
 }
 
 // MARK: - Small Widget View
 
-struct SmartCardWidgetSmallView: View {
-    let entry: SmartCardEntry
+struct CardWiseWidgetSmallView: View {
+    let entry: CardWiseEntry
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -180,8 +180,8 @@ struct SmartCardWidgetSmallView: View {
 
 // MARK: - Medium Widget View
 
-struct SmartCardWidgetMediumView: View {
-    let entry: SmartCardEntry
+struct CardWiseWidgetMediumView: View {
+    let entry: CardWiseEntry
 
     var body: some View {
         HStack(spacing: 16) {
@@ -280,8 +280,8 @@ struct SmartCardWidgetMediumView: View {
 
 // MARK: - Lock Screen Widget
 
-struct SmartCardLockScreenView: View {
-    let entry: SmartCardEntry
+struct CardWiseLockScreenView: View {
+    let entry: CardWiseEntry
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
@@ -303,33 +303,33 @@ struct SmartCardLockScreenView: View {
 
 // MARK: - Widget Configuration
 
-struct SmartCardWidget: Widget {
-    let kind: String = "SmartCardWidget"
+struct CardWiseWidget: Widget {
+    let kind: String = "CardWiseWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: SmartCardProvider()) { entry in
-            SmartCardWidgetEntryView(entry: entry)
+        StaticConfiguration(kind: kind, provider: CardWiseProvider()) { entry in
+            CardWiseWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("SmartCard")
+        .configurationDisplayName("CardWise")
         .description("See which card to use for your purchases")
         .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular])
     }
 }
 
-struct SmartCardWidgetEntryView: View {
+struct CardWiseWidgetEntryView: View {
     @Environment(\.widgetFamily) var family
-    let entry: SmartCardEntry
+    let entry: CardWiseEntry
 
     var body: some View {
         switch family {
         case .systemSmall:
-            SmartCardWidgetSmallView(entry: entry)
+            CardWiseWidgetSmallView(entry: entry)
         case .systemMedium:
-            SmartCardWidgetMediumView(entry: entry)
+            CardWiseWidgetMediumView(entry: entry)
         case .accessoryRectangular:
-            SmartCardLockScreenView(entry: entry)
+            CardWiseLockScreenView(entry: entry)
         default:
-            SmartCardWidgetSmallView(entry: entry)
+            CardWiseWidgetSmallView(entry: entry)
         }
     }
 }
@@ -393,20 +393,20 @@ extension Color {
 // MARK: - Widget Bundle
 
 @main
-struct SmartCardWidgetBundle: WidgetBundle {
+struct CardWiseWidgetBundle: WidgetBundle {
     var body: some Widget {
-        SmartCardWidget()
+        CardWiseWidget()
     }
 }
 
 #Preview(as: .systemSmall) {
-    SmartCardWidget()
+    CardWiseWidget()
 } timeline: {
-    SmartCardEntry(date: Date(), data: .placeholder)
+    CardWiseEntry(date: Date(), data: .placeholder)
 }
 
 #Preview(as: .systemMedium) {
-    SmartCardWidget()
+    CardWiseWidget()
 } timeline: {
-    SmartCardEntry(date: Date(), data: .placeholder)
+    CardWiseEntry(date: Date(), data: .placeholder)
 }

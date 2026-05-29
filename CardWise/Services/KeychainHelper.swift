@@ -11,7 +11,7 @@ enum KeychainError: Error {
 struct KeychainHelper {
     static let shared = KeychainHelper()
 
-    private let service = "com.smartcard.app"
+    private let service = "com.cardwise.app"
 
     private init() {}
 
