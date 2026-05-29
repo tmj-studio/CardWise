@@ -111,19 +111,6 @@ struct HomeView: View {
     }
 }
 
-// MARK: - Quick Search Bar (legacy wrapper — replaced by SearchBarButton at call site)
-
-struct QuickSearchBar: View {
-    @Binding var searchText: String
-    @Binding var showingSheet: Bool
-
-    var body: some View {
-        SearchBarButton(placeholder: "What are you buying?", text: searchText) {
-            showingSheet = true
-        }
-    }
-}
-
 // MARK: - Collapsible Header
 
 struct CollapsibleHeader: View {

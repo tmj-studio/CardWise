@@ -246,7 +246,7 @@ struct AddSpendingView: View {
                             Text("Category")
                             Spacer()
                             Label(effectiveCategory.displayName, systemImage: effectiveCategory.icon)
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(Theme.textSecondary)
                             if detectedCategory != nil {
                                 Text("(auto)")
                                     .font(.app(.caption))
