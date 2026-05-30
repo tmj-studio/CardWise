@@ -18,14 +18,12 @@
 		30880DE765588CBA6F139C52 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE1DCCFDDF6B72991D5CD9E6 /* FirebaseAuth */; };
 		32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */; };
 		3495EA4C145807AC2907B0BF /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274F2E9B6A333220D5F8B0C /* CardViewModel.swift */; };
-		34B6A72A6477E7C18BAEEA4B /* SubscriptionGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296E416D51AE5110BBA9FB51 /* SubscriptionGate.swift */; };
 		3DCC2372FA629D5C4CDBF39E /* WidgetDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46793A72523BFCB316D74A7C /* WidgetDataManager.swift */; };
 		3EC01DB11EC48653F556D15B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACB054B1C57355D04F18D873 /* Preview Assets.xcassets */; };
 		43A08F2CCF292ADEEA09871F /* CardWiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EAFE3ACDD24CFDCFE2C00F /* CardWiseApp.swift */; };
 		43B1B89DB3683C7C94D0CC5A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D59481BFB663A57ABCEBB3 /* OnboardingView.swift */; };
 		457F65B6C0205083D7CE3525 /* CardCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5550EFE8E5B3BF4FA0554F2E /* CardCatalog.swift */; };
 		468821C9B7D56681BBF396B2 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C580FBCB53FA560F4362B77 /* Theme.swift */; };
-		4CA6C4A993FA953AED6E1320 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C6BF613F458BF874472D1C /* SubscriptionManager.swift */; };
 		4CCC2D41CFD22BFAC72F47E7 /* AppButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32CD6C612AC3FCB5753A2E5 /* AppButtons.swift */; };
 		4E2ED4D6F93B88B8611E20B2 /* CreditCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AEAFE49F6A0E286A10992 /* CreditCard.swift */; };
 		4F6CA377D6E1F3B9551ECBA2 /* AppSearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64689F4CAA28C44C06C128B5 /* AppSearchField.swift */; };
@@ -41,12 +39,10 @@
 		93DBF7456906A5431E2F2BD8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125792622D2A5A023026842B /* NotificationService.swift */; };
 		9ADDA5165C33C2A1CDAF05C9 /* LinkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 702AA4A9A0EC5C958D10A91B /* LinkKit */; };
 		9DB7B64BC6BA35194AFB9BFB /* NetworkSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC23F2A1F4B524A8AEF858 /* NetworkSecurity.swift */; };
-		A33B7DA955D6553ACB2C5722 /* SubscriptionGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB74E56706B077691C35024C /* SubscriptionGateTests.swift */; };
 		B188B9F1932262368A6B9133 /* CardCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBCA37ED3F2BCFAC0FCF7D8 /* CardCatalogTests.swift */; };
 		B784C4F6658C0D27D05CF34D /* Spending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3634BD391B66B7F84216F4 /* Spending.swift */; };
 		BA604566E8422326172923AE /* Merchant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86876CAF6DBE2FCAC53B18F /* Merchant.swift */; };
 		BB63D85F01F5692B25BC8ADF /* SpendingCapTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371EDCF327C645E7DD3ACB1E /* SpendingCapTracker.swift */; };
-		C08167554BA69F7A218183AF /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4254DD4847EED4B6AFD12F /* PaywallView.swift */; };
 		C999291A6B5967A73AC0D6D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DBC8E84F4174A2A378805CA /* Assets.xcassets */; };
 		CF8D6A693BFD78D075960F59 /* CardWiseWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762CD900EF202B47B17FBCD3 /* CardWiseWidget.swift */; };
 		D0DF4C869B670BA660E5BA0A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD08F1150EBDD5C41E992C0 /* SettingsView.swift */; };
@@ -108,7 +104,6 @@
 		125792622D2A5A023026842B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		137EA6547C7BFB8F919B98B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		20064D59998A353D8617AA14 /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
-		296E416D51AE5110BBA9FB51 /* SubscriptionGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionGate.swift; sourceTree = "<group>"; };
 		2DBC8E84F4174A2A378805CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E6F0A498B90BF641C9725DD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		371EDCF327C645E7DD3ACB1E /* SpendingCapTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingCapTracker.swift; sourceTree = "<group>"; };
@@ -143,13 +138,10 @@
 		ACB054B1C57355D04F18D873 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
 		BA119EEC79B96D49EACB240D /* CategoryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChip.swift; sourceTree = "<group>"; };
-		BB74E56706B077691C35024C /* SubscriptionGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionGateTests.swift; sourceTree = "<group>"; };
 		BE7C85F068146A64781EFF3A /* Badges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badges.swift; sourceTree = "<group>"; };
 		BF3AEAFE49F6A0E286A10992 /* CreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCard.swift; sourceTree = "<group>"; };
 		C32CD6C612AC3FCB5753A2E5 /* AppButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButtons.swift; sourceTree = "<group>"; };
-		C5C6BF613F458BF874472D1C /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		C7949151505BEE1862FD1298 /* SpendingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingViewModel.swift; sourceTree = "<group>"; };
-		CB4254DD4847EED4B6AFD12F /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		CF40BCAD3A0B02D4BB31F13A /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
 		CFA49935D5C8A86F1693BA70 /* CardWise.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CardWise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D190866A1D3D807F1F0AE5A3 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
@@ -179,7 +171,6 @@
 		00B3E2886287682670D05946 /* Paywall */ = {
 			isa = PBXGroup;
 			children = (
-				CB4254DD4847EED4B6AFD12F /* PaywallView.swift */,
 			);
 			path = Paywall;
 			sourceTree = "<group>";
@@ -201,7 +192,6 @@
 				530C41DD9A8ACF4889D327DD /* ModelTests.swift */,
 				8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */,
 				43AE329C5BF824AC8FC7375E /* SearchHistoryManagerTests.swift */,
-				BB74E56706B077691C35024C /* SubscriptionGateTests.swift */,
 				5DBCA37ED3F2BCFAC0FCF7D8 /* CardCatalogTests.swift */,
 			);
 			path = CardWiseTests;
@@ -288,8 +278,6 @@
 				E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */,
 				B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */,
 				371EDCF327C645E7DD3ACB1E /* SpendingCapTracker.swift */,
-				296E416D51AE5110BBA9FB51 /* SubscriptionGate.swift */,
-				C5C6BF613F458BF874472D1C /* SubscriptionManager.swift */,
 				46793A72523BFCB316D74A7C /* WidgetDataManager.swift */,
 				5550EFE8E5B3BF4FA0554F2E /* CardCatalog.swift */,
 			);
@@ -566,7 +554,6 @@
 				93DBF7456906A5431E2F2BD8 /* NotificationService.swift in Sources */,
 				E96600BFC9F671E826EA13A0 /* OCRService.swift in Sources */,
 				43B1B89DB3683C7C94D0CC5A /* OnboardingView.swift in Sources */,
-				C08167554BA69F7A218183AF /* PaywallView.swift in Sources */,
 				E54F9F9A47A612CFD6744460 /* RecommendView.swift in Sources */,
 				883027E57857D945A9BC93D3 /* RecommendationEngine.swift in Sources */,
 				EC7AE85A1ADEC89378C80C44 /* ScanReceiptView.swift in Sources */,
@@ -579,8 +566,6 @@
 				586D539D6C1BE855D1416EE5 /* SpendingChartsView.swift in Sources */,
 				E6EABFC9726CC26D628F43D2 /* SpendingListView.swift in Sources */,
 				8C5E57B8CE14DC1589E78235 /* SpendingViewModel.swift in Sources */,
-				34B6A72A6477E7C18BAEEA4B /* SubscriptionGate.swift in Sources */,
-				4CA6C4A993FA953AED6E1320 /* SubscriptionManager.swift in Sources */,
 				468821C9B7D56681BBF396B2 /* Theme.swift in Sources */,
 				3DCC2372FA629D5C4CDBF39E /* WidgetDataManager.swift in Sources */,
 				457F65B6C0205083D7CE3525 /* CardCatalog.swift in Sources */,
@@ -603,7 +588,6 @@
 				8280E62FD06ACC0294590CBF /* ModelTests.swift in Sources */,
 				32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */,
 				DB509AB60F4D5175E7E74CEE /* SearchHistoryManagerTests.swift in Sources */,
-				A33B7DA955D6553ACB2C5722 /* SubscriptionGateTests.swift in Sources */,
 				B188B9F1932262368A6B9133 /* CardCatalogTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

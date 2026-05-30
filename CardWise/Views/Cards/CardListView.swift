@@ -2,9 +2,7 @@ import SwiftUI
 
 struct CardListView: View {
     @EnvironmentObject var cardViewModel: CardViewModel
-    @EnvironmentObject private var subscription: SubscriptionManager
     @State private var showingAddCard = false
-    @State private var showingPaywall = false
     @State private var selectedCard: UserCard?
 
     var body: some View {
@@ -67,9 +65,6 @@ struct CardListView: View {
             .sheet(isPresented: $showingAddCard) {
                 AddCardView()
             }
-            .sheet(isPresented: $showingPaywall) {
-                PaywallView()
-            }
             .sheet(item: $selectedCard) { userCard in
                 if let card = cardViewModel.getCard(for: userCard) {
                     CardDetailView(userCard: userCard, card: card)
@@ -79,11 +74,7 @@ struct CardListView: View {
     }
 
     private func attemptAddCard() {
-        if SubscriptionGate.canAddCard(currentCount: cardViewModel.userCards.count, isPro: subscription.isPro) {
-            showingAddCard = true
-        } else {
-            showingPaywall = true
-        }
+        showingAddCard = true
     }
 
     private func deleteCards(at offsets: IndexSet) {
@@ -584,5 +575,4 @@ struct CardDetailView: View {
     CardListView()
         .environmentObject(CardViewModel())
         .environmentObject(SpendingViewModel())
-        .environmentObject(SubscriptionManager.shared)
 }

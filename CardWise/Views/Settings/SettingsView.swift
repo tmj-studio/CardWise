@@ -1,78 +1,18 @@
 import SwiftUI
-import StoreKit
 
 struct SettingsView: View {
     @EnvironmentObject var cardViewModel: CardViewModel
     @EnvironmentObject var spendingViewModel: SpendingViewModel
-    @EnvironmentObject private var subscription: SubscriptionManager
     @AppStorage("notificationsEnabled") private var notificationsEnabled = true
     @AppStorage("rotatingReminders") private var rotatingReminders = true
     @AppStorage("spendingCapAlerts") private var spendingCapAlerts = true
     @State private var showingPrivacyPolicy = false
     @State private var showingTermsOfService = false
     @State private var showingClearDataAlert = false
-    @State private var showingPaywall = false
-    @State private var showingManageSubscriptions = false
 
     var body: some View {
         NavigationStack {
             List {
-                // MARK: Pro Section
-                Section {
-                    if subscription.isPro {
-                        HStack {
-                            Label("Pro Active", systemImage: "star.circle.fill")
-                                .foregroundStyle(Theme.success)
-                            Spacer()
-                        }
-                        Button {
-                            showingManageSubscriptions = true
-                        } label: {
-                            settingsRow(icon: "gearshape", label: "Manage Subscription")
-                        }
-                    } else {
-                        // Gradient Pro upsell banner
-                        Button {
-                            showingPaywall = true
-                        } label: {
-                            HStack(spacing: 12) {
-                                Image(systemName: "star.circle.fill")
-                                    .font(.title2)
-                                    .foregroundStyle(.white)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text("Upgrade to \(Brand.displayName) Pro")
-                                        .font(.app(.headline, weight: .semibold))
-                                        .foregroundStyle(.white)
-                                    Text("Unlock all features")
-                                        .font(.app(.caption))
-                                        .foregroundStyle(.white.opacity(0.85))
-                                }
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .font(.app(.subheadline, weight: .semibold))
-                                    .foregroundStyle(.white.opacity(0.8))
-                            }
-                            .padding(.vertical, 4)
-                        }
-                        .listRowBackground(
-                            Theme.heroGradient
-                                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                                .padding(.horizontal, 4)
-                                .padding(.vertical, 2)
-                        )
-                    }
-
-                    Button {
-                        Task { await subscription.restorePurchases() }
-                    } label: {
-                        settingsRow(icon: "arrow.clockwise", label: "Restore Purchases")
-                    }
-                } header: {
-                    Text("\(Brand.displayName) Pro")
-                        .font(.app(.caption))
-                        .foregroundStyle(Theme.textSecondary)
-                }
-
                 // MARK: About
                 Section {
                     HStack {
@@ -110,23 +50,9 @@ struct SettingsView: View {
                         .foregroundStyle(Theme.textPrimary)
                         .disabled(!notificationsEnabled)
 
-                    if SubscriptionGate.isUnlocked(.capAlerts, isPro: subscription.isPro) {
-                        Toggle("Spending Cap Alerts", isOn: $spendingCapAlerts)
-                            .foregroundStyle(Theme.textPrimary)
-                            .disabled(!notificationsEnabled)
-                    } else {
-                        Button {
-                            showingPaywall = true
-                        } label: {
-                            HStack {
-                                settingsRow(icon: "lock.fill", label: "Spending Cap Alerts")
-                                Spacer()
-                                Text("Pro")
-                                    .font(.app(.caption, weight: .semibold))
-                                    .foregroundStyle(Theme.accent)
-                            }
-                        }
-                    }
+                    Toggle("Spending Cap Alerts", isOn: $spendingCapAlerts)
+                        .foregroundStyle(Theme.textPrimary)
+                        .disabled(!notificationsEnabled)
                 } header: {
                     Text("Notifications")
                         .font(.app(.caption))
@@ -243,10 +169,6 @@ struct SettingsView: View {
             .sheet(isPresented: $showingTermsOfService) {
                 TermsOfServiceView()
             }
-            .sheet(isPresented: $showingPaywall) {
-                PaywallView()
-            }
-            .manageSubscriptionsSheet(isPresented: $showingManageSubscriptions)
             .alert("Clear All Data", isPresented: $showingClearDataAlert) {
                 Button("Cancel", role: .cancel) {}
                 Button("Clear", role: .destructive) {
@@ -290,5 +212,4 @@ struct SettingsView: View {
     SettingsView()
         .environmentObject(CardViewModel())
         .environmentObject(SpendingViewModel())
-        .environmentObject(SubscriptionManager.shared)
 }

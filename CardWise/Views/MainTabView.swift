@@ -43,5 +43,4 @@ struct MainTabView: View {
     MainTabView()
         .environmentObject(CardViewModel())
         .environmentObject(SpendingViewModel())
-        .environmentObject(SubscriptionManager.shared)
 }

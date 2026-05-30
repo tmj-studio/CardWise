@@ -24,8 +24,6 @@ struct CardWiseApp: App {
         AppAppearance.apply()
     }
     @StateObject private var spendingViewModel = SpendingViewModel()
-    // Hold a strong reference to the singleton so SwiftUI treats it as a StateObject owner.
-    @StateObject private var subscription = SubscriptionManager.shared
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @Environment(\.scenePhase) private var scenePhase
 
@@ -35,7 +33,6 @@ struct CardWiseApp: App {
                 MainTabView()
                     .environmentObject(cardViewModel)
                     .environmentObject(spendingViewModel)
-                    .environmentObject(subscription)
                     .onChange(of: scenePhase) { _, newPhase in
                         if newPhase == .background {
                             updateWidgetData()
@@ -49,7 +46,6 @@ struct CardWiseApp: App {
                 OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
                     .environmentObject(cardViewModel)
                     .environmentObject(spendingViewModel)
-                    .environmentObject(subscription)
             }
 
             // Uncomment when Firebase Auth is configured:
@@ -68,8 +64,7 @@ struct CardWiseApp: App {
     private func updateWidgetData() {
         WidgetDataManager.shared.updateWidgetData(
             cardViewModel: cardViewModel,
-            spendingViewModel: spendingViewModel,
-            isPro: subscription.isPro
+            spendingViewModel: spendingViewModel
         )
     }
 }
