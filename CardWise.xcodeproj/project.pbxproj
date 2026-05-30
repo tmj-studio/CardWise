@@ -17,6 +17,7 @@
 		2C61F4C241FF3E5891A899DE /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 82AE05EEF35F120E65529264 /* cards.json */; };
 		3053BD38689869691D821BC5 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E304F5D3034F498361136AA /* MockData.swift */; };
 		32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */; };
+		3381622DC5F4194B1810EAB4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = BB36AA7E03D593066D5145B2 /* PrivacyInfo.xcprivacy */; };
 		3495EA4C145807AC2907B0BF /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274F2E9B6A333220D5F8B0C /* CardViewModel.swift */; };
 		3DCC2372FA629D5C4CDBF39E /* WidgetDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46793A72523BFCB316D74A7C /* WidgetDataManager.swift */; };
 		3EC01DB11EC48653F556D15B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACB054B1C57355D04F18D873 /* Preview Assets.xcassets */; };
@@ -139,6 +140,7 @@
 		ACB054B1C57355D04F18D873 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
 		BA119EEC79B96D49EACB240D /* CategoryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChip.swift; sourceTree = "<group>"; };
+		BB36AA7E03D593066D5145B2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		BE7C85F068146A64781EFF3A /* Badges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badges.swift; sourceTree = "<group>"; };
 		BF3AEAFE49F6A0E286A10992 /* CreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCard.swift; sourceTree = "<group>"; };
 		C32CD6C612AC3FCB5753A2E5 /* AppButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButtons.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				A8EF4607AD3940E7D15D5754 /* Utils */,
 				9CA1B130C54D3D0771CCDEEE /* ViewModels */,
 				72B83406BC5F893CB5B4B9A3 /* Views */,
+				BB36AA7E03D593066D5145B2 /* PrivacyInfo.xcprivacy */,
 			);
 			path = CardWise;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				C999291A6B5967A73AC0D6D4 /* Assets.xcassets in Resources */,
 				3EC01DB11EC48653F556D15B /* Preview Assets.xcassets in Resources */,
 				2C61F4C241FF3E5891A899DE /* cards.json in Resources */,
+				3381622DC5F4194B1810EAB4 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
