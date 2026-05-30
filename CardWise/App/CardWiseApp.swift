@@ -19,17 +19,19 @@ enum AppContainer {
     /// Local SwiftData store today; CloudKit-synced once the iCloud entitlement is
     /// provisioned in Task 11.
     ///
-    /// NOTE: The CloudKit attempt is intentionally skipped here because the iCloud
-    /// entitlement (com.apple.developer.icloud-services) does not yet exist.
-    /// Enabling it without the entitlement causes the CloudKit daemon to crash the
-    /// process with a signal trap before the test runner can connect — the error
-    /// is not a Swift throw and therefore cannot be caught with try?.
+    /// NOTE: The CloudKit code path is intentionally kept commented out.
+    /// CardWise.entitlements now carries the iCloud/CloudKit entitlements, but the
+    /// iCloud container "iCloud.com.cardwise.app" must first be created in the Apple
+    /// Developer account and the app's provisioning profile must include the iCloud
+    /// capability. Without that, activating CloudKit causes an uncatchable SIGTRAP on
+    /// launch (the CloudKit daemon crashes the process before Swift can handle it).
     ///
-    /// TODO(Task 11): uncomment the CloudKit first-attempt block below once the
-    /// iCloud entitlement is provisioned in the Apple Developer portal and the
-    /// CardWise.entitlements file is updated.
+    /// TODO: CloudKit sync is entitlement-ready (see CardWise.entitlements). To enable:
+    ///   1. In the Apple Developer account, create the CloudKit container "iCloud.com.cardwise.app"
+    ///      and ensure the app's provisioning profile includes the iCloud capability.
+    ///   2. Uncomment the .private(...) attempt below; it becomes the first choice with local fallback.
     static let shared: ModelContainer = {
-        // TODO(Task 11): uncomment once iCloud entitlement is provisioned:
+        // TODO: Uncomment once the CloudKit container is provisioned in the Apple Developer account:
         // if let cloud = try? ModelContainer(
         //     for: UserCardRecord.self, SpendingRecord.self,
         //     configurations: ModelConfiguration("CardWise", cloudKitDatabase: .private("iCloud.com.cardwise.app"))
