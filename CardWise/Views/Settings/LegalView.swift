@@ -10,85 +10,79 @@ struct PrivacyPolicyView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     Group {
-                        Text("Last Updated: February 2026")
+                        Text("Last Updated: 2026-05-31")
                             .font(.app(.caption))
                             .foregroundStyle(Theme.textSecondary)
 
                         section(title: "Introduction") {
                             """
-                            CardWise ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.
+                            CardWise ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we handle your information when you use our mobile application. CardWise is a free app with no backend servers. Your personal data never leaves your device or your own iCloud account.
                             """
                         }
 
-                        section(title: "Information We Collect") {
+                        section(title: "Information We Do NOT Collect") {
                             """
-                            We may collect information that you provide directly to us, including:
+                            CardWise does not collect, transmit, or store any personal data on our servers because we have no servers. Specifically, we do not:
 
-                            • Account Information: Email address and authentication credentials when you create an account.
-
-                            • Credit Card Information: Card names and reward categories you add to your wallet. We do NOT collect actual card numbers, CVVs, or sensitive financial data.
-
-                            • Spending Records: Transaction amounts, merchants, categories, and dates that you manually enter or scan.
-
-                            • Device Information: Device type, operating system, and app usage statistics.
+                            • Collect your name, email address, or account credentials.
+                            • Link to or access your bank accounts or credit card accounts.
+                            • Transmit your spending records, card details, or any other personal data to us or any third party.
+                            • Use analytics services, advertising networks, or tracking technologies.
+                            • Share any information with third parties.
                             """
                         }
 
-                        section(title: "How We Use Your Information") {
+                        section(title: "Information Stored On Your Device") {
                             """
-                            We use the information we collect to:
+                            All data you enter into CardWise — including your card names, reward configurations, and spending records — is stored exclusively on your device using Apple's standard local storage. This data is only accessible to you.
 
-                            • Provide personalized credit card recommendations
-                            • Track your spending and calculate rewards
-                            • Send notifications about rotating categories and spending caps
-                            • Improve our services and user experience
-                            • Respond to your inquiries and support requests
+                            CardWise does not collect actual card numbers, CVVs, account passwords, or any sensitive financial credentials. You add card names and reward categories for recommendation purposes only.
                             """
                         }
 
-                        section(title: "Data Storage and Security") {
+                        section(title: "iCloud Sync") {
                             """
-                            Your data is stored securely using Firebase, a Google Cloud service. We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.
+                            If you choose to enable iCloud on your device, your CardWise data may sync across your personal Apple devices through Apple's CloudKit private database. This sync occurs entirely within your own iCloud account and is governed by Apple's iCloud terms and privacy policy. We — the CardWise developer — have no access to your iCloud data at any time.
+                            """
+                        }
 
-                            All data transmission is encrypted using industry-standard TLS/SSL protocols.
+                        section(title: "Camera and Photo Library") {
+                            """
+                            CardWise may request access to your camera or photo library solely to scan receipts using on-device OCR (Apple's Vision framework). Receipt images are processed entirely on your device and are never uploaded, stored beyond the scan session, or shared with anyone.
+
+                            You can revoke camera or photo access at any time in your device's Settings app.
+                            """
+                        }
+
+                        section(title: "Card Reward Database") {
+                            """
+                            The credit card reward information displayed in CardWise (bonus categories, earn rates, etc.) is bundled directly in the app as reference data. It is not personal information and does not originate from your accounts. Always verify current reward terms directly with your card issuer, as terms can change.
                             """
                         }
                     }
 
                     Group {
-                        section(title: "Data Sharing") {
+                        section(title: "No Tracking or Advertising") {
                             """
-                            We do not sell, trade, or rent your personal information to third parties. We may share information only in the following circumstances:
-
-                            • With service providers who assist in operating our app (e.g., Firebase for data storage)
-                            • When required by law or to protect our rights
-                            • With your consent
-                            """
-                        }
-
-                        section(title: "Your Rights") {
-                            """
-                            You have the right to:
-
-                            • Access your personal data
-                            • Correct inaccurate data
-                            • Delete your account and associated data
-                            • Export your data
-                            • Opt-out of marketing communications
-
-                            To exercise these rights, please contact us at support@cardwiseapp.com.
+                            CardWise contains no advertising, no behavioral tracking, and no analytics. We do not use any third-party SDKs that collect personal information.
                             """
                         }
 
                         section(title: "Children's Privacy") {
                             """
-                            Our app is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13.
+                            CardWise is not directed to children under the age of 13. Because we do not collect any personal information, there is no risk of inadvertently collecting children's data.
+                            """
+                        }
+
+                        section(title: "Your Rights") {
+                            """
+                            Because we do not collect or store your personal data on any server, there is nothing for us to access, correct, export, or delete on your behalf. All your CardWise data resides on your own device and iCloud account, where you have full control. You can delete your data at any time from within the app (Settings → Clear All Data) or by deleting the app.
                             """
                         }
 
                         section(title: "Changes to This Policy") {
                             """
-                            We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.
+                            We may update this Privacy Policy from time to time to reflect changes in the app. We will update the "Last Updated" date at the top of this policy when changes are made.
                             """
                         }
 
@@ -137,7 +131,7 @@ struct TermsOfServiceView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     Group {
-                        Text("Last Updated: February 2026")
+                        Text("Last Updated: 2026-05-31")
                             .font(.app(.caption))
                             .foregroundStyle(Theme.textSecondary)
 
@@ -149,14 +143,20 @@ struct TermsOfServiceView: View {
 
                         section(title: "Description of Service") {
                             """
-                            CardWise is a credit card rewards optimization tool that:
+                            CardWise is a free credit card rewards optimization tool that:
 
                             • Helps you track your credit cards and their reward categories
-                            • Recommends which card to use for specific purchases
-                            • Tracks your spending and rewards earned
-                            • Provides notifications about rotating categories and spending limits
+                            • Recommends which card to use for specific purchases or merchant categories
+                            • Tracks your spending and estimated rewards earned
+                            • Provides notifications about rotating categories and spending caps
 
-                            CardWise is an informational tool and does not provide financial advice.
+                            CardWise is an informational tool and does not provide financial, legal, or tax advice. The app has no backend servers, does not link to your financial accounts, and does not transmit your personal data anywhere.
+                            """
+                        }
+
+                        section(title: "Free Service — No Subscriptions") {
+                            """
+                            CardWise is completely free. There are no in-app purchases, no subscription plans, no Pro tiers, and no charges of any kind. You will never be billed through the app.
                             """
                         }
 
@@ -165,22 +165,9 @@ struct TermsOfServiceView: View {
                             You agree to:
 
                             • Provide accurate information when using the app
-                            • Keep your account credentials secure
                             • Use the app only for lawful purposes
                             • Not attempt to reverse engineer or modify the app
-                            • Verify all credit card reward information with your card issuer
-                            """
-                        }
-
-                        section(title: "Subscriptions and Billing") {
-                            """
-                            CardWise Pro is an auto-renewable subscription offered as a monthly or yearly plan.
-
-                            • Payment is charged to your Apple Account at confirmation of purchase.
-                            • The subscription automatically renews unless it is canceled at least 24 hours before the end of the current period.
-                            • Your account is charged for renewal within 24 hours prior to the end of the current period, at the price of the selected plan.
-                            • You can manage or cancel your subscription at any time in your Apple Account settings; cancellation takes effect at the end of the current billing period.
-                            • Prices may vary by region and are shown in the app before purchase.
+                            • Verify all credit card reward information with your card issuer, as terms can change at any time
                             """
                         }
 
@@ -188,11 +175,11 @@ struct TermsOfServiceView: View {
                             """
                             THE APP IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND. WE DO NOT GUARANTEE:
 
-                            • The accuracy of credit card reward information
+                            • The accuracy or completeness of credit card reward information in the database
                             • That the app will be error-free or uninterrupted
-                            • That recommendations will result in optimal rewards
+                            • That recommendations will result in optimal rewards for your situation
 
-                            Credit card terms and rewards can change at any time. Always verify current terms with your card issuer.
+                            Credit card terms and rewards can change at any time. Always verify current terms directly with your card issuer before making financial decisions.
                             """
                         }
                     }
@@ -203,22 +190,16 @@ struct TermsOfServiceView: View {
                             TO THE MAXIMUM EXTENT PERMITTED BY LAW, CARDWISE SHALL NOT BE LIABLE FOR:
 
                             • Any indirect, incidental, or consequential damages
-                            • Loss of profits or data
-                            • Decisions made based on app recommendations
+                            • Loss of data
+                            • Financial decisions made based on app recommendations
 
-                            Our total liability shall not exceed the amount you paid for the app (if any).
+                            CardWise is a free reference tool. Our total liability to you for any claim arising from your use of the app shall not exceed zero dollars ($0.00), as no payment is ever charged.
                             """
                         }
 
                         section(title: "Intellectual Property") {
                             """
-                            All content, features, and functionality of CardWise are owned by us and protected by intellectual property laws. You may not copy, modify, or distribute any part of the app without our permission.
-                            """
-                        }
-
-                        section(title: "Account Termination") {
-                            """
-                            We reserve the right to suspend or terminate your account if you violate these terms or engage in fraudulent or harmful activities.
+                            All content, features, and functionality of CardWise — including but not limited to the app's design, code, and bundled card reward database — are owned by us and protected by applicable intellectual property laws. You may not copy, modify, or distribute any part of the app without our written permission.
                             """
                         }
 
@@ -230,7 +211,7 @@ struct TermsOfServiceView: View {
 
                         section(title: "Changes to Terms") {
                             """
-                            We may modify these terms at any time. Continued use of the app after changes constitutes acceptance of the new terms.
+                            We may modify these terms at any time. We will update the "Last Updated" date at the top of this document when changes are made. Continued use of the app after changes constitutes your acceptance of the new terms.
                             """
                         }
 
