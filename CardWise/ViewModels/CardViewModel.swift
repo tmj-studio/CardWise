@@ -11,38 +11,13 @@ class CardViewModel: ObservableObject {
 
     init() {
         loadUserCards()
-        Task {
-            await loadCardsFromFirebase()
-        }
+        allCards = CardCatalog.loadCards()
     }
 
-    // MARK: - Firebase
+    // MARK: - Card Database (bundled)
 
-    func loadCardsFromFirebase() async {
-        isLoading = true
-        defer { isLoading = false }
-
-        do {
-            let cards = try await FirebaseService.shared.fetchAllCards()
-            if cards.isEmpty {
-                // Fallback to MockData if Firebase is empty
-                allCards = MockData.creditCards
-                #if DEBUG
-                Self.logger.info("Firebase empty, using MockData (\(self.allCards.count) cards)")
-                #endif
-            } else {
-                allCards = cards
-                #if DEBUG
-                Self.logger.info("Loaded \(cards.count) cards from Firebase")
-                #endif
-            }
-        } catch {
-            // Fallback to MockData on error
-            allCards = MockData.creditCards
-            #if DEBUG
-            Self.logger.error("Firebase error: \(error.localizedDescription), using MockData")
-            #endif
-        }
+    func reloadCatalog() {
+        allCards = CardCatalog.loadCards()
     }
 
     // MARK: - Persistence (Keychain with UserDefaults migration)
