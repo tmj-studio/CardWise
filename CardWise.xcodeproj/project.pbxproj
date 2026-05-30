@@ -13,6 +13,7 @@
 		0AC1CA2AFE63E12C00DA4F94 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D190866A1D3D807F1F0AE5A3 /* CacheManager.swift */; };
 		0AF6F97F2BBE90C731D37F21 /* Badges.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7C85F068146A64781EFF3A /* Badges.swift */; };
 		22DF95431EEA5E77BC622198 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499416ED0BFBDDCEB3E51E95 /* LegalView.swift */; };
+		2C61F4C241FF3E5891A899DE /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 82AE05EEF35F120E65529264 /* cards.json */; };
 		3012601BD25ACC4DC867DF12 /* PlaidService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264172B231E01E635FF62E3F /* PlaidService.swift */; };
 		3053BD38689869691D821BC5 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E304F5D3034F498361136AA /* MockData.swift */; };
 		30880DE765588CBA6F139C52 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE1DCCFDDF6B72991D5CD9E6 /* FirebaseAuth */; };
@@ -135,6 +136,7 @@
 		7F3634BD391B66B7F84216F4 /* Spending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spending.swift; sourceTree = "<group>"; };
 		80ACE63934BA7D10758F38A2 /* SpendingCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingCategory.swift; sourceTree = "<group>"; };
 		81AEB3F7B708EF50EA876A1B /* SpendingChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingChartsView.swift; sourceTree = "<group>"; };
+		82AE05EEF35F120E65529264 /* cards.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; path = cards.json; sourceTree = "<group>"; };
 		84FF97CF22051CB0B9C2E943 /* LinkBankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkBankView.swift; sourceTree = "<group>"; };
 		89112E68051435F4ECA85FCE /* CardWiseTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CardWiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationEngineTests.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			children = (
 				2DBC8E84F4174A2A378805CA /* Assets.xcassets */,
 				454AF5A141C17080857C0EC4 /* Preview Content */,
+				82AE05EEF35F120E65529264 /* cards.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -442,8 +445,6 @@
 			dependencies = (
 			);
 			name = CardWiseWidget;
-			packageProductDependencies = (
-			);
 			productName = CardWiseWidget;
 			productReference = 56CEFF1604E21E24C22E8048 /* CardWiseWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -484,8 +485,6 @@
 				729B59607453D55E08012796 /* PBXTargetDependency */,
 			);
 			name = CardWiseTests;
-			packageProductDependencies = (
-			);
 			productName = CardWiseTests;
 			productReference = 89112E68051435F4ECA85FCE /* CardWiseTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -543,6 +542,7 @@
 				C999291A6B5967A73AC0D6D4 /* Assets.xcassets in Resources */,
 				DDEEC2333086FFB0D8DACB53 /* GoogleService-Info.plist in Resources */,
 				3EC01DB11EC48653F556D15B /* Preview Assets.xcassets in Resources */,
+				2C61F4C241FF3E5891A899DE /* cards.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
