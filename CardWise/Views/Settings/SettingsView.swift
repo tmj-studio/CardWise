@@ -10,7 +10,6 @@ struct SettingsView: View {
     @AppStorage("spendingCapAlerts") private var spendingCapAlerts = true
     @State private var showingPrivacyPolicy = false
     @State private var showingTermsOfService = false
-    @State private var showingLinkBank = false
     @State private var showingClearDataAlert = false
     @State private var showingPaywall = false
     @State private var showingManageSubscriptions = false
@@ -72,38 +71,6 @@ struct SettingsView: View {
                     Text("\(Brand.displayName) Pro")
                         .font(.app(.caption))
                         .foregroundStyle(Theme.textSecondary)
-                }
-
-                // MARK: Bank Connection
-                Section {
-                    Button {
-                        if !FirebaseService.hasValidConfiguration {
-                            return
-                        } else if SubscriptionGate.isUnlocked(.bankLinking, isPro: subscription.isPro) {
-                            showingLinkBank = true
-                        } else {
-                            showingPaywall = true
-                        }
-                    } label: {
-                        HStack {
-                            settingsRow(icon: "building.columns", label: "Link Bank Account")
-                            Spacer()
-                            Text(bankConnectionStatus)
-                                .font(.app(.caption))
-                                .foregroundStyle(Theme.textSecondary)
-                        }
-                    }
-                    .disabled(!FirebaseService.hasValidConfiguration)
-                } header: {
-                    Text("Bank Connection")
-                        .font(.app(.caption))
-                        .foregroundStyle(Theme.textSecondary)
-                } footer: {
-                    if !FirebaseService.hasValidConfiguration {
-                        Text("Bank linking requires a production Firebase and Plaid configuration.")
-                            .font(.app(.caption))
-                            .foregroundStyle(Theme.textSecondary)
-                    }
                 }
 
                 // MARK: About
@@ -276,9 +243,6 @@ struct SettingsView: View {
             .sheet(isPresented: $showingTermsOfService) {
                 TermsOfServiceView()
             }
-            .sheet(isPresented: $showingLinkBank) {
-                LinkBankView()
-            }
             .sheet(isPresented: $showingPaywall) {
                 PaywallView()
             }
@@ -315,14 +279,6 @@ struct SettingsView: View {
         formatter.numberStyle = .currency
         formatter.currencyCode = "USD"
         return formatter.string(from: NSNumber(value: value)) ?? "$0"
-    }
-
-    private var bankConnectionStatus: String {
-        if !FirebaseService.hasValidConfiguration {
-            return "Setup required"
-        }
-
-        return "\(PlaidService.shared.linkedAccounts.count) linked"
     }
 
     private var appReviewURL: URL? {
