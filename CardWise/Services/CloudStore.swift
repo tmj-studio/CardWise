@@ -42,7 +42,7 @@ final class CloudStore {
         return records.compactMap { try? decoder.decode(UserCard.self, from: $0.payload) }
     }
 
-    func saveUserCards(_ cards: [UserCard]) {
+    func saveUserCards(_ cards: [UserCard]) throws {
         let keepIds = Set(cards.map { $0.id })
         let existing = (try? context.fetch(FetchDescriptor<UserCardRecord>())) ?? []
         var byId = Dictionary(uniqueKeysWithValues: existing.map { ($0.id, $0) })
@@ -58,7 +58,7 @@ final class CloudStore {
                 context.insert(UserCardRecord(id: card.id, payload: data))
             }
         }
-        try? context.save()
+        try context.save()
     }
 
     // MARK: - Spendings
@@ -69,7 +69,7 @@ final class CloudStore {
             .sorted { $0.date > $1.date }
     }
 
-    func saveSpendings(_ spendings: [Spending]) {
+    func saveSpendings(_ spendings: [Spending]) throws {
         let keepIds = Set(spendings.map { $0.id })
         let existing = (try? context.fetch(FetchDescriptor<SpendingRecord>())) ?? []
         var byId = Dictionary(uniqueKeysWithValues: existing.map { ($0.id, $0) })
@@ -85,7 +85,7 @@ final class CloudStore {
                 context.insert(SpendingRecord(id: spending.id, payload: data))
             }
         }
-        try? context.save()
+        try context.save()
     }
 
     // MARK: - One-time Keychain migration
@@ -94,14 +94,33 @@ final class CloudStore {
     func migrateFromKeychainIfNeeded() {
         let flag = "didMigrateKeychainToSwiftData"
         guard !UserDefaults.standard.bool(forKey: flag) else { return }
+        var allSucceeded = true
+
         if let cards: [UserCard] = try? KeychainHelper.shared.load(forKey: "userCards"), !cards.isEmpty {
-            saveUserCards(cards)
-            KeychainHelper.shared.delete(forKey: "userCards")
+            do {
+                try saveUserCards(cards)
+                KeychainHelper.shared.delete(forKey: "userCards")
+            } catch {
+                allSucceeded = false
+                #if DEBUG
+                Self.logger.error("UserCard migration failed: \(error.localizedDescription)")
+                #endif
+            }
         }
         if let spendings: [Spending] = try? KeychainHelper.shared.load(forKey: "spendings"), !spendings.isEmpty {
-            saveSpendings(spendings)
-            KeychainHelper.shared.delete(forKey: "spendings")
+            do {
+                try saveSpendings(spendings)
+                KeychainHelper.shared.delete(forKey: "spendings")
+            } catch {
+                allSucceeded = false
+                #if DEBUG
+                Self.logger.error("Spending migration failed: \(error.localizedDescription)")
+                #endif
+            }
         }
-        UserDefaults.standard.set(true, forKey: flag)
+
+        if allSucceeded {
+            UserDefaults.standard.set(true, forKey: flag)
+        }
     }
 }
