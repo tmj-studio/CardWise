@@ -34,6 +34,7 @@
 		6CA9D89EA0C9DFCD85CDBBA6 /* CloudStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61744A5A431FFBFE6D09CD41 /* CloudStore.swift */; };
 		758956DDC83C2B00D4693D76 /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F1C56C38BC1CDE28F15596 /* LaunchScreen.swift */; };
 		7763CE35ACB2B150CA1F1238 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F0A498B90BF641C9725DD /* Extensions.swift */; };
+		4C2B3D4E5F6A7B8C9D0E1F2A /* LegalLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1A2C4D5E6F7A8B9C0D1E2F /* LegalLinks.swift */; };
 		8280E62FD06ACC0294590CBF /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530C41DD9A8ACF4889D327DD /* ModelTests.swift */; };
 		84B582DBA535831757D11106 /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */; };
 		883027E57857D945A9BC93D3 /* RecommendationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */; };
@@ -106,6 +107,7 @@
 		20064D59998A353D8617AA14 /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
 		2DBC8E84F4174A2A378805CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E6F0A498B90BF641C9725DD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		3B1A2C4D5E6F7A8B9C0D1E2F /* LegalLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalLinks.swift; sourceTree = "<group>"; };
 		359752B35747353979180F24 /* CloudStoreTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CloudStoreTests.swift; sourceTree = "<group>"; };
 		371EDCF327C645E7DD3ACB1E /* SpendingCapTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingCapTracker.swift; sourceTree = "<group>"; };
 		3C580FBCB53FA560F4362B77 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				2E6F0A498B90BF641C9725DD /* Extensions.swift */,
+				3B1A2C4D5E6F7A8B9C0D1E2F /* LegalLinks.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				DC6A1F163850877D327C0CC4 /* CategoryChip.swift in Sources */,
 				4E2ED4D6F93B88B8611E20B2 /* CreditCard.swift in Sources */,
 				7763CE35ACB2B150CA1F1238 /* Extensions.swift in Sources */,
+				4C2B3D4E5F6A7B8C9D0E1F2A /* LegalLinks.swift in Sources */,
 				0642E0A4A307C0DF15D8CB01 /* HeroStatCard.swift in Sources */,
 				07D349BE1B1D702BC3A2411C /* HomeView.swift in Sources */,
 				0281D1EB5399AB722D80F408 /* KeychainHelper.swift in Sources */,
