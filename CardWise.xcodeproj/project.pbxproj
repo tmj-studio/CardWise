@@ -15,7 +15,6 @@
 		22DF95431EEA5E77BC622198 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499416ED0BFBDDCEB3E51E95 /* LegalView.swift */; };
 		2C61F4C241FF3E5891A899DE /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 82AE05EEF35F120E65529264 /* cards.json */; };
 		3053BD38689869691D821BC5 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E304F5D3034F498361136AA /* MockData.swift */; };
-		30880DE765588CBA6F139C52 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE1DCCFDDF6B72991D5CD9E6 /* FirebaseAuth */; };
 		32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */; };
 		3495EA4C145807AC2907B0BF /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274F2E9B6A333220D5F8B0C /* CardViewModel.swift */; };
 		3DCC2372FA629D5C4CDBF39E /* WidgetDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46793A72523BFCB316D74A7C /* WidgetDataManager.swift */; };
@@ -37,7 +36,6 @@
 		883027E57857D945A9BC93D3 /* RecommendationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */; };
 		8C5E57B8CE14DC1589E78235 /* SpendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7949151505BEE1862FD1298 /* SpendingViewModel.swift */; };
 		93DBF7456906A5431E2F2BD8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125792622D2A5A023026842B /* NotificationService.swift */; };
-		9ADDA5165C33C2A1CDAF05C9 /* LinkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 702AA4A9A0EC5C958D10A91B /* LinkKit */; };
 		9DB7B64BC6BA35194AFB9BFB /* NetworkSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC23F2A1F4B524A8AEF858 /* NetworkSecurity.swift */; };
 		B188B9F1932262368A6B9133 /* CardCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBCA37ED3F2BCFAC0FCF7D8 /* CardCatalogTests.swift */; };
 		B784C4F6658C0D27D05CF34D /* Spending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3634BD391B66B7F84216F4 /* Spending.swift */; };
@@ -46,7 +44,6 @@
 		C999291A6B5967A73AC0D6D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DBC8E84F4174A2A378805CA /* Assets.xcassets */; };
 		CF8D6A693BFD78D075960F59 /* CardWiseWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762CD900EF202B47B17FBCD3 /* CardWiseWidget.swift */; };
 		D0DF4C869B670BA660E5BA0A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD08F1150EBDD5C41E992C0 /* SettingsView.swift */; };
-		D20A1538FCDE389777EFCFF8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C1DB37946ACA00C41FD4791D /* FirebaseFirestore */; };
 		D34FEA61378CD7334E37F20D /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20064D59998A353D8617AA14 /* AppAppearance.swift */; };
 		D372669CBA4506A4D0168652 /* AppEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451216C368374B17AD948D22 /* AppEmptyState.swift */; };
 		D5B129EA4F08494117091CF6 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8733673EA55C8847FAFD4 /* Brand.swift */; };
@@ -155,13 +152,24 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0236CA78ED7FF5DBFA83D92E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07D12F388C4BCD13579B25B2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30880DE765588CBA6F139C52 /* FirebaseAuth in Frameworks */,
-				D20A1538FCDE389777EFCFF8 /* FirebaseFirestore in Frameworks */,
-				9ADDA5165C33C2A1CDAF05C9 /* LinkKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8D59AF80F0F5E2FD4668411 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,6 +423,7 @@
 			buildConfigurationList = E81D34AC8EF24681AE4E0ED9 /* Build configuration list for PBXNativeTarget "CardWiseWidget" */;
 			buildPhases = (
 				79E0E39A22FB6B2C5D74FAB7 /* Sources */,
+				0236CA78ED7FF5DBFA83D92E /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -440,11 +449,6 @@
 				4767B53BFFDB1A02FA25D972 /* PBXTargetDependency */,
 			);
 			name = CardWise;
-			packageProductDependencies = (
-				CE1DCCFDDF6B72991D5CD9E6 /* FirebaseAuth */,
-				C1DB37946ACA00C41FD4791D /* FirebaseFirestore */,
-				702AA4A9A0EC5C958D10A91B /* LinkKit */,
-			);
 			productName = CardWise;
 			productReference = CFA49935D5C8A86F1693BA70 /* CardWise.app */;
 			productType = "com.apple.product-type.application";
@@ -454,6 +458,7 @@
 			buildConfigurationList = 25B81A07EA12374ACE8DBE1B /* Build configuration list for PBXNativeTarget "CardWiseTests" */;
 			buildPhases = (
 				8BDD4EAA1D94D6E9EE618F48 /* Sources */,
+				C8D59AF80F0F5E2FD4668411 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -494,10 +499,6 @@
 			);
 			mainGroup = 72F95C25A28A219DCE7B9347;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				907EB35C40E276DF64E8438E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				C724EA0D8358FBEC1DE50939 /* XCRemoteSwiftPackageReference "plaid-link-ios" */,
-			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 99B4E26EF68D63BB6C99DAEA /* Products */;
 			projectDirPath = "";
@@ -901,43 +902,6 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		907EB35C40E276DF64E8438E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 11.0.0;
-			};
-		};
-		C724EA0D8358FBEC1DE50939 /* XCRemoteSwiftPackageReference "plaid-link-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/plaid/plaid-link-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.6.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		702AA4A9A0EC5C958D10A91B /* LinkKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C724EA0D8358FBEC1DE50939 /* XCRemoteSwiftPackageReference "plaid-link-ios" */;
-			productName = LinkKit;
-		};
-		C1DB37946ACA00C41FD4791D /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 907EB35C40E276DF64E8438E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-		CE1DCCFDDF6B72991D5CD9E6 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 907EB35C40E276DF64E8438E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5C617ABDF28EE0081495696D /* Project object */;
 }
