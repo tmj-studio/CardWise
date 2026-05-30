@@ -183,5 +183,5 @@ struct OnboardingGetStartedPage: View {
 
 #Preview {
     OnboardingView(hasCompletedOnboarding: .constant(false))
-        .environmentObject(CardViewModel())
+        .environmentObject(CardViewModel(store: CloudStore.preview()))
 }

@@ -360,7 +360,8 @@ struct AnalyticsRow: View {
 }
 
 #Preview {
-    SpendingListView()
-        .environmentObject(CardViewModel())
-        .environmentObject(SpendingViewModel())
+    let store = CloudStore.preview()
+    return SpendingListView()
+        .environmentObject(CardViewModel(store: store))
+        .environmentObject(SpendingViewModel(store: store))
 }

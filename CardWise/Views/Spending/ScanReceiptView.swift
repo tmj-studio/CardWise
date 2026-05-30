@@ -355,7 +355,8 @@ struct CameraView: UIViewControllerRepresentable {
 }
 
 #Preview {
-    ScanReceiptView()
-        .environmentObject(CardViewModel())
-        .environmentObject(SpendingViewModel())
+    let store = CloudStore.preview()
+    return ScanReceiptView()
+        .environmentObject(CardViewModel(store: store))
+        .environmentObject(SpendingViewModel(store: store))
 }

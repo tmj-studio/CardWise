@@ -742,7 +742,8 @@ struct QuickRecommendRow: View {
 }
 
 #Preview {
-    HomeView()
-        .environmentObject(CardViewModel())
-        .environmentObject(SpendingViewModel())
+    let store = CloudStore.preview()
+    return HomeView()
+        .environmentObject(CardViewModel(store: store))
+        .environmentObject(SpendingViewModel(store: store))
 }

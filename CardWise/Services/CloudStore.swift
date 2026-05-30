@@ -124,3 +124,17 @@ final class CloudStore {
         }
     }
 }
+
+// MARK: - Preview / Test helpers
+
+extension CloudStore {
+    /// Returns an in-memory CloudStore suitable for SwiftUI #Previews and tests.
+    @MainActor
+    static func preview() -> CloudStore {
+        let container = try! ModelContainer(
+            for: UserCardRecord.self, SpendingRecord.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+        )
+        return CloudStore(context: container.mainContext)
+    }
+}
