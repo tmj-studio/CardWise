@@ -1,0 +1,3 @@
+app_identifier("studio.tmj.cardwise")
+# Authentication uses an App Store Connect API key (see Fastfile / CI secrets),
+# so apple_id / team_id are not required here.

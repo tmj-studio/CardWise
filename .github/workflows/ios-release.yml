@@ -1,0 +1,72 @@
+name: iOS Release (TestFlight)
+
+# Push a tag like `v1.0.1` to build and upload that version to TestFlight.
+# Required repo secrets (Settings → Secrets and variables → Actions):
+#   ASC_KEY_ID            App Store Connect API key ID
+#   ASC_ISSUER_ID         App Store Connect API issuer ID
+#   ASC_KEY_P8_BASE64     the .p8 key file, base64-encoded
+#   DIST_CERT_P12_BASE64  Apple Distribution cert + private key (.p12), base64-encoded
+#   DIST_CERT_PASSWORD    password for the .p12 (empty string if none)
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  testflight:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode 16
+        run: sudo xcode-select -s /Applications/Xcode_16.app
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Derive & validate version from tag
+        id: ver
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          version="${REF_NAME#v}"
+          # Only allow N.N or N.N.N — rejects any shell metacharacters in a malicious tag.
+          if ! printf '%s' "$version" | grep -Eq '^[0-9]+(\.[0-9]+){1,2}$'; then
+            echo "Invalid version tag: '$REF_NAME'" >&2
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Set MARKETING_VERSION from tag
+        env:
+          APP_VERSION: ${{ steps.ver.outputs.version }}
+        run: sed -i '' "s/MARKETING_VERSION: \".*\"/MARKETING_VERSION: \"${APP_VERSION}\"/" project.yml
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Decode signing assets
+        env:
+          DIST_CERT_P12_BASE64: ${{ secrets.DIST_CERT_P12_BASE64 }}
+        run: |
+          echo "$DIST_CERT_P12_BASE64" | base64 --decode > "$RUNNER_TEMP/dist_cert.p12"
+          echo "DIST_CERT_P12_PATH=$RUNNER_TEMP/dist_cert.p12" >> "$GITHUB_ENV"
+
+      - name: Set up Ruby + fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Build & upload to TestFlight
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_P8_BASE64: ${{ secrets.ASC_KEY_P8_BASE64 }}
+          DIST_CERT_PASSWORD: ${{ secrets.DIST_CERT_PASSWORD }}
+        run: bundle exec fastlane beta
+
+      - name: Clean up signing assets
+        if: always()
+        run: rm -f "$RUNNER_TEMP/dist_cert.p12"

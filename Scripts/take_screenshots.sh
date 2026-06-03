@@ -9,11 +9,17 @@
 set -e
 
 PROJ_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-DEVICE="iPhone 17 Pro"
-BUNDLE_ID="com.cardwise.app"
+# iPhone 17 Pro Max renders at 1320x2868 — the 6.9" size App Store Connect requires.
+# (iPhone 17 Pro is 1206x2622, which App Store Connect rejects.)
+DEVICE="iPhone 17 Pro Max"
+BUNDLE_ID="studio.tmj.cardwise"
 SCHEME="CardWise"
 SCREENSHOT_DIR="$PROJ_DIR/Screenshots"
 TAB_VIEW="$PROJ_DIR/CardWise/Views/MainTabView.swift"
+
+# The CoreSimulator daemon can't write into TCC-protected locations like ~/Desktop,
+# so capture into /tmp first, then copy into the repo with the shell (which can).
+TMP_SHOT_DIR="$(mktemp -d /tmp/cardwise_shots.XXXXXX)"
 
 mkdir -p "$SCREENSHOT_DIR"
 
@@ -67,7 +73,8 @@ screenshot_tab() {
   SIMCTL_CHILD_SCREENSHOT_TAB="$tab" xcrun simctl launch "$DEVICE" "$BUNDLE_ID"
   sleep 3
 
-  xcrun simctl io "$DEVICE" screenshot "$SCREENSHOT_DIR/$filename"
+  xcrun simctl io "$DEVICE" screenshot "$TMP_SHOT_DIR/$filename"
+  cp "$TMP_SHOT_DIR/$filename" "$SCREENSHOT_DIR/$filename"
   echo "    Saved $filename"
 }
 

@@ -1,0 +1,48 @@
+# CardWise release automation.
+# `beta` builds a signed App Store archive and uploads it to TestFlight.
+# Triggered by CI on a `v*` git tag (see .github/workflows/ios-release.yml).
+# App Store *submission* stays manual in App Store Connect.
+
+default_platform(:ios)
+
+APP_ID = "studio.tmj.cardwise"
+
+platform :ios do
+  desc "Build and upload a TestFlight build."
+  lane :beta do
+    setup_ci # creates an isolated temporary keychain when running on CI
+
+    api_key = app_store_connect_api_key(
+      key_id: ENV.fetch("ASC_KEY_ID"),
+      issuer_id: ENV.fetch("ASC_ISSUER_ID"),
+      key_content: ENV.fetch("ASC_KEY_P8_BASE64"),
+      is_key_content_base64: true
+    )
+
+    # Import the distribution certificate (.p12) into the CI keychain so Xcode can sign.
+    import_certificate(
+      certificate_path: ENV.fetch("DIST_CERT_P12_PATH"),
+      certificate_password: ENV.fetch("DIST_CERT_PASSWORD", ""),
+      keychain_name: ENV.fetch("MATCH_KEYCHAIN_NAME", "fastlane_tmp_keychain"),
+      keychain_password: ENV.fetch("MATCH_KEYCHAIN_PASSWORD", "")
+    )
+
+    # Next build number = highest already on TestFlight + 1 (0 -> 1 for the very first build).
+    next_build = (latest_testflight_build_number(api_key: api_key, app_identifier: APP_ID) rescue 0) + 1
+
+    # Let Xcode create/refresh the App Store provisioning profiles via the API key
+    # (-allowProvisioningUpdates) so the app + widget extension both sign without fastlane match.
+    build_app(
+      project: "CardWise.xcodeproj",
+      scheme: "CardWise",
+      export_method: "app-store",
+      xcargs: "-allowProvisioningUpdates CURRENT_PROJECT_VERSION=#{next_build}",
+      export_options: { signingStyle: "automatic" }
+    )
+
+    upload_to_testflight(
+      api_key: api_key,
+      skip_waiting_for_build_processing: true
+    )
+  end
+end
