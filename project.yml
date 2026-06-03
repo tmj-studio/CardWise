@@ -10,14 +10,6 @@ settings:
     SWIFT_VERSION: "5.9"
     DEVELOPMENT_TEAM: "K434CK85HW"
 
-packages:
-  Firebase:
-    url: https://github.com/firebase/firebase-ios-sdk
-    from: "11.0.0"
-  PlaidLink:
-    url: https://github.com/plaid/plaid-link-ios
-    from: "5.6.0"
-
 targets:
   CardWise:
     type: application
@@ -45,14 +37,7 @@ targets:
     resources:
       - path: CardWise/Resources/Assets.xcassets
       - path: CardWise/Resources/Preview Content
-      - path: CardWise/GoogleService-Info.plist
     dependencies:
-      - package: Firebase
-        product: FirebaseAuth
-      - package: Firebase
-        product: FirebaseFirestore
-      - package: PlaidLink
-        product: LinkKit
       - target: CardWiseWidget
         embed: true
     entitlements:
@@ -69,7 +54,6 @@ targets:
     scheme:
       testTargets:
         - CardWiseTests
-      storeKitConfiguration: CardWise.storekit
 
   CardWiseWidget:
     type: app-extension
