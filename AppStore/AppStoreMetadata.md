@@ -110,22 +110,27 @@ Initial release featuring:
 ## App Store Connect Information
 
 ### Privacy Policy URL
-https://cardwiseapp.com/privacy
+https://gist.github.com/Rich627/2ade679cc0b0393f21e6a4eb23ff6a59
+
+### Terms of Service URL
+https://gist.github.com/Rich627/426c485b4330005448d6a346f7e11f94
 
 ### Support URL
-https://cardwiseapp.com/support
+TODO: App Store Connect requires a reachable support *page* URL (not just an
+email). Either stand up a simple support page or reuse a public page you control.
+In-app support contact is support@cardwiseapp.com.
 
 ### Marketing URL
-https://cardwiseapp.com
+(optional — leave blank unless a marketing site exists)
 
 ### Copyright
-2024 CardWise App
+2026 TMJ Studio
 
 ### Age Rating
 4+ (No objectionable content)
 
 ### Price
-Free (with optional premium features)
+Free (all features free; no in-app purchases)
 
 ---
 
@@ -137,11 +142,11 @@ CardWise is a personal finance tool that helps users optimize their credit card 
 2. Does NOT store credit card numbers, CVVs, or sensitive financial data
 3. Only stores card names and reward category preferences
 4. Uses Apple's Vision framework for receipt OCR (on-device processing)
-5. Requires Sign in with Apple for account creation (if Firebase auth is enabled)
+5. Requires NO account or sign-in. All data is stored locally on-device and
+   synced privately via the user's own iCloud (CloudKit). No backend servers,
+   no analytics, no tracking.
 
-Test Account (if needed):
-Email: test@example.com
-Password: testpassword123
+Test Account: Not applicable — the app requires no login.
 
 ---
 
