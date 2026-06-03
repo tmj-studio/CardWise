@@ -63,15 +63,9 @@ Thumbs.db
 GoogleService-Info.plist
 Secrets.swift
 
-# Firebase Functions secrets
-Functions/.env
-Functions/.env.*
-Functions/.secret.*
-Functions/service-account*.json
-Functions/firebase/node_modules/
-
-# Plaid
-plaid-*.json
+# Removed Firebase Functions / scraper — keep any leftover local copy
+# (node_modules, service-account.json, etc.) out of the repo for good.
+/Functions/
 
 # Archives
 *.ipa
@@ -91,5 +85,4 @@ coverage/
 # Temporary files
 *.tmp
 *.temp
-Functions/scraper/node_modules/
 .superpowers/

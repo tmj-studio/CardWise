@@ -131,6 +131,7 @@ extension CloudStore {
     /// Returns an in-memory CloudStore suitable for SwiftUI #Previews and tests.
     @MainActor
     static func preview() -> CloudStore {
+        // swiftlint:disable:next force_try - preview/test-only in-memory store
         let container = try! ModelContainer(
             for: UserCardRecord.self, SpendingRecord.self,
             configurations: ModelConfiguration(isStoredInMemoryOnly: true)

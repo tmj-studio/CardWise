@@ -1,5 +1,9 @@
 import SwiftUI
 
+// Legal copy is authored as long multi-line string literals; hard-wrapping would
+// alter the rendered text, so the line-length rule is disabled for this file.
+// swiftlint:disable line_length
+
 // MARK: - Privacy Policy View
 
 struct PrivacyPolicyView: View {

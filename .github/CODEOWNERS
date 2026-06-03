@@ -1,8 +1,5 @@
 # Default owner for everything in the repo
 * @Rich627
 
-# Scraper infrastructure
-Functions/scraper/** @Rich627
-
 # iOS UI layer
 CardWise/Views/** @Rich627

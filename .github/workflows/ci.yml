@@ -1,0 +1,55 @@
+name: CI
+
+# Build, test and lint on every pull request and on direct pushes to non-main
+# branches, so problems surface before they reach main. (Pushes to main are
+# covered by the release workflow, which builds the same project.)
+
+on:
+  pull_request:
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: build-and-test
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select latest Xcode 16
+        run: |
+          latest=$(ls -d /Applications/Xcode_16*.app | sort -V | tail -1)
+          echo "Selecting $latest"
+          sudo xcode-select -s "$latest"
+          xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Build & test (simulator, no signing)
+        run: |
+          sim=$(xcrun simctl list devices available | grep -oE 'iPhone 16[^(]*' | head -1 | xargs)
+          echo "Using simulator: ${sim:-iPhone 16}"
+          xcodebuild test \
+            -project CardWise.xcodeproj \
+            -scheme CardWise \
+            -destination "platform=iOS Simulator,name=${sim:-iPhone 16}" \
+            CODE_SIGNING_ALLOWED=NO
+
+  swiftlint:
+    name: swiftlint
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install SwiftLint
+        run: brew install swiftlint
+      - name: Run SwiftLint
+        run: swiftlint lint --reporter github-actions-logging

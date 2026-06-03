@@ -209,7 +209,7 @@ Types:
 
 1. A maintainer will be automatically assigned via [CODEOWNERS](.github/CODEOWNERS)
 2. At least **1 maintainer review** is required before merging
-3. All **CI checks must pass** (build, tests, SwiftLint, scraper validation)
+3. All **CI checks must pass** (build, tests, SwiftLint)
 4. Address any requested changes and re-request review
 5. Once approved and CI is green, your PR will be merged
 
@@ -272,45 +272,34 @@ Mockups, examples, etc.
 
 ## Adding Credit Card Data
 
-Credit card data is managed through the **scraper system** in `Functions/scraper/`.
+The reward database ships bundled with the app as `CardWise/Resources/cards.json` (loaded by
+`CardCatalog`). To add or update a card, edit that file directly.
 
-### Option 1: Add to Existing Scraper
+1. Open `CardWise/Resources/cards.json` and add an entry:
 
-1. Open the appropriate scraper in `Functions/scraper/scrapers/` (e.g., `chase.js`, `amex.js`)
-2. Add the card to the `CARDS` array:
-
-```javascript
+```json
 {
-  name: 'Card Name',
-  annualFee: 0,
-  rewardType: 'cashback',  // 'cashback', 'points', or 'miles'
-  network: 'visa',         // 'visa', 'mastercard', 'amex', 'discover'
-  baseReward: 1,
-  categories: [
-    { category: 'dining', multiplier: 3, cap: 1500, capPeriod: 'quarterly' }
+  "name": "Card Name",
+  "annualFee": 0,
+  "rewardType": "cashback",
+  "network": "visa",
+  "baseReward": 1,
+  "categories": [
+    { "category": "dining", "multiplier": 3, "cap": 1500, "capPeriod": "quarterly" }
   ],
-  imageURL: 'https://...',
-  imageColor: '#1A1A1A'
+  "imageColor": "#1A1A1A"
 }
 ```
 
-3. Run the scraper and upload:
-```bash
-cd Functions/scraper
-npm run full  # Scrapes all cards and uploads to Firestore
-```
-
-### Option 2: Add New Issuer
-
-1. Create a new scraper file in `Functions/scraper/scrapers/`
-2. Extend `BaseScraper` class (see existing scrapers for examples)
-3. Register it in `Functions/scraper/index.js`
+2. Match the shape of the existing entries and the `CreditCard` model in
+   `CardWise/Models/CreditCard.swift`.
 
 ### Verification
 
-- Verify card data accuracy from official issuer websites
-- Run `npm run validate` to check data format
-- Test in the iOS app after uploading
+- Verify card data accuracy from official issuer websites.
+- Build and run the app — `CardCatalog` decodes `cards.json` on launch and falls back to
+  `MockData` if the JSON is malformed, so confirm your card actually appears.
+- The CI build/test workflow will fail if `cards.json` can't be decoded by the tests.
 
 ---
 

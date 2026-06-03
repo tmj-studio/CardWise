@@ -1,7 +1,7 @@
 # CardWise release automation.
 # `beta` builds a signed App Store archive and uploads it to TestFlight.
-# Triggered by CI on a `v*` git tag (see .github/workflows/ios-release.yml).
-# App Store *submission* stays manual in App Store Connect.
+# Triggered by CI on every push to `main` (see .github/workflows/ios-release.yml).
+# App Store *submission for review* stays manual in App Store Connect.
 
 require "base64"
 require "tmpdir"
@@ -10,6 +10,7 @@ require "fileutils"
 default_platform(:ios)
 
 APP_ID = "studio.tmj.cardwise"
+WIDGET_ID = "studio.tmj.cardwise.widget"
 
 platform :ios do
   desc "Build and upload a TestFlight build."
@@ -26,8 +27,9 @@ platform :ios do
       is_key_content_base64: true
     )
 
-    # xcodebuild needs the API key on disk to authenticate for -allowProvisioningUpdates.
-    # Keep it in a 0700 dir as a 0600 file and delete it once the lane finishes.
+    # xcodebuild needs the API key on disk to authenticate -allowProvisioningUpdates
+    # during the archive step. Keep it in a 0700 dir as a 0600 file and delete it once
+    # the lane finishes.
     auth_key_dir = Dir.mktmpdir
     auth_key_path = File.join(auth_key_dir, "asc_api_key.p8")
     File.open(auth_key_path, File::WRONLY | File::CREAT | File::EXCL, 0o600) do |f|
@@ -43,29 +45,45 @@ platform :ios do
         keychain_password: ENV.fetch("MATCH_KEYCHAIN_PASSWORD", "")
       )
 
+      # Download (creating if missing) App Store provisioning profiles for the app and its
+      # widget extension via the ASC API key. Doing this explicitly lets the *export* step
+      # sign manually with known profiles instead of falling back to Xcode cloud signing,
+      # which fails with "Cloud signing permission error" / "No profiles were found" under an
+      # API key that can't mint cloud-managed certificates.
+      get_provisioning_profile(api_key: api_key, app_identifier: APP_ID, readonly: false)
+      app_profile = lane_context[SharedValues::SIGH_NAME]
+
+      get_provisioning_profile(api_key: api_key, app_identifier: WIDGET_ID, readonly: false)
+      widget_profile = lane_context[SharedValues::SIGH_NAME]
+
       # Next build number = highest already on TestFlight + 1 (0 -> 1 for the very first build).
       next_build = (latest_testflight_build_number(api_key: api_key, app_identifier: APP_ID) rescue 0) + 1
 
-      # Let Xcode create/refresh the App Store provisioning profiles via the API key
-      # (-allowProvisioningUpdates) so the app + widget extension both sign without fastlane match.
-      # The -authenticationKey* flags log xcodebuild into the developer portal with the ASC API key;
-      # without them archive/export fail with "No Accounts" + "No profiles ... were found".
-      auth_args = [
+      # Archive with automatic signing: -allowProvisioningUpdates lets xcodebuild mint/refresh
+      # profiles via the API key so the app + widget both sign without fastlane match. The
+      # -authenticationKey* flags log xcodebuild into the developer portal with the ASC API key.
+      archive_args = [
         "-allowProvisioningUpdates",
         "-authenticationKeyPath", auth_key_path,
         "-authenticationKeyID", key_id,
         "-authenticationKeyIssuerID", issuer_id
       ].join(" ")
 
-      # gym applies `xcargs` to BOTH the archive and the export commands, so the
-      # auth flags must live here only — adding `export_xcargs` too makes xcodebuild
-      # reject the export with "-authenticationKeyPath may only be provided once".
+      # Export with *manual* signing using the profiles fetched above, so xcodebuild never
+      # attempts cloud signing during export. The provisioningProfiles map carries one entry
+      # per bundle id (something xcargs can't express for a multi-target app).
       build_app(
         project: "CardWise.xcodeproj",
         scheme: "CardWise",
         export_method: "app-store",
-        xcargs: "#{auth_args} CURRENT_PROJECT_VERSION=#{next_build}",
-        export_options: { signingStyle: "automatic" }
+        xcargs: "#{archive_args} CURRENT_PROJECT_VERSION=#{next_build}",
+        export_options: {
+          signingStyle: "manual",
+          provisioningProfiles: {
+            APP_ID => app_profile,
+            WIDGET_ID => widget_profile
+          }
+        }
       )
 
       upload_to_testflight(

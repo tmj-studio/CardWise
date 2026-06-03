@@ -2,15 +2,28 @@
 
 ## Automated TestFlight build (GitHub Actions + fastlane)
 
-Pushing a tag like `v1.0.1` builds that version and uploads it to TestFlight
-(`.github/workflows/ios-release.yml` → `fastlane beta`). App Store **submission stays manual**
-in App Store Connect.
+**Every push to `main`** builds the app and uploads a new build to TestFlight / App Store
+Connect (`.github/workflows/ios-release.yml` → `fastlane beta`). The build number
+auto-increments; the marketing version comes from `MARKETING_VERSION` in `project.yml`.
+App Store **submission for review stays manual** in App Store Connect — that step is yours.
 
 ```bash
-# bump the version, commit, then:
-git tag v1.0.1
-git push origin v1.0.1
+# normal change: just merge/push to main → CI builds and uploads automatically.
+
+# shipping a new App Store version: bump the version first, then push.
+#   edit project.yml → MARKETING_VERSION: "1.0.1"
+git commit -am "release: 1.0.1" && git push origin main
 ```
+
+You can also trigger a build by hand from **Actions → iOS Release (TestFlight) → Run workflow**
+(`workflow_dispatch`).
+
+### Submitting for review (manual, in App Store Connect)
+
+1. Wait for the build to finish processing in App Store Connect (a few minutes after CI).
+2. Open the app version → select the new build.
+3. Fill in any required metadata / screenshots (see `AppStore/AppStoreMetadata.md`).
+4. Click **Add for Review** → **Submit**.
 
 ### One-time setup — GitHub repo secrets
 
@@ -27,12 +40,14 @@ Add them under **Settings → Secrets and variables → Actions**:
 
 Notes:
 - The App ID (`studio.tmj.cardwise`) + widget (`studio.tmj.cardwise.widget`) and their
-  capabilities are already registered. The workflow uses `-allowProvisioningUpdates`, so Xcode
-  creates/refreshes the App Store provisioning profiles automatically via the API key.
+  capabilities are already registered.
 - Build number is auto-set to `latest TestFlight build + 1`.
-- **First run may need a tweak** (CI signing is fiddly): watch the first `fastlane beta` log. If
-  signing fails, the usual fix is confirming the Distribution cert matches Team `K434CK85HW` and
-  that the API key has the App Manager role.
+- **Signing flow:** the lane *archives* with automatic signing (`-allowProvisioningUpdates`
+  refreshes profiles via the API key) and *exports* with manual signing using App Store
+  profiles fetched by `sigh`. Exporting manually avoids the "Cloud signing permission error"
+  that automatic export hits when the API key can't mint cloud-managed certificates.
+- The API key needs the **App Manager** (or Admin) role, and the Distribution cert in
+  `DIST_CERT_P12_BASE64` must belong to Team `K434CK85HW`.
 
 ## What's New (release notes)
 

@@ -33,7 +33,7 @@ An iOS app that helps you choose the best credit card for every purchase, so you
 | **Receipt Scanning** | OCR-powered receipt scanning for quick expense logging |
 | **Sign-Up Bonus Tracker** | Never miss a sign-up bonus deadline |
 | **Home Screen Widget** | Quick access to recommendations without opening the app |
-| **Privacy First** | User data synced via Firebase, card data from official sources |
+| **Privacy First** | All data stays on-device and syncs through your own iCloud — no accounts, no backend |
 
 ### Supported Cards
 
@@ -129,18 +129,14 @@ CardWise/
 │   └── Settings/           # App settings
 ├── ViewModels/             # State management
 ├── Services/               # Business logic
-│   ├── FirebaseService.swift    # Firestore data sync
+│   ├── CloudStore.swift        # SwiftData + CloudKit persistence
+│   ├── CardCatalog.swift       # Loads bundled cards.json
 │   ├── RecommendationEngine.swift
 │   ├── OCRService.swift
 │   └── NotificationService.swift
+├── Resources/
+│   └── cards.json          # Bundled read-only reward database
 └── Utils/                  # Extensions & helpers
-
-Functions/                  # Backend services
-├── scraper/               # Credit card data scraper
-│   ├── index.js           # Main scraper entry
-│   ├── scrapers/          # Per-issuer scrapers
-│   └── upload-to-firestore.js
-└── index.js               # Firebase Cloud Functions
 ```
 
 ---
@@ -151,12 +147,11 @@ Functions/                  # Backend services
 |----------|------------|
 | UI | SwiftUI |
 | Architecture | MVVM |
-| Reactive | Combine |
+| Persistence | SwiftData + CloudKit |
 | Widget | WidgetKit |
 | OCR | Vision Framework |
-| Backend | Firebase Firestore |
-| Auth | Firebase Auth (optional) |
-| Scraper | Node.js + Puppeteer |
+| Backend | None — fully on-device |
+| Card data | Bundled `cards.json` |
 
 ---
 

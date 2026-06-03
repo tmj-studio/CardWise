@@ -1,23 +1,5 @@
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: /Functions/scraper
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
-    labels:
-      - dependencies
-      - scraper
-
-  - package-ecosystem: npm
-    directory: /Functions/firebase
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
-    labels:
-      - dependencies
-      - firebase
-
   - package-ecosystem: github-actions
     directory: /
     schedule:

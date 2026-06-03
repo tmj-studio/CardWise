@@ -1,6 +1,11 @@
 name: iOS Release (TestFlight)
 
-# Push a tag like `v1.0.1` to build and upload that version to TestFlight.
+# Every push to `main` builds the app and uploads a new build to TestFlight /
+# App Store Connect. The build number auto-increments (highest on TestFlight + 1);
+# the marketing version comes from project.yml (MARKETING_VERSION) — bump it there
+# to ship a new App Store version. Submission *for review* stays manual in App Store
+# Connect. Use the "Run workflow" button (workflow_dispatch) to rebuild on demand.
+#
 # Required repo secrets (Settings → Secrets and variables → Actions):
 #   ASC_KEY_ID            App Store Connect API key ID
 #   ASC_ISSUER_ID         App Store Connect API issuer ID
@@ -10,8 +15,20 @@ name: iOS Release (TestFlight)
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'Screenshots/**'
+      - 'AppStore/**'
+      - 'LICENSE'
+      - '.github/ISSUE_TEMPLATE/**'
+  workflow_dispatch:
+
+# Never run two uploads at once — a second build would race the build-number bump.
+concurrency:
+  group: ios-release
+  cancel-in-progress: false
 
 jobs:
   testflight:
@@ -32,25 +49,6 @@ jobs:
 
       - name: Install XcodeGen
         run: brew install xcodegen
-
-      - name: Derive & validate version from tag
-        id: ver
-        env:
-          REF_NAME: ${{ github.ref_name }}
-        run: |
-          version="${REF_NAME#v}"
-          # Only allow N.N or N.N.N — rejects any shell metacharacters in a malicious tag.
-          if ! printf '%s' "$version" | grep -Eq '^[0-9]+(\.[0-9]+){1,2}$'; then
-            echo "Invalid version tag: '$REF_NAME'" >&2
-            exit 1
-          fi
-          echo "version=$version" >> "$GITHUB_OUTPUT"
-
-      - name: Set MARKETING_VERSION from tag
-        env:
-          APP_VERSION: ${{ steps.ver.outputs.version }}
-        run: |
-          sed -i '' "s/MARKETING_VERSION: \".*\"/MARKETING_VERSION: \"${APP_VERSION}\"/" project.yml
 
       - name: Generate Xcode project
         run: xcodegen generate

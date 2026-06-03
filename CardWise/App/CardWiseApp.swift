@@ -44,6 +44,7 @@ enum AppContainer {
         ) {
             return local
         }
+        // swiftlint:disable:next force_try - last-resort in-memory store; if even this fails the app cannot run
         return try! ModelContainer(
             for: UserCardRecord.self, SpendingRecord.self,
             configurations: ModelConfiguration(isStoredInMemoryOnly: true)

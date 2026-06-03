@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
@@ -10,64 +10,71 @@ CardWise is an iOS app that helps users maximize credit card rewards by recommen
 - Spending tracking and analytics
 - Support for US credit card issuers
 
+The app is **free and fully local** — no accounts, no backend. User data lives on-device
+via SwiftData and syncs across the user's own devices through CloudKit. The credit-card
+reward database ships bundled with the app (`CardWise/Resources/cards.json`).
+
 ## Tech Stack
 
-- **Platform**: iOS (iPhone only)
+- **Platform**: iOS 17+ (iPhone only)
 - **UI Framework**: SwiftUI
 - **Architecture**: MVVM
-- **Backend**: Firebase Firestore
-- **Auth**: Firebase Auth (optional)
-- **Language**: Swift
-- **Scraper**: Node.js + Puppeteer (in `Functions/scraper/`)
+- **Persistence**: SwiftData + CloudKit (private database) via `CloudStore`
+- **Project generation**: XcodeGen (`project.yml` is the source of truth)
+- **Language**: Swift 5.9
+- **Dependencies**: none (no SPM packages; no Firebase/Plaid/StoreKit)
 
 ## Build and Development
 
-Open `CardWise.xcodeproj` in Xcode (requires Xcode 15+).
+The Xcode project is generated from `project.yml` with [XcodeGen](https://github.com/yonsm/XcodeGen):
 
-To create the Xcode project:
-1. Open Xcode → File → New → Project
-2. Select iOS → App
-3. Product Name: CardWise
-4. Interface: SwiftUI, Language: Swift
-5. Add all files from `CardWise/` directory to the project
+```bash
+brew install xcodegen   # once
+xcodegen generate       # regenerate CardWise.xcodeproj after editing project.yml
+open CardWise.xcodeproj
+```
+
+Run tests from the command line:
+
+```bash
+xcodebuild test -project CardWise.xcodeproj -scheme CardWise \
+  -destination 'platform=iOS Simulator,name=iPhone 16' CODE_SIGNING_ALLOWED=NO
+```
+
+Edit build settings, bundle ids, entitlements and the marketing version in `project.yml`,
+**not** in the generated `.xcodeproj`.
 
 ## Architecture
 
 ```
 CardWise/
-├── App/                    # App entry point
+├── App/                    # App entry point (CardWiseApp.swift)
+├── DesignSystem/           # Shared colors, typography, components
 ├── Models/                 # Data models
 │   ├── CreditCard.swift    # Card, rewards, rotating/selectable configs
 │   ├── Spending.swift      # Transaction records
 │   ├── SpendingCategory.swift
 │   └── Merchant.swift      # Merchant → category mapping
 ├── Views/                  # SwiftUI views (MVVM View layer)
-│   ├── Home/
-│   ├── Cards/
-│   ├── Spending/
-│   ├── Recommend/
-│   └── Settings/
-├── ViewModels/             # State management
-│   ├── CardViewModel.swift
-│   └── SpendingViewModel.swift
+│   ├── Home/ Cards/ Spending/ Recommend/ Settings/
+├── ViewModels/             # State management (CardViewModel, SpendingViewModel)
 ├── Services/               # Business logic
-│   ├── FirebaseService.swift   # Firestore data sync
+│   ├── CloudStore.swift        # SwiftData + CloudKit persistence
+│   ├── CardCatalog.swift       # Loads bundled cards.json (read-only catalog)
 │   ├── RecommendationEngine.swift
-│   ├── OCRService.swift
-│   └── NotificationService.swift
+│   ├── OCRService.swift        # Receipt scanning (Vision)
+│   ├── NotificationService.swift
+│   ├── AppUpdateChecker.swift  # In-app "update available" nudge
+│   ├── WidgetDataManager.swift # Shares data with the widget via app group
+│   └── …
+├── Resources/
+│   └── cards.json          # Bundled read-only reward database
 └── Utils/
     └── Extensions.swift    # Color hex, Date helpers
 
-Functions/
-├── firebase/               # Firebase Cloud Functions
-│   ├── index.js            # Cloud Functions entry point
-│   └── package.json
-├── scraper/                # Credit card data scraper
-│   ├── index.js            # Main entry, runs all scrapers
-│   ├── scrapers/           # Per-issuer scrapers (chase.js, amex.js, etc.)
-│   ├── utils/              # BaseScraper, category mapping
-│   └── upload-to-firestore.js
-└── service-account.json    # Firebase credentials (gitignored)
+CardWiseWidget/             # Home-screen widget (app-extension)
+CardWiseTests/              # Unit tests
+fastlane/                   # Release automation (Fastfile → `beta` lane)
 ```
 
 ## Key Components
@@ -91,21 +98,11 @@ Calculates best card for a category considering:
 3. `RecommendationEngine` evaluates all user cards
 4. Results sorted by estimated reward value
 
-## Scraper Commands
+## CI / Release
 
-```bash
-cd Functions/scraper
-
-npm run scrape          # Run all scrapers
-npm run scrape:chase    # Run specific issuer
-npm run validate        # Validate scraped data
-npm run upload          # Upload to Firestore
-npm run full            # Scrape + upload (one command)
-```
-
-## Firebase Setup
-
-1. Create a Firebase project
-2. Download `service-account.json` from Firebase Console → Project Settings → Service Accounts
-3. Place it in `Functions/` directory
-4. Configure iOS app with `GoogleService-Info.plist`
+- **`.github/workflows/ci.yml`** — builds and runs tests + SwiftLint on every PR and on
+  pushes to non-main branches.
+- **`.github/workflows/ios-release.yml`** — on every push to `main`, builds a signed
+  App Store archive and uploads a new build to TestFlight / App Store Connect (build number
+  auto-increments; marketing version comes from `project.yml`). **Submission for review stays
+  manual** in App Store Connect. See `docs/RELEASE.md` for secrets and the signing flow.
