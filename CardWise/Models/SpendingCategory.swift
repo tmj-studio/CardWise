@@ -31,6 +31,9 @@ enum SpendingCategory: String, CaseIterable, Codable, Identifiable {
     case gap
     case nordstrom
     case electronics
+    case hotels
+    case airlines
+    case disney
     case other
 
     var id: String { rawValue }
@@ -67,6 +70,9 @@ enum SpendingCategory: String, CaseIterable, Codable, Identifiable {
         case .gap: return "Gap"
         case .nordstrom: return "Nordstrom"
         case .electronics: return "Electronics"
+        case .hotels: return "Hotels"
+        case .airlines: return "Airlines"
+        case .disney: return "Disney"
         case .other: return "Other"
         }
     }
@@ -103,6 +109,9 @@ enum SpendingCategory: String, CaseIterable, Codable, Identifiable {
         case .gap: return "tshirt.fill"
         case .nordstrom: return "bag.fill"
         case .electronics: return "desktopcomputer"
+        case .hotels: return "building.fill"
+        case .airlines: return "airplane"
+        case .disney: return "sparkles"
         case .other: return "ellipsis.circle.fill"
         }
     }

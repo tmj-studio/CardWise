@@ -437,7 +437,6 @@ struct QuickRecommendSheet: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var cardViewModel: CardViewModel
     @EnvironmentObject var spendingViewModel: SpendingViewModel
-    @EnvironmentObject private var subscription: SubscriptionManager
     @State var initialSearch: String
     @State private var searchText = ""
     @State private var amount: String = "100"
@@ -662,7 +661,7 @@ struct QuickRecommendSheet: View {
                             date: Date(),
                             note: nil,
                             cardViewModel: cardViewModel,
-                            notifyCapAlerts: NotificationService.shared.shouldSendSpendingCapAlerts(isPro: subscription.isPro)
+                            notifyCapAlerts: NotificationService.shared.shouldSendSpendingCapAlerts()
                         )
                         dismiss()
                     }
@@ -743,7 +742,8 @@ struct QuickRecommendRow: View {
 }
 
 #Preview {
-    HomeView()
-        .environmentObject(CardViewModel())
-        .environmentObject(SpendingViewModel())
+    let store = CloudStore.preview()
+    return HomeView()
+        .environmentObject(CardViewModel(store: store))
+        .environmentObject(SpendingViewModel(store: store))
 }

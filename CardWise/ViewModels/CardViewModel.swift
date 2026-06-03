@@ -9,72 +9,29 @@ class CardViewModel: ObservableObject {
     @Published var userCards: [UserCard] = []
     @Published var isLoading = false
 
-    init() {
-        loadUserCards()
-        Task {
-            await loadCardsFromFirebase()
-        }
+    private let store: CloudStore
+
+    init(store: CloudStore) {
+        self.store = store
+        userCards = store.loadUserCards()
+        allCards = CardCatalog.loadCards()
     }
 
-    // MARK: - Firebase
+    // MARK: - Card Database (bundled)
 
-    func loadCardsFromFirebase() async {
-        isLoading = true
-        defer { isLoading = false }
-
-        do {
-            let cards = try await FirebaseService.shared.fetchAllCards()
-            if cards.isEmpty {
-                // Fallback to MockData if Firebase is empty
-                allCards = MockData.creditCards
-                #if DEBUG
-                Self.logger.info("Firebase empty, using MockData (\(self.allCards.count) cards)")
-                #endif
-            } else {
-                allCards = cards
-                #if DEBUG
-                Self.logger.info("Loaded \(cards.count) cards from Firebase")
-                #endif
-            }
-        } catch {
-            // Fallback to MockData on error
-            allCards = MockData.creditCards
-            #if DEBUG
-            Self.logger.error("Firebase error: \(error.localizedDescription), using MockData")
-            #endif
-        }
+    func reloadCatalog() {
+        allCards = CardCatalog.loadCards()
     }
 
-    // MARK: - Persistence (Keychain with UserDefaults migration)
-
-    private static let keychainKey = "userCards"
-
-    private func loadUserCards() {
-        // Try Keychain first
-        if let cards: [UserCard] = try? KeychainHelper.shared.load(forKey: Self.keychainKey) {
-            userCards = cards
-            return
-        }
-
-        // Fallback: migrate from UserDefaults
-        if let data = UserDefaults.standard.data(forKey: UserDefaultsKeys.userCards),
-           let cards = try? JSONDecoder().decode([UserCard].self, from: data) {
-            userCards = cards
-            try? KeychainHelper.shared.save(cards, forKey: Self.keychainKey)
-            UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.userCards)
-        } else {
-            userCards = []
-        }
-    }
+    // MARK: - Persistence (SwiftData via CloudStore)
 
     private func saveUserCards() {
-        try? KeychainHelper.shared.save(userCards, forKey: Self.keychainKey)
+        try? store.saveUserCards(userCards)
     }
 
     func clearAllData() {
         userCards = []
-        KeychainHelper.shared.delete(forKey: Self.keychainKey)
-        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.userCards)
+        try? store.saveUserCards([])
     }
 
     // MARK: - Card Management

@@ -36,26 +36,8 @@ class WidgetDataManager {
 
     func updateWidgetData(
         cardViewModel: CardViewModel,
-        spendingViewModel: SpendingViewModel,
-        isPro: Bool
+        spendingViewModel: SpendingViewModel
     ) {
-        guard SubscriptionGate.isUnlocked(.widget, isPro: isPro) else {
-            writePayload(
-                WidgetPayload(
-                    topCategory: "CardWise Pro",
-                    topCategoryIcon: "star.circle",
-                    bestCard: "Upgrade to Pro",
-                    bestCardColor: "#808080",
-                    rewardRate: "Pro",
-                    rotatingCategories: [],
-                    rotatingCard: nil,
-                    spendingThisMonth: 0,
-                    rewardsThisMonth: 0
-                )
-            )
-            return
-        }
-
         // Find best card for common category (Dining as default)
         let diningRecs = RecommendationEngine.shared.getRecommendations(
             for: .dining,

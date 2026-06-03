@@ -425,7 +425,8 @@ struct SummaryCard: View {
 }
 
 #Preview {
-    EnhancedAnalyticsView()
-        .environmentObject(CardViewModel())
-        .environmentObject(SpendingViewModel())
+    let store = CloudStore.preview()
+    return EnhancedAnalyticsView()
+        .environmentObject(CardViewModel(store: store))
+        .environmentObject(SpendingViewModel(store: store))
 }

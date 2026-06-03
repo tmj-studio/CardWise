@@ -40,8 +40,8 @@ struct MainTabView: View {
 }
 
 #Preview {
-    MainTabView()
-        .environmentObject(CardViewModel())
-        .environmentObject(SpendingViewModel())
-        .environmentObject(SubscriptionManager.shared)
+    let store = CloudStore.preview()
+    return MainTabView()
+        .environmentObject(CardViewModel(store: store))
+        .environmentObject(SpendingViewModel(store: store))
 }

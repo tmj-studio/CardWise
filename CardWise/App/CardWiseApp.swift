@@ -1,13 +1,10 @@
 import SwiftUI
+import SwiftData
 import WidgetKit
-import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        if FirebaseService.hasValidConfiguration {
-            FirebaseApp.configure()
-        }
         return true
     }
 
@@ -18,20 +15,59 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
+enum AppContainer {
+    /// Local SwiftData store today; CloudKit-synced once the iCloud entitlement is
+    /// provisioned in Task 11.
+    ///
+    /// NOTE: The CloudKit code path is intentionally kept commented out.
+    /// CardWise.entitlements now carries the iCloud/CloudKit entitlements, but the
+    /// iCloud container "iCloud.com.cardwise.app" must first be created in the Apple
+    /// Developer account and the app's provisioning profile must include the iCloud
+    /// capability. Without that, activating CloudKit causes an uncatchable SIGTRAP on
+    /// launch (the CloudKit daemon crashes the process before Swift can handle it).
+    ///
+    /// TODO: CloudKit sync is entitlement-ready (see CardWise.entitlements). To enable:
+    ///   1. In the Apple Developer account, create the CloudKit container "iCloud.com.cardwise.app"
+    ///      and ensure the app's provisioning profile includes the iCloud capability.
+    ///   2. Uncomment the .private(...) attempt below; it becomes the first choice with local fallback.
+    static let shared: ModelContainer = {
+        // TODO: Uncomment once the CloudKit container is provisioned in the Apple Developer account:
+        // if let cloud = try? ModelContainer(
+        //     for: UserCardRecord.self, SpendingRecord.self,
+        //     configurations: ModelConfiguration("CardWise", cloudKitDatabase: .private("iCloud.com.cardwise.app"))
+        // ) {
+        //     return cloud
+        // }
+        if let local = try? ModelContainer(
+            for: UserCardRecord.self, SpendingRecord.self,
+            configurations: ModelConfiguration("CardWise", cloudKitDatabase: .none)
+        ) {
+            return local
+        }
+        return try! ModelContainer(
+            for: UserCardRecord.self, SpendingRecord.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+        )
+    }()
+}
+
 @main
 struct CardWiseApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
-    @StateObject private var cardViewModel = CardViewModel()
+    @StateObject private var cardViewModel: CardViewModel
+    @StateObject private var spendingViewModel: SpendingViewModel
+
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+    @Environment(\.scenePhase) private var scenePhase
 
     init() {
         AppAppearance.apply()
+        let store = CloudStore(context: AppContainer.shared.mainContext)
+        store.migrateFromKeychainIfNeeded()
+        _cardViewModel = StateObject(wrappedValue: CardViewModel(store: store))
+        _spendingViewModel = StateObject(wrappedValue: SpendingViewModel(store: store))
     }
-    @StateObject private var spendingViewModel = SpendingViewModel()
-    // Hold a strong reference to the singleton so SwiftUI treats it as a StateObject owner.
-    @StateObject private var subscription = SubscriptionManager.shared
-    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
-    @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {
         WindowGroup {
@@ -39,7 +75,6 @@ struct CardWiseApp: App {
                 MainTabView()
                     .environmentObject(cardViewModel)
                     .environmentObject(spendingViewModel)
-                    .environmentObject(subscription)
                     .onChange(of: scenePhase) { _, newPhase in
                         if newPhase == .background {
                             updateWidgetData()
@@ -49,11 +84,12 @@ struct CardWiseApp: App {
                         CacheManager.shared.clearExpired()
                         updateWidgetData()
                     }
+                    .modelContainer(AppContainer.shared)
             } else {
                 OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
                     .environmentObject(cardViewModel)
                     .environmentObject(spendingViewModel)
-                    .environmentObject(subscription)
+                    .modelContainer(AppContainer.shared)
             }
 
             // Uncomment when Firebase Auth is configured:
@@ -72,8 +108,7 @@ struct CardWiseApp: App {
     private func updateWidgetData() {
         WidgetDataManager.shared.updateWidgetData(
             cardViewModel: cardViewModel,
-            spendingViewModel: spendingViewModel,
-            isPro: subscription.isPro
+            spendingViewModel: spendingViewModel
         )
     }
 }

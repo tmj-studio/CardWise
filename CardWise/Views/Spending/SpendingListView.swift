@@ -3,10 +3,8 @@ import SwiftUI
 struct SpendingListView: View {
     @EnvironmentObject var cardViewModel: CardViewModel
     @EnvironmentObject var spendingViewModel: SpendingViewModel
-    @EnvironmentObject private var subscription: SubscriptionManager
     @State private var showingAddSpending = false
     @State private var showingAnalytics = false
-    @State private var showingPaywall = false
     @State private var showingScanReceipt = false
 
     var body: some View {
@@ -40,11 +38,7 @@ struct SpendingListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
-                        if SubscriptionGate.isUnlocked(.advancedAnalytics, isPro: subscription.isPro) {
-                            showingAnalytics = true
-                        } else {
-                            showingPaywall = true
-                        }
+                        showingAnalytics = true
                     } label: {
                         Image(systemName: "chart.pie")
                     }
@@ -67,9 +61,6 @@ struct SpendingListView: View {
             }
             .sheet(isPresented: $showingAnalytics) {
                 EnhancedAnalyticsView()
-            }
-            .sheet(isPresented: $showingPaywall) {
-                PaywallView()
             }
             .sheet(isPresented: $showingScanReceipt) {
                 ScanReceiptView()
@@ -199,7 +190,6 @@ struct AddSpendingView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var cardViewModel: CardViewModel
     @EnvironmentObject var spendingViewModel: SpendingViewModel
-    @EnvironmentObject private var subscription: SubscriptionManager
 
     @State private var amount = ""
     @State private var merchant = ""
@@ -319,7 +309,7 @@ struct AddSpendingView: View {
                             date: date,
                             note: note.isEmpty ? nil : note,
                             cardViewModel: cardViewModel,
-                            notifyCapAlerts: NotificationService.shared.shouldSendSpendingCapAlerts(isPro: subscription.isPro)
+                            notifyCapAlerts: NotificationService.shared.shouldSendSpendingCapAlerts()
                         )
                         dismiss()
                     }
@@ -370,8 +360,8 @@ struct AnalyticsRow: View {
 }
 
 #Preview {
-    SpendingListView()
-        .environmentObject(CardViewModel())
-        .environmentObject(SpendingViewModel())
-        .environmentObject(SubscriptionManager.shared)
+    let store = CloudStore.preview()
+    return SpendingListView()
+        .environmentObject(CardViewModel(store: store))
+        .environmentObject(SpendingViewModel(store: store))
 }

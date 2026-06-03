@@ -5,7 +5,6 @@ struct ScanReceiptView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var cardViewModel: CardViewModel
     @EnvironmentObject var spendingViewModel: SpendingViewModel
-    @EnvironmentObject private var subscription: SubscriptionManager
 
     @State private var selectedImage: UIImage?
     @State private var selectedItem: PhotosPickerItem?
@@ -309,7 +308,7 @@ struct ScanReceiptView: View {
             date: date,
             note: "Scanned from receipt",
             cardViewModel: cardViewModel,
-            notifyCapAlerts: NotificationService.shared.shouldSendSpendingCapAlerts(isPro: subscription.isPro)
+            notifyCapAlerts: NotificationService.shared.shouldSendSpendingCapAlerts()
         )
 
         dismiss()
@@ -356,8 +355,8 @@ struct CameraView: UIViewControllerRepresentable {
 }
 
 #Preview {
-    ScanReceiptView()
-        .environmentObject(CardViewModel())
-        .environmentObject(SpendingViewModel())
-        .environmentObject(SubscriptionManager.shared)
+    let store = CloudStore.preview()
+    return ScanReceiptView()
+        .environmentObject(CardViewModel(store: store))
+        .environmentObject(SpendingViewModel(store: store))
 }

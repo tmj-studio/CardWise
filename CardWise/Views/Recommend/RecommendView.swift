@@ -365,7 +365,8 @@ struct CategoryPickerView: View {
 }
 
 #Preview {
-    RecommendView()
-        .environmentObject(CardViewModel())
-        .environmentObject(SpendingViewModel())
+    let store = CloudStore.preview()
+    return RecommendView()
+        .environmentObject(CardViewModel(store: store))
+        .environmentObject(SpendingViewModel(store: store))
 }

@@ -6,40 +6,22 @@ class SpendingViewModel: ObservableObject {
     @Published var spendings: [Spending] = []
     @Published var isLoading = false
 
-    init() {
-        loadSpendings()
+    private let store: CloudStore
+
+    init(store: CloudStore) {
+        self.store = store
+        spendings = store.loadSpendings()
     }
 
-    // MARK: - Persistence (Keychain with UserDefaults migration)
-
-    private static let keychainKey = "spendings"
-
-    private func loadSpendings() {
-        // Try Keychain first
-        if let loaded: [Spending] = try? KeychainHelper.shared.load(forKey: Self.keychainKey) {
-            spendings = loaded
-            return
-        }
-
-        // Fallback: migrate from UserDefaults
-        if let data = UserDefaults.standard.data(forKey: UserDefaultsKeys.spendings),
-           let loaded = try? JSONDecoder().decode([Spending].self, from: data) {
-            spendings = loaded
-            try? KeychainHelper.shared.save(loaded, forKey: Self.keychainKey)
-            UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.spendings)
-        } else {
-            spendings = []
-        }
-    }
+    // MARK: - Persistence (SwiftData via CloudStore)
 
     private func saveSpendings() {
-        try? KeychainHelper.shared.save(spendings, forKey: Self.keychainKey)
+        try? store.saveSpendings(spendings)
     }
 
     func clearAllData() {
         spendings = []
-        KeychainHelper.shared.delete(forKey: Self.keychainKey)
-        UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.spendings)
+        try? store.saveSpendings([])
     }
 
     // MARK: - Spending Management
