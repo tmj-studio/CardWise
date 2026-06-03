@@ -635,6 +635,7 @@
 				INFOPLIST_FILE = CardWise/Info.plist;
 				INFOPLIST_GENERATION_MODE = GeneratedFile;
 				INFOPLIST_KEY_CFBundleDisplayName = CardWise;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSCameraUsageDescription = "CardWise uses the camera to scan receipts for quick transaction entry.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CardWise accesses your photo library to import receipt images.";
@@ -805,6 +806,7 @@
 				INFOPLIST_FILE = CardWise/Info.plist;
 				INFOPLIST_GENERATION_MODE = GeneratedFile;
 				INFOPLIST_KEY_CFBundleDisplayName = CardWise;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSCameraUsageDescription = "CardWise uses the camera to scan receipts for quick transaction entry.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CardWise accesses your photo library to import receipt images.";

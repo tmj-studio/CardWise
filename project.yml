@@ -34,6 +34,10 @@ targets:
         INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "CardWise accesses your photo library to import receipt images."
         INFOPLIST_KEY_CFBundleDisplayName: "CardWise"
         INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.finance"
+        # App only uses Apple's standard OS encryption (HTTPS/TLS), which is exempt.
+        # Declaring this here means every uploaded build skips the export-compliance
+        # prompt in App Store Connect — keeping the auto-release flow hands-off.
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
     resources:
       - path: CardWise/Resources/Assets.xcassets
       - path: CardWise/Resources/Preview Content

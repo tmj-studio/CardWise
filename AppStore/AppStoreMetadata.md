@@ -116,9 +116,8 @@ https://gist.github.com/Rich627/2ade679cc0b0393f21e6a4eb23ff6a59
 https://gist.github.com/Rich627/426c485b4330005448d6a346f7e11f94
 
 ### Support URL
-TODO: App Store Connect requires a reachable support *page* URL (not just an
-email). Either stand up a simple support page or reuse a public page you control.
-In-app support contact is support@cardwiseapp.com.
+https://gist.github.com/Rich627/426b2ff37d91463761a3f2c19f12ff3f
+(In-app support contact is support@cardwiseapp.com.)
 
 ### Marketing URL
 (optional — leave blank unless a marketing site exists)
