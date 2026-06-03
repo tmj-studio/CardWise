@@ -5,6 +5,7 @@
 
 require "base64"
 require "tmpdir"
+require "fileutils"
 
 default_platform(:ios)
 
@@ -26,43 +27,51 @@ platform :ios do
     )
 
     # xcodebuild needs the API key on disk to authenticate for -allowProvisioningUpdates.
-    auth_key_path = File.join(Dir.tmpdir, "asc_api_key.p8")
-    File.write(auth_key_path, Base64.decode64(ENV.fetch("ASC_KEY_P8_BASE64")))
+    # Keep it in a 0700 dir as a 0600 file and delete it once the lane finishes.
+    auth_key_dir = Dir.mktmpdir
+    auth_key_path = File.join(auth_key_dir, "asc_api_key.p8")
+    File.open(auth_key_path, File::WRONLY | File::CREAT | File::EXCL, 0o600) do |f|
+      f.write(Base64.decode64(ENV.fetch("ASC_KEY_P8_BASE64")))
+    end
 
-    # Import the distribution certificate (.p12) into the CI keychain so Xcode can sign.
-    import_certificate(
-      certificate_path: ENV.fetch("DIST_CERT_P12_PATH"),
-      certificate_password: ENV.fetch("DIST_CERT_PASSWORD", ""),
-      keychain_name: ENV.fetch("MATCH_KEYCHAIN_NAME", "fastlane_tmp_keychain"),
-      keychain_password: ENV.fetch("MATCH_KEYCHAIN_PASSWORD", "")
-    )
+    begin
+      # Import the distribution certificate (.p12) into the CI keychain so Xcode can sign.
+      import_certificate(
+        certificate_path: ENV.fetch("DIST_CERT_P12_PATH"),
+        certificate_password: ENV.fetch("DIST_CERT_PASSWORD", ""),
+        keychain_name: ENV.fetch("MATCH_KEYCHAIN_NAME", "fastlane_tmp_keychain"),
+        keychain_password: ENV.fetch("MATCH_KEYCHAIN_PASSWORD", "")
+      )
 
-    # Next build number = highest already on TestFlight + 1 (0 -> 1 for the very first build).
-    next_build = (latest_testflight_build_number(api_key: api_key, app_identifier: APP_ID) rescue 0) + 1
+      # Next build number = highest already on TestFlight + 1 (0 -> 1 for the very first build).
+      next_build = (latest_testflight_build_number(api_key: api_key, app_identifier: APP_ID) rescue 0) + 1
 
-    # Let Xcode create/refresh the App Store provisioning profiles via the API key
-    # (-allowProvisioningUpdates) so the app + widget extension both sign without fastlane match.
-    # The -authenticationKey* flags log xcodebuild into the developer portal with the ASC API key;
-    # without them archive/export fail with "No Accounts" + "No profiles ... were found".
-    auth_args = [
-      "-allowProvisioningUpdates",
-      "-authenticationKeyPath", auth_key_path,
-      "-authenticationKeyID", key_id,
-      "-authenticationKeyIssuerID", issuer_id
-    ].join(" ")
+      # Let Xcode create/refresh the App Store provisioning profiles via the API key
+      # (-allowProvisioningUpdates) so the app + widget extension both sign without fastlane match.
+      # The -authenticationKey* flags log xcodebuild into the developer portal with the ASC API key;
+      # without them archive/export fail with "No Accounts" + "No profiles ... were found".
+      auth_args = [
+        "-allowProvisioningUpdates",
+        "-authenticationKeyPath", auth_key_path,
+        "-authenticationKeyID", key_id,
+        "-authenticationKeyIssuerID", issuer_id
+      ].join(" ")
 
-    build_app(
-      project: "CardWise.xcodeproj",
-      scheme: "CardWise",
-      export_method: "app-store",
-      xcargs: "#{auth_args} CURRENT_PROJECT_VERSION=#{next_build}",
-      export_xcargs: auth_args,
-      export_options: { signingStyle: "automatic" }
-    )
+      build_app(
+        project: "CardWise.xcodeproj",
+        scheme: "CardWise",
+        export_method: "app-store",
+        xcargs: "#{auth_args} CURRENT_PROJECT_VERSION=#{next_build}",
+        export_xcargs: auth_args,
+        export_options: { signingStyle: "automatic" }
+      )
 
-    upload_to_testflight(
-      api_key: api_key,
-      skip_waiting_for_build_processing: true
-    )
+      upload_to_testflight(
+        api_key: api_key,
+        skip_waiting_for_build_processing: true
+      )
+    ensure
+      FileUtils.remove_entry(auth_key_dir)
+    end
   end
 end
