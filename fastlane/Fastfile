@@ -57,12 +57,14 @@ platform :ios do
         "-authenticationKeyIssuerID", issuer_id
       ].join(" ")
 
+      # gym applies `xcargs` to BOTH the archive and the export commands, so the
+      # auth flags must live here only — adding `export_xcargs` too makes xcodebuild
+      # reject the export with "-authenticationKeyPath may only be provided once".
       build_app(
         project: "CardWise.xcodeproj",
         scheme: "CardWise",
         export_method: "app-store",
         xcargs: "#{auth_args} CURRENT_PROJECT_VERSION=#{next_build}",
-        export_xcargs: auth_args,
         export_options: { signingStyle: "automatic" }
       )
 
