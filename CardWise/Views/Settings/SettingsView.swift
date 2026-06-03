@@ -9,6 +9,7 @@ struct SettingsView: View {
     @State private var showingPrivacyPolicy = false
     @State private var showingTermsOfService = false
     @State private var showingClearDataAlert = false
+    @State private var showingWhatsNew = false
 
     var body: some View {
         NavigationStack {
@@ -29,6 +30,19 @@ struct SettingsView: View {
                         Spacer()
                         Text("\(cardViewModel.allCards.count)")
                             .foregroundStyle(Theme.textSecondary)
+                    }
+
+                    Button {
+                        showingWhatsNew = true
+                    } label: {
+                        HStack {
+                            Text("What's New")
+                                .foregroundStyle(Theme.textPrimary)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.app(.caption))
+                                .foregroundStyle(Theme.textSecondary)
+                        }
                     }
                 } header: {
                     Text("About")
@@ -168,6 +182,11 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $showingTermsOfService) {
                 TermsOfServiceView()
+            }
+            .sheet(isPresented: $showingWhatsNew) {
+                if let latest = ReleaseNotes.latest {
+                    WhatsNewView(notes: [latest]) {}
+                }
             }
             .alert("Clear All Data", isPresented: $showingClearDataAlert) {
                 Button("Cancel", role: .cancel) {}

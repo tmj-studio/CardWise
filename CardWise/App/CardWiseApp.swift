@@ -59,7 +59,12 @@ struct CardWiseApp: App {
     @StateObject private var spendingViewModel: SpendingViewModel
 
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+    @AppStorage("lastSeenVersion") private var lastSeenVersion = ""
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.openURL) private var openURL
+
+    @StateObject private var updateChecker = AppUpdateChecker()
+    @State private var whatsNewNotes: [ReleaseNote] = []
 
     init() {
         AppAppearance.apply()
@@ -83,6 +88,33 @@ struct CardWiseApp: App {
                     .onAppear {
                         CacheManager.shared.clearExpired()
                         updateWidgetData()
+                    }
+                    .task {
+                        let notes = WhatsNew.notesToPresent(lastSeen: lastSeenVersion,
+                                                            current: AppVersion.current)
+                        if !notes.isEmpty { whatsNewNotes = notes }
+                        lastSeenVersion = AppVersion.current
+                        await updateChecker.checkIfDue()
+                    }
+                    .sheet(isPresented: Binding(
+                        get: { !whatsNewNotes.isEmpty },
+                        set: { if !$0 { whatsNewNotes = [] } }
+                    )) {
+                        WhatsNewView(notes: whatsNewNotes) { whatsNewNotes = [] }
+                    }
+                    .alert("Update Available", isPresented: Binding(
+                        get: { updateChecker.availableVersion != nil },
+                        set: { if !$0 { updateChecker.dismiss() } }
+                    )) {
+                        Button("Update") {
+                            if let url = updateChecker.appStoreURL { openURL(url) }
+                            updateChecker.dismiss()
+                        }
+                        Button("Later", role: .cancel) { updateChecker.dismiss() }
+                    } message: {
+                        if let v = updateChecker.availableVersion {
+                            Text("Version \(v) is available on the App Store.")
+                        }
                     }
                     .modelContainer(AppContainer.shared)
             } else {
