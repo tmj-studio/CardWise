@@ -19,8 +19,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Select Xcode 16
-        run: sudo xcode-select -s /Applications/Xcode_16.app
+      - name: Select latest Xcode 16
+        # Pin to the newest installed 16.x. Xcode_16.app (16.0) bundles the
+        # iphonesimulator 18.0 SDK, whose runtime isn't on the macos-15 image
+        # (only 18.5 + 26.x are), so archive fails with "No simulator runtime
+        # version ... available". The latest 16.x bundles a matching runtime.
+        run: |
+          latest=$(ls -d /Applications/Xcode_16*.app | sort -V | tail -1)
+          echo "Selecting $latest"
+          sudo xcode-select -s "$latest"
+          xcodebuild -version
 
       - name: Install XcodeGen
         run: brew install xcodegen
