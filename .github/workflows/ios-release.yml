@@ -41,7 +41,8 @@ jobs:
       - name: Set MARKETING_VERSION from tag
         env:
           APP_VERSION: ${{ steps.ver.outputs.version }}
-        run: sed -i '' "s/MARKETING_VERSION: \".*\"/MARKETING_VERSION: \"${APP_VERSION}\"/" project.yml
+        run: |
+          sed -i '' "s/MARKETING_VERSION: \".*\"/MARKETING_VERSION: \"${APP_VERSION}\"/" project.yml
 
       - name: Generate Xcode project
         run: xcodegen generate
