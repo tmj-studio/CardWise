@@ -36,13 +36,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Select latest Xcode 16
-        # Pin to the newest installed 16.x. Xcode_16.app (16.0) bundles the
-        # iphonesimulator 18.0 SDK, whose runtime isn't on the macos-15 image
-        # (only 18.5 + 26.x are), so archive fails with "No simulator runtime
-        # version ... available". The latest 16.x bundles a matching runtime.
+      - name: Select latest Xcode (26+)
+        # Apple now rejects uploads built with anything older than the iOS 26 SDK
+        # ("must be built with the iOS 26 SDK or later, included in Xcode 26"), so
+        # pick the newest Xcode 26.x on the runner (falling back to the newest
+        # installed Xcode if the naming ever changes).
         run: |
-          latest=$(ls -d /Applications/Xcode_16*.app | sort -V | tail -1)
+          latest=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          [ -z "$latest" ] && latest=$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)
           echo "Selecting $latest"
           sudo xcode-select -s "$latest"
           xcodebuild -version

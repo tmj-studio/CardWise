@@ -21,9 +21,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Select latest Xcode 16
+      - name: Select latest Xcode (26+)
         run: |
-          latest=$(ls -d /Applications/Xcode_16*.app | sort -V | tail -1)
+          latest=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          [ -z "$latest" ] && latest=$(ls -d /Applications/Xcode_*.app | sort -V | tail -1)
           echo "Selecting $latest"
           sudo xcode-select -s "$latest"
           xcodebuild -version
