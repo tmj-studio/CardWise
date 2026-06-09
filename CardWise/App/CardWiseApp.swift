@@ -33,20 +33,20 @@ enum AppContainer {
     static let shared: ModelContainer = {
         // TODO: Uncomment once the CloudKit container is provisioned in the Apple Developer account:
         // if let cloud = try? ModelContainer(
-        //     for: UserCardRecord.self, SpendingRecord.self,
+        //     for: UserCardRecord.self, SpendingRecord.self, CreditUsageRecord.self,
         //     configurations: ModelConfiguration("CardWise", cloudKitDatabase: .private("iCloud.com.cardwise.app"))
         // ) {
         //     return cloud
         // }
         if let local = try? ModelContainer(
-            for: UserCardRecord.self, SpendingRecord.self,
+            for: UserCardRecord.self, SpendingRecord.self, CreditUsageRecord.self,
             configurations: ModelConfiguration("CardWise", cloudKitDatabase: .none)
         ) {
             return local
         }
         // swiftlint:disable:next force_try - last-resort in-memory store; if even this fails the app cannot run
         return try! ModelContainer(
-            for: UserCardRecord.self, SpendingRecord.self,
+            for: UserCardRecord.self, SpendingRecord.self, CreditUsageRecord.self,
             configurations: ModelConfiguration(isStoredInMemoryOnly: true)
         )
     }()

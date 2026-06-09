@@ -22,6 +22,16 @@ final class SpendingRecord {
     }
 }
 
+@Model
+final class CreditUsageRecord {
+    var id: String = ""
+    var payload: Data = Data()
+    init(id: String = "", payload: Data = Data()) {
+        self.id = id
+        self.payload = payload
+    }
+}
+
 /// Persists the user's cards and spendings via SwiftData (CloudKit-synced in the
 /// app; in-memory in tests). The ViewModels remain the source of truth and hand
 /// the full arrays to `save*`; the store upserts by id and prunes anything removed.
@@ -88,6 +98,31 @@ final class CloudStore {
         try context.save()
     }
 
+    // MARK: - Credit Usages
+    func loadCreditUsages() -> [CreditUsage] {
+        let records = (try? context.fetch(FetchDescriptor<CreditUsageRecord>())) ?? []
+        return records.compactMap { try? decoder.decode(CreditUsage.self, from: $0.payload) }
+    }
+
+    func saveCreditUsages(_ usages: [CreditUsage]) throws {
+        let keepIds = Set(usages.map { $0.id })
+        let existing = (try? context.fetch(FetchDescriptor<CreditUsageRecord>())) ?? []
+        var byId = Dictionary(uniqueKeysWithValues: existing.map { ($0.id, $0) })
+        for record in existing where !keepIds.contains(record.id) {
+            context.delete(record)
+            byId[record.id] = nil
+        }
+        for usage in usages {
+            guard let data = try? encoder.encode(usage) else { continue }
+            if let record = byId[usage.id] {
+                record.payload = data
+            } else {
+                context.insert(CreditUsageRecord(id: usage.id, payload: data))
+            }
+        }
+        try context.save()
+    }
+
     // MARK: - One-time Keychain migration
     /// Migrates legacy Keychain data into SwiftData exactly once, then clears the
     /// Keychain. Guarded by a UserDefaults flag so it never runs twice.
@@ -133,7 +168,7 @@ extension CloudStore {
     static func preview() -> CloudStore {
         // swiftlint:disable:next force_try - preview/test-only in-memory store
         let container = try! ModelContainer(
-            for: UserCardRecord.self, SpendingRecord.self,
+            for: UserCardRecord.self, SpendingRecord.self, CreditUsageRecord.self,
             configurations: ModelConfiguration(isStoredInMemoryOnly: true)
         )
         return CloudStore(context: container.mainContext)

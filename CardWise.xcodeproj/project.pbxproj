@@ -58,6 +58,7 @@
 		C999291A6B5967A73AC0D6D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DBC8E84F4174A2A378805CA /* Assets.xcassets */; };
 		CF8D6A693BFD78D075960F59 /* CardWiseWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 762CD900EF202B47B17FBCD3 /* CardWiseWidget.swift */; };
 		D0DF4C869B670BA660E5BA0A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD08F1150EBDD5C41E992C0 /* SettingsView.swift */; };
+		D2B82117A09F5A0175BCB350 /* CreditUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39223C41DAEDFB37806A813 /* CreditUsage.swift */; };
 		D34FEA61378CD7334E37F20D /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20064D59998A353D8617AA14 /* AppAppearance.swift */; };
 		D372669CBA4506A4D0168652 /* AppEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451216C368374B17AD948D22 /* AppEmptyState.swift */; };
 		D5B129EA4F08494117091CF6 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C8733673EA55C8847FAFD4 /* Brand.swift */; };
@@ -72,6 +73,7 @@
 		EC7AE85A1ADEC89378C80C44 /* ScanReceiptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7FFB2FBE8A1C01745D63948 /* ScanReceiptView.swift */; };
 		F071521DE211DD5E2AC981AD /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2B7435406B695A2AC41E68 /* MainTabView.swift */; };
 		F23A8E082BAE1CE57A1E2289 /* SpendingCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ACE63934BA7D10758F38A2 /* SpendingCategory.swift */; };
+		F33FAE903A1328DA6BFC36A1 /* CreditUsageStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4091A20AF671AC6BF9E39609 /* CreditUsageStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +123,7 @@
 		371EDCF327C645E7DD3ACB1E /* SpendingCapTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingCapTracker.swift; sourceTree = "<group>"; };
 		3855574516A13B04AA71A3D8 /* cards.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cards.json; sourceTree = "<group>"; };
 		3C580FBCB53FA560F4362B77 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		4091A20AF671AC6BF9E39609 /* CreditUsageStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditUsageStoreTests.swift; sourceTree = "<group>"; };
 		43AE329C5BF824AC8FC7375E /* SearchHistoryManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManagerTests.swift; sourceTree = "<group>"; };
 		451216C368374B17AD948D22 /* AppEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEmptyState.swift; sourceTree = "<group>"; };
 		46793A72523BFCB316D74A7C /* WidgetDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataManager.swift; sourceTree = "<group>"; };
@@ -169,6 +172,7 @@
 		D190866A1D3D807F1F0AE5A3 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		D86876CAF6DBE2FCAC53B18F /* Merchant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Merchant.swift; sourceTree = "<group>"; };
 		D8C8733673EA55C8847FAFD4 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		E39223C41DAEDFB37806A813 /* CreditUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditUsage.swift; sourceTree = "<group>"; };
 		E3CEB43AB81A28E4FFE9B657 /* AppUpdateCheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateCheckerTests.swift; sourceTree = "<group>"; };
 		E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationEngine.swift; sourceTree = "<group>"; };
 		E54E06A2E71892581D3379F9 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 				57BB4129B1DF02AD3B256E4A /* CardCatalogTests.swift */,
 				B97732289978E9D76C5A0E08 /* CloudStoreTests.swift */,
 				5D4EDF74094174199CEC5D5A /* CreditModelTests.swift */,
+				4091A20AF671AC6BF9E39609 /* CreditUsageStoreTests.swift */,
 				F7F173864CFC6B3CF85B28DB /* MerchantDatabaseTests.swift */,
 				530C41DD9A8ACF4889D327DD /* ModelTests.swift */,
 				8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */,
@@ -311,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				BF3AEAFE49F6A0E286A10992 /* CreditCard.swift */,
+				E39223C41DAEDFB37806A813 /* CreditUsage.swift */,
 				D86876CAF6DBE2FCAC53B18F /* Merchant.swift */,
 				0E304F5D3034F498361136AA /* MockData.swift */,
 				954D972AEF90855F3BCD06F1 /* ReleaseNotes.swift */,
@@ -560,6 +566,7 @@
 				DC6A1F163850877D327C0CC4 /* CategoryChip.swift in Sources */,
 				2EDE1CA4E675C7DE23A0C133 /* CloudStore.swift in Sources */,
 				4E2ED4D6F93B88B8611E20B2 /* CreditCard.swift in Sources */,
+				D2B82117A09F5A0175BCB350 /* CreditUsage.swift in Sources */,
 				7763CE35ACB2B150CA1F1238 /* Extensions.swift in Sources */,
 				0642E0A4A307C0DF15D8CB01 /* HeroStatCard.swift in Sources */,
 				07D349BE1B1D702BC3A2411C /* HomeView.swift in Sources */,
@@ -611,6 +618,7 @@
 				9E38F42863CF30B1EBECEE7D /* CardCatalogTests.swift in Sources */,
 				2FC2A91D4E762B8DD3FA12C8 /* CloudStoreTests.swift in Sources */,
 				A3A2FFADA38BE4999C5485C4 /* CreditModelTests.swift in Sources */,
+				F33FAE903A1328DA6BFC36A1 /* CreditUsageStoreTests.swift in Sources */,
 				EC6A3D10C9A3C2B6AD6AB3CC /* MerchantDatabaseTests.swift in Sources */,
 				8280E62FD06ACC0294590CBF /* ModelTests.swift in Sources */,
 				32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */,
