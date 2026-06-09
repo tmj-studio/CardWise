@@ -96,6 +96,7 @@ struct CardWiseApp: App {
                         if !notes.isEmpty { whatsNewNotes = notes }
                         lastSeenVersion = AppVersion.current
                         await updateChecker.checkIfDue()
+                        await RemoteCatalogService().refresh()
                     }
                     .sheet(isPresented: Binding(
                         get: { !whatsNewNotes.isEmpty },

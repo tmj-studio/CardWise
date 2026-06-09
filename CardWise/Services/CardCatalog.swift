@@ -34,14 +34,46 @@ enum CardCatalog {
         return MockData.creditCards
     }
 
-    static func loadCards() -> [CreditCard] {
-        guard let url = Bundle.main.url(forResource: "cards", withExtension: "json"),
-              let data = try? Data(contentsOf: url) else {
-            #if DEBUG
-            logger.error("cards.json not found in bundle; using MockData")
-            #endif
-            return MockData.creditCards
+    static func loadCards(cacheURL: URL? = RemoteCatalogService.defaultCacheURL) -> [CreditCard] {
+        if let cacheURL, let cached = loadFromCache(cacheURL) {
+            return cached
         }
-        return decodeCards(from: data)
+        return loadFromBundle() ?? MockData.creditCards
+    }
+
+    static func currentVersion(cacheURL: URL? = RemoteCatalogService.defaultCacheURL) -> Int {
+        if let cacheURL, let file = decodeFile(at: cacheURL), !file.cards.isEmpty {
+            return file.version
+        }
+        if let file = decodeFile(at: bundleURL) {
+            return file.version
+        }
+        return 0
+    }
+
+    private static var bundleURL: URL? {
+        Bundle.main.url(forResource: "cards", withExtension: "json")
+    }
+
+    /// Reads and decodes a catalog file at `url`, returning nil if missing or malformed.
+    private static func decodeFile(at url: URL?) -> CardCatalogFile? {
+        guard let url, let data = try? Data(contentsOf: url) else { return nil }
+        return decodeFile(from: data)
+    }
+
+    private static func loadFromCache(_ cacheURL: URL) -> [CreditCard]? {
+        // Treat an empty card list as invalid so we fall through to the bundle.
+        guard let file = decodeFile(at: cacheURL), !file.cards.isEmpty else { return nil }
+        return file.cards
+    }
+
+    private static func loadFromBundle() -> [CreditCard]? {
+        guard let file = decodeFile(at: bundleURL), !file.cards.isEmpty else {
+            #if DEBUG
+            logger.error("cards.json missing or unreadable in bundle; using MockData")
+            #endif
+            return nil
+        }
+        return file.cards
     }
 }

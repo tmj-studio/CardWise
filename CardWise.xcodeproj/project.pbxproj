@@ -20,6 +20,7 @@
 		32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */; };
 		3495EA4C145807AC2907B0BF /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274F2E9B6A333220D5F8B0C /* CardViewModel.swift */; };
 		3B02C31B60910A846B78B96B /* WhatsNewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC73D1563A464E7142E6C234 /* WhatsNewView.swift */; };
+		3B7A453494A1E8BC37B67F87 /* RemoteCatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11583449A6D8F7FA63D5D1B /* RemoteCatalogService.swift */; };
 		3DCC2372FA629D5C4CDBF39E /* WidgetDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46793A72523BFCB316D74A7C /* WidgetDataManager.swift */; };
 		3EC01DB11EC48653F556D15B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACB054B1C57355D04F18D873 /* Preview Assets.xcassets */; };
 		43A08F2CCF292ADEEA09871F /* CardWiseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EAFE3ACDD24CFDCFE2C00F /* CardWiseApp.swift */; };
@@ -37,6 +38,7 @@
 		7763CE35ACB2B150CA1F1238 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F0A498B90BF641C9725DD /* Extensions.swift */; };
 		8280E62FD06ACC0294590CBF /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530C41DD9A8ACF4889D327DD /* ModelTests.swift */; };
 		84B582DBA535831757D11106 /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */; };
+		86DD595717F5FB8225342ED0 /* RemoteCatalogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF97DA6F4C5544E308B02DE /* RemoteCatalogServiceTests.swift */; };
 		883027E57857D945A9BC93D3 /* RecommendationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */; };
 		8C5E57B8CE14DC1589E78235 /* SpendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7949151505BEE1862FD1298 /* SpendingViewModel.swift */; };
 		93DBF7456906A5431E2F2BD8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125792622D2A5A023026842B /* NotificationService.swift */; };
@@ -140,6 +142,7 @@
 		82B7DAE90B2564ABF2FD6F97 /* CardCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCatalog.swift; sourceTree = "<group>"; };
 		89112E68051435F4ECA85FCE /* CardWiseTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CardWiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationEngineTests.swift; sourceTree = "<group>"; };
+		8DF97DA6F4C5544E308B02DE /* RemoteCatalogServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCatalogServiceTests.swift; sourceTree = "<group>"; };
 		8F2B7435406B695A2AC41E68 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		91E2B4656F04A27CDA45B53B /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		94D3CFC5475B463B957F028F /* HeroStatCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroStatCard.swift; sourceTree = "<group>"; };
@@ -150,6 +153,7 @@
 		A9C4D7C60F516C97591535FC /* CardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListView.swift; sourceTree = "<group>"; };
 		AC7A51E743C7B9A7320FF939 /* CloudStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStore.swift; sourceTree = "<group>"; };
 		ACB054B1C57355D04F18D873 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B11583449A6D8F7FA63D5D1B /* RemoteCatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCatalogService.swift; sourceTree = "<group>"; };
 		B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
 		B97732289978E9D76C5A0E08 /* CloudStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStoreTests.swift; sourceTree = "<group>"; };
 		BA119EEC79B96D49EACB240D /* CategoryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChip.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 				F7F173864CFC6B3CF85B28DB /* MerchantDatabaseTests.swift */,
 				530C41DD9A8ACF4889D327DD /* ModelTests.swift */,
 				8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */,
+				8DF97DA6F4C5544E308B02DE /* RemoteCatalogServiceTests.swift */,
 				43AE329C5BF824AC8FC7375E /* SearchHistoryManagerTests.swift */,
 				4BB7C226563289833EA7095D /* WhatsNewTests.swift */,
 			);
@@ -281,6 +286,7 @@
 				125792622D2A5A023026842B /* NotificationService.swift */,
 				0EB4C0064CA01D693739E78B /* OCRService.swift */,
 				E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */,
+				B11583449A6D8F7FA63D5D1B /* RemoteCatalogService.swift */,
 				B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */,
 				371EDCF327C645E7DD3ACB1E /* SpendingCapTracker.swift */,
 				46793A72523BFCB316D74A7C /* WidgetDataManager.swift */,
@@ -568,6 +574,7 @@
 				E54F9F9A47A612CFD6744460 /* RecommendView.swift in Sources */,
 				883027E57857D945A9BC93D3 /* RecommendationEngine.swift in Sources */,
 				96EB0F142683D4FD56FEFBE4 /* ReleaseNotes.swift in Sources */,
+				3B7A453494A1E8BC37B67F87 /* RemoteCatalogService.swift in Sources */,
 				EC7AE85A1ADEC89378C80C44 /* ScanReceiptView.swift in Sources */,
 				84B582DBA535831757D11106 /* SearchHistoryManager.swift in Sources */,
 				E40AD5A79833E2FF8E708DF5 /* SectionCard.swift in Sources */,
@@ -603,6 +610,7 @@
 				EC6A3D10C9A3C2B6AD6AB3CC /* MerchantDatabaseTests.swift in Sources */,
 				8280E62FD06ACC0294590CBF /* ModelTests.swift in Sources */,
 				32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */,
+				86DD595717F5FB8225342ED0 /* RemoteCatalogServiceTests.swift in Sources */,
 				DB509AB60F4D5175E7E74CEE /* SearchHistoryManagerTests.swift in Sources */,
 				B8B6837B2FE9828D3DB70532 /* WhatsNewTests.swift in Sources */,
 			);
@@ -647,7 +655,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = studio.tmj.cardwise;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -724,7 +732,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = studio.tmj.cardwise.widget;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -818,7 +826,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = studio.tmj.cardwise;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -838,7 +846,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = studio.tmj.cardwise.widget;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;

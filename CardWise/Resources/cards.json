@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "updatedAt": "2026-06-09",
   "cards": [
     {
@@ -1039,7 +1039,7 @@
       "name": "American Express Gold Card",
       "issuer": "American Express",
       "network": "amex",
-      "annualFee": 250,
+      "annualFee": 325,
       "rewardType": "points",
       "baseReward": 1,
       "baseIsPercentage": false,
@@ -1347,11 +1347,18 @@
       "network": "amex",
       "annualFee": 550,
       "rewardType": "points",
-      "baseReward": 1,
+      "baseReward": 3,
       "baseIsPercentage": false,
       "categoryRewards": [
         {
-          "category": "travel",
+          "category": "hotels",
+          "multiplier": 14,
+          "isPercentage": false,
+          "cap": null,
+          "capPeriod": null
+        },
+        {
+          "category": "airlines",
           "multiplier": 7,
           "isPercentage": false,
           "cap": null,
