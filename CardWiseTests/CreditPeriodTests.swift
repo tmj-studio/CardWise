@@ -15,6 +15,11 @@ final class CreditPeriodTests: XCTestCase {
         XCTAssertEqual(CreditPeriod.key(for: date(2026, 1, 1), cadence: .quarterly), "2026-Q1")
         XCTAssertEqual(CreditPeriod.key(for: date(2026, 6, 30), cadence: .quarterly), "2026-Q2")
         XCTAssertEqual(CreditPeriod.key(for: date(2026, 12, 31), cadence: .quarterly), "2026-Q4")
+        // every quarter boundary flip
+        XCTAssertEqual(CreditPeriod.key(for: date(2026, 3, 31), cadence: .quarterly), "2026-Q1")
+        XCTAssertEqual(CreditPeriod.key(for: date(2026, 4, 1), cadence: .quarterly), "2026-Q2")
+        XCTAssertEqual(CreditPeriod.key(for: date(2026, 7, 1), cadence: .quarterly), "2026-Q3")
+        XCTAssertEqual(CreditPeriod.key(for: date(2026, 10, 1), cadence: .quarterly), "2026-Q4")
     }
     func test_semiannual_key() {
         XCTAssertEqual(CreditPeriod.key(for: date(2026, 6, 30), cadence: .semiannual), "2026-H1")
