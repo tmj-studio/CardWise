@@ -48,4 +48,46 @@ final class CardCatalogTests: XCTestCase {
         XCTAssertEqual(cards.count, 1)
         XCTAssertEqual(cards.first?.id, "x-1")
     }
+
+    func test_loadCards_prefersCacheOverBundle() throws {
+        let tmp = FileManager.default.temporaryDirectory
+            .appendingPathComponent("cache-\(UUID().uuidString).json")
+        defer { try? FileManager.default.removeItem(at: tmp) }
+        let json = ##"""
+        {"version":99,"updatedAt":"2026-06-09","cards":[
+          {"id":"cached-only","name":"Cached Card","issuer":"X","network":"visa","annualFee":0,
+           "rewardType":"cashback","baseReward":1,"baseIsPercentage":true,
+           "categoryRewards":[],"rotatingCategories":null,"selectableConfig":null,
+           "signUpBonus":null,"imageColor":"#000000","imageURL":null}
+        ]}
+        """##
+        try Data(json.utf8).write(to: tmp)
+        let cards = CardCatalog.loadCards(cacheURL: tmp)
+        XCTAssertEqual(cards.map(\.id), ["cached-only"])
+    }
+
+    func test_loadCards_fallsBackToBundle_whenCacheMissing() {
+        let missing = FileManager.default.temporaryDirectory
+            .appendingPathComponent("nope-\(UUID().uuidString).json")
+        let cards = CardCatalog.loadCards(cacheURL: missing)
+        XCTAssertGreaterThan(cards.count, 100, "should fall back to bundled cards.json")
+    }
+
+    func test_loadCards_fallsBackToBundle_whenCacheCorrupt() throws {
+        let tmp = FileManager.default.temporaryDirectory
+            .appendingPathComponent("corrupt-\(UUID().uuidString).json")
+        defer { try? FileManager.default.removeItem(at: tmp) }
+        try Data("not json".utf8).write(to: tmp)
+        let cards = CardCatalog.loadCards(cacheURL: tmp)
+        XCTAssertGreaterThan(cards.count, 100, "corrupt cache must not break loading")
+    }
+
+    func test_currentVersion_readsFromCache() throws {
+        let tmp = FileManager.default.temporaryDirectory
+            .appendingPathComponent("ver-\(UUID().uuidString).json")
+        defer { try? FileManager.default.removeItem(at: tmp) }
+        let json = ##"{"version":42,"updatedAt":"2026-06-09","cards":[{"id":"a","name":"A","issuer":"X","network":"visa","annualFee":0,"rewardType":"cashback","baseReward":1,"baseIsPercentage":true,"categoryRewards":[],"rotatingCategories":null,"selectableConfig":null,"signUpBonus":null,"imageColor":"#000000","imageURL":null}]}"##
+        try Data(json.utf8).write(to: tmp)
+        XCTAssertEqual(CardCatalog.currentVersion(cacheURL: tmp), 42)
+    }
 }
