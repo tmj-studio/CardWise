@@ -66,4 +66,4 @@ We may modify these terms at any time. We will update the "Last Updated" date at
 
 For questions about these Terms of Service, contact us at:
 
-Email: support@cardwiseapp.com
+Email: contact@tailormyjob.com

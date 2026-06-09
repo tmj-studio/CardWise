@@ -26,7 +26,7 @@ Examples of unacceptable behavior:
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the maintainers at **support@cardwiseapp.com**. All complaints will be
+reported to the maintainers at **contact@tailormyjob.com**. All complaints will be
 reviewed and investigated promptly and fairly.
 
 ## Attribution

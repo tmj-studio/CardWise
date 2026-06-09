@@ -94,7 +94,7 @@ struct PrivacyPolicyView: View {
                             """
                             If you have questions about this Privacy Policy, please contact us at:
 
-                            Email: support@cardwiseapp.com
+                            Email: contact@tailormyjob.com
                             """
                         }
                     }
@@ -223,7 +223,7 @@ struct TermsOfServiceView: View {
                             """
                             For questions about these Terms of Service, contact us at:
 
-                            Email: support@cardwiseapp.com
+                            Email: contact@tailormyjob.com
                             """
                         }
                     }

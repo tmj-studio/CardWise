@@ -117,7 +117,7 @@ https://gist.github.com/Rich627/426c485b4330005448d6a346f7e11f94
 
 ### Support URL
 https://gist.github.com/Rich627/426b2ff37d91463761a3f2c19f12ff3f
-(In-app support contact is support@cardwiseapp.com.)
+(In-app support contact is contact@tailormyjob.com.)
 
 ### Marketing URL
 (optional — leave blank unless a marketing site exists)

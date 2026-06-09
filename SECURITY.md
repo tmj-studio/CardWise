@@ -13,7 +13,7 @@ Please **do not** open a public GitHub issue for security problems.
 Instead, report privately via one of:
 
 - GitHub's [private vulnerability reporting](https://github.com/tmj-studio/CardWise/security/advisories/new)
-- Email: support@cardwiseapp.com
+- Email: contact@tailormyjob.com
 
 Include steps to reproduce, the affected version, and any relevant logs. We aim
 to acknowledge reports within a few business days and will keep you updated as we

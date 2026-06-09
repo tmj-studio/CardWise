@@ -56,4 +56,4 @@ We may update this Privacy Policy from time to time to reflect changes in the ap
 
 If you have questions about this Privacy Policy, please contact us at:
 
-Email: support@cardwiseapp.com
+Email: contact@tailormyjob.com

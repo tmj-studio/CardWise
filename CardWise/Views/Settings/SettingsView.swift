@@ -144,7 +144,7 @@ struct SettingsView: View {
                         settingsRow(icon: "doc.text", label: "Terms of Service")
                     }
 
-                    Link(destination: URL(string: "mailto:support@cardwiseapp.com")!) {
+                    Link(destination: URL(string: "mailto:contact@tailormyjob.com")!) {
                         HStack {
                             settingsRow(icon: "envelope", label: "Contact Support")
                             Spacer()
