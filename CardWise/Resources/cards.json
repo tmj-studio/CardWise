@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "updatedAt": "2026-06-09",
   "cards": [
     {
@@ -1070,7 +1070,23 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#006FCF",
-      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/gold-card.png"
+      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/gold-card.png",
+      "credits": [
+        {
+          "id": "amex-gold-dining",
+          "description": "Dining credit",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "dining"
+        },
+        {
+          "id": "amex-gold-uber",
+          "description": "Uber Cash",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "transit"
+        }
+      ]
     },
     {
       "id": "american-express-american-express-green-card",
@@ -1376,7 +1392,23 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#006FCF",
-      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/hilton-honors-aspire.png"
+      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/hilton-honors-aspire.png",
+      "credits": [
+        {
+          "id": "aspire-resort",
+          "description": "Hilton resort credit",
+          "amount": 200,
+          "cadence": "semiannual",
+          "category": "hotels"
+        },
+        {
+          "id": "aspire-airline",
+          "description": "Airline flight credit",
+          "amount": 50,
+          "cadence": "quarterly",
+          "category": "airlines"
+        }
+      ]
     },
     {
       "id": "american-express-marriott-bonvoy-american-express-card",
