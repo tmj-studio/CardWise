@@ -458,6 +458,28 @@ struct CardDetailView: View {
                     }
                 }
 
+                // Statement Credits (read-only)
+                if let credits = card.credits, !credits.isEmpty {
+                    Section("Statement Credits") {
+                        ForEach(credits) { credit in
+                            HStack {
+                                Label(credit.description,
+                                      systemImage: credit.category?.icon ?? "creditcard")
+                                Spacer()
+                                VStack(alignment: .trailing) {
+                                    Text("$\(Int(credit.amount)) / \(credit.cadence.displayName)")
+                                        .foregroundStyle(Theme.success)
+                                    if credit.cadence != .annual {
+                                        Text("$\(Int(credit.annualizedAmount))/yr")
+                                            .font(.app(.caption2))
+                                            .foregroundStyle(Theme.textSecondary)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 // Rotating Categories
                 if let rotating = card.rotatingCategories {
                     Section("Rotating Categories") {
