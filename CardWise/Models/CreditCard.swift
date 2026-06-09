@@ -158,6 +158,9 @@ struct CreditCard: Identifiable, Codable, Equatable {
     let lastUpdated: Date?           // Optional: set by Firestore on upload
     var credits: [StatementCredit]? = nil   // optional + default keeps memberwise init call sites working
 
+    var annualizedCreditTotal: Double { credits?.reduce(0) { $0 + $1.annualizedAmount } ?? 0 }
+    var netAnnualFee: Double { annualFee - annualizedCreditTotal }
+
     var displayBaseReward: String {
         if baseIsPercentage {
             return "\(Int(baseReward))%"
