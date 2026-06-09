@@ -116,6 +116,40 @@ class CardViewModel: ObservableObject {
         try? store.saveCreditUsages(creditUsages)
     }
 
+    // MARK: - Credits Aggregation
+
+    struct UnusedCredit: Identifiable {
+        let id: String          // "\(cardID)|\(creditID)"
+        let cardName: String
+        let credit: StatementCredit
+        let remaining: Double
+    }
+
+    var unusedCreditsThisPeriod: [UnusedCredit] {
+        var result: [UnusedCredit] = []
+        for userCard in userCards {
+            guard let card = getCard(for: userCard), let credits = card.credits else { continue }
+            for credit in credits {
+                let periodKey = CreditPeriod.key(for: Date(), cadence: credit.cadence)
+                let remaining = credit.amount - usedAmount(cardID: card.id, creditID: credit.id, periodKey: periodKey)
+                if remaining > 0 {
+                    result.append(UnusedCredit(id: "\(card.id)|\(credit.id)",
+                                               cardName: card.name, credit: credit, remaining: remaining))
+                }
+            }
+        }
+        let order: [CreditCadence: Int] = [.monthly: 0, .quarterly: 1, .semiannual: 2, .annual: 3]
+        return result.sorted {
+            let a = order[$0.credit.cadence] ?? 99
+            let b = order[$1.credit.cadence] ?? 99
+            return a != b ? a < b : $0.remaining > $1.remaining
+        }
+    }
+
+    var totalUnusedCredits: Double {
+        unusedCreditsThisPeriod.reduce(0) { $0 + $1.remaining }
+    }
+
     // MARK: - Helpers
 
     func getCard(for userCard: UserCard) -> CreditCard? {

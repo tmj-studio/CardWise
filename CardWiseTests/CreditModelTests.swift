@@ -26,4 +26,26 @@ final class CreditModelTests: XCTestCase {
         XCTAssertEqual(monthly.annualizedAmount, 120)
         XCTAssertEqual(annual.annualizedAmount, 200)
     }
+
+    func test_annualizedCreditTotal_sumsAnnualized() {
+        let c = CreditCard(id: "t", name: "T", issuer: "X", network: .amex, annualFee: 325,
+            rewardType: .points, baseReward: 1, baseIsPercentage: false, categoryRewards: [],
+            rotatingCategories: nil, selectableConfig: nil, signUpBonus: nil,
+            imageColor: "#000000", imageURL: nil, lastUpdated: nil,
+            credits: [
+                StatementCredit(id: "d", description: "Dining", amount: 10, cadence: .monthly, category: .dining),
+                StatementCredit(id: "u", description: "Uber", amount: 10, cadence: .monthly, category: .transit)
+            ])
+        XCTAssertEqual(c.annualizedCreditTotal, 240)
+        XCTAssertEqual(c.netAnnualFee, 85)
+    }
+
+    func test_netAnnualFee_equalsAnnualFee_whenNoCredits() {
+        let c = CreditCard(id: "t2", name: "T2", issuer: "X", network: .visa, annualFee: 95,
+            rewardType: .cashback, baseReward: 1, baseIsPercentage: true, categoryRewards: [],
+            rotatingCategories: nil, selectableConfig: nil, signUpBonus: nil,
+            imageColor: "#000000", imageURL: nil, lastUpdated: nil)
+        XCTAssertEqual(c.annualizedCreditTotal, 0)
+        XCTAssertEqual(c.netAnnualFee, 95)
+    }
 }
