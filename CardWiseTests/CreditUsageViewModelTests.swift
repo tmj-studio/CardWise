@@ -38,4 +38,23 @@ final class CreditUsageViewModelTests: XCTestCase {
         vm.setUsedAmount(8, cardID: "c", creditID: "dining", periodKey: "2026-06")
         XCTAssertEqual(vm.usedAmount(cardID: "c", creditID: "dining", periodKey: "2026-07"), 0)
     }
+
+    func test_removeCard_purgesItsCreditUsages() throws {
+        let vm = try makeVM()
+        let card = try XCTUnwrap(vm.allCards.first)
+        vm.addCard(card)
+        let userCard = try XCTUnwrap(vm.getUserCard(byCardId: card.id))
+        vm.setUsedAmount(7, cardID: card.id, creditID: "dining", periodKey: "2026-06")
+        XCTAssertEqual(vm.usedAmount(cardID: card.id, creditID: "dining", periodKey: "2026-06"), 7)
+        vm.removeCard(userCard)
+        XCTAssertEqual(vm.usedAmount(cardID: card.id, creditID: "dining", periodKey: "2026-06"), 0)
+    }
+
+    func test_clearAllData_clearsCreditUsages() throws {
+        let vm = try makeVM()
+        vm.setUsedAmount(5, cardID: "c", creditID: "x", periodKey: "2026-06")
+        vm.clearAllData()
+        XCTAssertEqual(vm.usedAmount(cardID: "c", creditID: "x", periodKey: "2026-06"), 0)
+        XCTAssertTrue(vm.creditUsages.isEmpty)
+    }
 }

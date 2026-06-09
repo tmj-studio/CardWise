@@ -34,6 +34,8 @@ class CardViewModel: ObservableObject {
     func clearAllData() {
         userCards = []
         try? store.saveUserCards([])
+        creditUsages = []
+        try? store.saveCreditUsages([])
     }
 
     // MARK: - Card Management
@@ -50,6 +52,11 @@ class CardViewModel: ObservableObject {
     func removeCard(_ userCard: UserCard) {
         userCards.removeAll { $0.id == userCard.id }
         saveUserCards()
+        // Purge this card's tracked credit usages so they don't resurface if re-added.
+        if creditUsages.contains(where: { $0.cardID == userCard.cardId }) {
+            creditUsages.removeAll { $0.cardID == userCard.cardId }
+            try? store.saveCreditUsages(creditUsages)
+        }
     }
 
     func updateNickname(for userCard: UserCard, nickname: String?) {
