@@ -85,15 +85,8 @@ platform :ios do
       }
     )
 
-    # Xcode 26's rewritten altool does a pre-flight "resolve appleID from bundleID"
-    # round-trip that regressed in 26.3: it dies instantly with "The file couldn't be
-    # opened because it isn't in the correct format. (259)" before uploading a byte
-    # (fastlane #29698 / #29820). `--use-old-altool` falls back to the pre-26 upload
-    # path; passing the numeric apple_id skips the broken app-resolution step entirely.
-    ENV["DELIVER_ALTOOL_ADDITIONAL_UPLOAD_PARAMETERS"] = "--use-old-altool"
     upload_to_testflight(
       api_key: api_key,
-      apple_id: "6776198130",
       skip_waiting_for_build_processing: true
     )
   end
