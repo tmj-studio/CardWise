@@ -18,4 +18,34 @@ final class CardCatalogTests: XCTestCase {
         let cards = CardCatalog.decodeCards(from: Data("not json".utf8))
         XCTAssertEqual(cards.count, MockData.creditCards.count)
     }
+
+    func test_decodeFile_parsesWrapperFormat() {
+        let json = #"""
+        {"version":7,"updatedAt":"2026-06-09","cards":[
+          {"id":"x-1","name":"Test Card","issuer":"X","network":"visa","annualFee":0,
+           "rewardType":"cashback","baseReward":1,"baseIsPercentage":true,
+           "categoryRewards":[],"rotatingCategories":null,"selectableConfig":null,
+           "signUpBonus":null,"imageColor":"#000000","imageURL":null}
+        ]}
+        """#
+        let file = CardCatalog.decodeFile(from: Data(json.utf8))
+        XCTAssertEqual(file?.version, 7)
+        XCTAssertEqual(file?.updatedAt, "2026-06-09")
+        XCTAssertEqual(file?.cards.count, 1)
+        XCTAssertEqual(file?.cards.first?.id, "x-1")
+    }
+
+    func test_decodeCards_acceptsWrapperFormat() {
+        let json = #"""
+        {"version":1,"updatedAt":"2026-06-09","cards":[
+          {"id":"x-1","name":"Test Card","issuer":"X","network":"visa","annualFee":0,
+           "rewardType":"cashback","baseReward":1,"baseIsPercentage":true,
+           "categoryRewards":[],"rotatingCategories":null,"selectableConfig":null,
+           "signUpBonus":null,"imageColor":"#000000","imageURL":null}
+        ]}
+        """#
+        let cards = CardCatalog.decodeCards(from: Data(json.utf8))
+        XCTAssertEqual(cards.count, 1)
+        XCTAssertEqual(cards.first?.id, "x-1")
+    }
 }
