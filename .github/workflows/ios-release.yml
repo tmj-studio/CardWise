@@ -32,7 +32,12 @@ concurrency:
 
 jobs:
   testflight:
-    runs-on: macos-15
+    # macos-26 (not macos-15) because we need Xcode 26.4+: the altool bundled with
+    # Xcode 26.3 — the newest on macos-15 — is broken and cannot generate the App
+    # Store Connect auth JWT (fails with "Failed to generate JWT token … 259"). It's
+    # fixed in 26.4/26.5, which only the macos-26 image carries. The Xcode-select
+    # step below then picks 26.5 (the newest 26.x present).
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
 
@@ -73,12 +78,6 @@ jobs:
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY_P8_BASE64: ${{ secrets.ASC_KEY_P8_BASE64 }}
           DIST_CERT_PASSWORD: ${{ secrets.DIST_CERT_PASSWORD }}
-          # Upload via the Java iTMSTransporter instead of Xcode 26's altool. The
-          # Xcode 26 altool regressed and cannot build the App Store Connect auth JWT
-          # from a valid API key — it dies with "Failed to generate JWT token …
-          # NSCocoaErrorDomain Code=259 (isn't in the correct format)" before uploading.
-          # The shell-script transporter has its own (working) JWT handling.
-          FASTLANE_ITUNES_TRANSPORTER_USE_SHELL_SCRIPT: "true"
         run: bundle exec fastlane beta
 
       - name: Clean up signing assets
