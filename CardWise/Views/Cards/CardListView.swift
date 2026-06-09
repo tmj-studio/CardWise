@@ -385,6 +385,11 @@ struct CardDetailView: View {
                             Text("$\(Int(card.annualFee)) annual fee")
                                 .font(.app(.caption))
                                 .foregroundStyle(Theme.textSecondary)
+                            if card.credits?.isEmpty == false {
+                                Text("−$\(Int(card.annualizedCreditTotal)) credits · $\(Int(card.netAnnualFee)) net/yr")
+                                    .font(.app(.caption))
+                                    .foregroundStyle(Theme.textSecondary)
+                            }
                         }
                     }
                 }
