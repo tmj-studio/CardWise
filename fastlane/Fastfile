@@ -100,7 +100,7 @@ platform :ios do
     begin
       ipa = lane_context[SharedValues::IPA_OUTPUT_PATH]
       sh("xcrun", "altool", "--upload-app", "-f", ipa, "-t", "ios",
-         "--apiKey", key_id, "--apiIssuer", issuer_id, "--verbose")
+         "--apiKey", key_id, "--apiIssuer", issuer_id)
     ensure
       File.delete(key_file) if File.exist?(key_file)
     end
