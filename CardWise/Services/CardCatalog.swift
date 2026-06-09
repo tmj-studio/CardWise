@@ -42,32 +42,38 @@ enum CardCatalog {
     }
 
     static func currentVersion(cacheURL: URL? = RemoteCatalogService.defaultCacheURL) -> Int {
-        if let cacheURL, let data = try? Data(contentsOf: cacheURL),
-           let file = decodeFile(from: data) {
+        if let cacheURL, let file = decodeFile(at: cacheURL) {
             return file.version
         }
-        if let url = Bundle.main.url(forResource: "cards", withExtension: "json"),
-           let data = try? Data(contentsOf: url), let file = decodeFile(from: data) {
+        if let file = decodeFile(at: bundleURL) {
             return file.version
         }
         return 0
     }
 
+    private static var bundleURL: URL? {
+        Bundle.main.url(forResource: "cards", withExtension: "json")
+    }
+
+    /// Reads and decodes a catalog file at `url`, returning nil if missing or malformed.
+    private static func decodeFile(at url: URL?) -> CardCatalogFile? {
+        guard let url, let data = try? Data(contentsOf: url) else { return nil }
+        return decodeFile(from: data)
+    }
+
     private static func loadFromCache(_ cacheURL: URL) -> [CreditCard]? {
-        guard let data = try? Data(contentsOf: cacheURL),
-              let file = decodeFile(from: data), !file.cards.isEmpty else { return nil }
+        // Treat an empty card list as invalid so we fall through to the bundle.
+        guard let file = decodeFile(at: cacheURL), !file.cards.isEmpty else { return nil }
         return file.cards
     }
 
     private static func loadFromBundle() -> [CreditCard]? {
-        guard let url = Bundle.main.url(forResource: "cards", withExtension: "json"),
-              let data = try? Data(contentsOf: url) else {
+        guard let file = decodeFile(at: bundleURL), !file.cards.isEmpty else {
             #if DEBUG
-            logger.error("cards.json not found in bundle; using MockData")
+            logger.error("cards.json missing or unreadable in bundle; using MockData")
             #endif
             return nil
         }
-        let cards = decodeCards(from: data)
-        return cards.isEmpty ? nil : cards
+        return file.cards
     }
 }

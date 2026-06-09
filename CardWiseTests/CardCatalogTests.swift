@@ -90,4 +90,11 @@ final class CardCatalogTests: XCTestCase {
         try Data(json.utf8).write(to: tmp)
         XCTAssertEqual(CardCatalog.currentVersion(cacheURL: tmp), 42)
     }
+
+    func test_currentVersion_fallsBackToBundle_whenCacheMissing() {
+        let missing = FileManager.default.temporaryDirectory
+            .appendingPathComponent("ver-missing-\(UUID().uuidString).json")
+        // No cache present -> reads the bundled file's version (>= 1).
+        XCTAssertGreaterThan(CardCatalog.currentVersion(cacheURL: missing), 0)
+    }
 }
