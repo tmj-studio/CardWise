@@ -7,6 +7,7 @@ class CardViewModel: ObservableObject {
     private static let logger = Logger(subsystem: "com.cardwise.app", category: "CardViewModel")
     @Published var allCards: [CreditCard] = []
     @Published var userCards: [UserCard] = []
+    @Published var creditUsages: [CreditUsage] = []
     @Published var isLoading = false
 
     private let store: CloudStore
@@ -14,6 +15,7 @@ class CardViewModel: ObservableObject {
     init(store: CloudStore) {
         self.store = store
         userCards = store.loadUserCards()
+        creditUsages = store.loadCreditUsages()
         allCards = CardCatalog.loadCards()
     }
 
@@ -88,6 +90,23 @@ class CardViewModel: ObservableObject {
 
         guard totalLimit > 0 else { return nil }
         return (totalBalance / totalLimit) * 100
+    }
+
+    // MARK: - Statement Credit Usage
+
+    func usedAmount(cardID: String, creditID: String, periodKey: String) -> Double {
+        let id = "\(cardID)|\(creditID)|\(periodKey)"
+        return creditUsages.first { $0.id == id }?.amountUsed ?? 0
+    }
+
+    func setUsedAmount(_ amount: Double, cardID: String, creditID: String, periodKey: String) {
+        let usage = CreditUsage(cardID: cardID, creditID: creditID, periodKey: periodKey, amountUsed: amount)
+        if let index = creditUsages.firstIndex(where: { $0.id == usage.id }) {
+            creditUsages[index] = usage
+        } else {
+            creditUsages.append(usage)
+        }
+        try? store.saveCreditUsages(creditUsages)
     }
 
     // MARK: - Helpers

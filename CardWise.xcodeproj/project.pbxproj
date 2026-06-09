@@ -42,6 +42,7 @@
 		86DD595717F5FB8225342ED0 /* RemoteCatalogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF97DA6F4C5544E308B02DE /* RemoteCatalogServiceTests.swift */; };
 		883027E57857D945A9BC93D3 /* RecommendationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */; };
 		8C5E57B8CE14DC1589E78235 /* SpendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7949151505BEE1862FD1298 /* SpendingViewModel.swift */; };
+		8F0802150638EEE3C8E85D0B /* CreditUsageViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998DD0C18E2B6B0A017F1050 /* CreditUsageViewModelTests.swift */; };
 		93DBF7456906A5431E2F2BD8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125792622D2A5A023026842B /* NotificationService.swift */; };
 		96E09EC27D55C770E1124713 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F8003CFFC6306AD8A404BC /* AppVersion.swift */; };
 		96EB0F142683D4FD56FEFBE4 /* ReleaseNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954D972AEF90855F3BCD06F1 /* ReleaseNotes.swift */; };
@@ -156,6 +157,7 @@
 		91E2B4656F04A27CDA45B53B /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		94D3CFC5475B463B957F028F /* HeroStatCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroStatCard.swift; sourceTree = "<group>"; };
 		954D972AEF90855F3BCD06F1 /* ReleaseNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseNotes.swift; sourceTree = "<group>"; };
+		998DD0C18E2B6B0A017F1050 /* CreditUsageViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditUsageViewModelTests.swift; sourceTree = "<group>"; };
 		9EF88FBB29B10BEDD26919AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A19A21D57BB7FC98B67DFA4C /* SpendingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingListView.swift; sourceTree = "<group>"; };
 		A2EAFE3ACDD24CFDCFE2C00F /* CardWiseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardWiseApp.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				5D4EDF74094174199CEC5D5A /* CreditModelTests.swift */,
 				020279ED4D745113A0018184 /* CreditPeriodTests.swift */,
 				4091A20AF671AC6BF9E39609 /* CreditUsageStoreTests.swift */,
+				998DD0C18E2B6B0A017F1050 /* CreditUsageViewModelTests.swift */,
 				F7F173864CFC6B3CF85B28DB /* MerchantDatabaseTests.swift */,
 				530C41DD9A8ACF4889D327DD /* ModelTests.swift */,
 				8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */,
@@ -627,6 +630,7 @@
 				A3A2FFADA38BE4999C5485C4 /* CreditModelTests.swift in Sources */,
 				72C359ED26020FC88F2933AA /* CreditPeriodTests.swift in Sources */,
 				F33FAE903A1328DA6BFC36A1 /* CreditUsageStoreTests.swift in Sources */,
+				8F0802150638EEE3C8E85D0B /* CreditUsageViewModelTests.swift in Sources */,
 				EC6A3D10C9A3C2B6AD6AB3CC /* MerchantDatabaseTests.swift in Sources */,
 				8280E62FD06ACC0294590CBF /* ModelTests.swift in Sources */,
 				32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */,
