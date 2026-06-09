@@ -34,6 +34,38 @@ enum RewardType: String, Codable, CaseIterable {
     }
 }
 
+enum CreditCadence: String, Codable, CaseIterable {
+    case monthly, quarterly, semiannual, annual
+
+    var displayName: String {
+        switch self {
+        case .monthly: return "month"
+        case .quarterly: return "quarter"
+        case .semiannual: return "6 months"
+        case .annual: return "year"
+        }
+    }
+
+    var periodsPerYear: Int {
+        switch self {
+        case .monthly: return 12
+        case .quarterly: return 4
+        case .semiannual: return 2
+        case .annual: return 1
+        }
+    }
+}
+
+struct StatementCredit: Codable, Identifiable, Equatable {
+    let id: String
+    let description: String
+    let amount: Double               // amount per period
+    let cadence: CreditCadence
+    let category: SpendingCategory?  // optional, for icon/grouping
+
+    var annualizedAmount: Double { amount * Double(cadence.periodsPerYear) }
+}
+
 struct CategoryReward: Codable, Identifiable, Equatable {
     var id: String { category.rawValue }
     let category: SpendingCategory
@@ -124,6 +156,7 @@ struct CreditCard: Identifiable, Codable, Equatable {
     let imageColor: String           // hex color for card display (fallback)
     let imageURL: String?            // URL for card image
     let lastUpdated: Date?           // Optional: set by Firestore on upload
+    var credits: [StatementCredit]? = nil   // optional + default keeps memberwise init call sites working
 
     var displayBaseReward: String {
         if baseIsPercentage {
