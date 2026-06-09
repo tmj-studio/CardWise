@@ -36,4 +36,23 @@ final class RemoteCatalogServiceTests: XCTestCase {
         let badCard = ##"{"id":"","name":"No ID","issuer":"X","network":"visa","annualFee":0,"rewardType":"cashback","baseReward":1,"baseIsPercentage":true,"categoryRewards":[],"rotatingCategories":null,"selectableConfig":null,"signUpBonus":null,"imageColor":"#000000","imageURL":null}"##
         XCTAssertEqual(RemoteCatalogService.decide(fetched: wrapper(version: 9, cards: badCard), currentVersion: 0), .skip)
     }
+
+    func test_writeIfNeeded_persistsNewerVersion() throws {
+        let tmp = FileManager.default.temporaryDirectory
+            .appendingPathComponent("write-\(UUID().uuidString).json")
+        defer { try? FileManager.default.removeItem(at: tmp) }
+        let service = RemoteCatalogService(cacheURL: tmp)
+        service.writeIfNeeded(fetched: wrapper(version: 5), currentVersion: 1)
+        XCTAssertEqual(CardCatalog.currentVersion(cacheURL: tmp), 5)
+    }
+
+    func test_writeIfNeeded_ignoresOlderVersion() throws {
+        let tmp = FileManager.default.temporaryDirectory
+            .appendingPathComponent("write-\(UUID().uuidString).json")
+        defer { try? FileManager.default.removeItem(at: tmp) }
+        try wrapper(version: 8).write(to: tmp)
+        let service = RemoteCatalogService(cacheURL: tmp)
+        service.writeIfNeeded(fetched: wrapper(version: 3), currentVersion: 8)
+        XCTAssertEqual(CardCatalog.currentVersion(cacheURL: tmp), 8, "older fetch must not overwrite cache")
+    }
 }

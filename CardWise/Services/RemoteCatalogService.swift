@@ -45,4 +45,33 @@ final class RemoteCatalogService {
               file.version > currentVersion else { return .skip }
         return .write(version: file.version)
     }
+
+    // MARK: - Side-effecting methods
+
+    /// Writes the fetched bytes to the cache only if `decide` approves them.
+    func writeIfNeeded(fetched: Data, currentVersion: Int) {
+        guard case .write = Self.decide(fetched: fetched, currentVersion: currentVersion) else { return }
+        do {
+            try FileManager.default.createDirectory(
+                at: cacheURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try fetched.write(to: cacheURL, options: .atomic)
+        } catch {
+            Self.logger.debug("catalog cache write failed: \(error.localizedDescription, privacy: .public)")
+        }
+    }
+
+    /// Fetches the latest catalog and updates the cache for the next launch.
+    /// Silent on any failure.
+    func refresh() async {
+        do {
+            let (data, response) = try await session.data(from: url)
+            if let http = response as? HTTPURLResponse, http.statusCode != 200 {
+                Self.logger.debug("catalog refresh HTTP \(http.statusCode)")
+                return
+            }
+            writeIfNeeded(fetched: data, currentVersion: CardCatalog.currentVersion(cacheURL: cacheURL))
+        } catch {
+            Self.logger.debug("catalog refresh failed: \(error.localizedDescription, privacy: .public)")
+        }
+    }
 }
