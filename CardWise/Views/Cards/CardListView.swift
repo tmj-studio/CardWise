@@ -458,6 +458,46 @@ struct CardDetailView: View {
                     }
                 }
 
+                // Statement Credits
+                if let credits = card.credits, !credits.isEmpty {
+                    Section("Statement Credits") {
+                        ForEach(credits) { credit in
+                            let periodKey = CreditPeriod.key(for: Date(), cadence: credit.cadence)
+                            let used = cardViewModel.usedAmount(cardID: card.id, creditID: credit.id, periodKey: periodKey)
+                            VStack(alignment: .leading, spacing: 6) {
+                                HStack {
+                                    Label(credit.description,
+                                          systemImage: credit.category?.icon ?? "creditcard")
+                                    Spacer()
+                                    Text("$\(Int(credit.amount)) / \(credit.cadence.displayName)")
+                                        .foregroundStyle(Theme.success)
+                                }
+                                HStack {
+                                    Text("Used this \(credit.cadence.displayName)")
+                                        .font(.app(.caption))
+                                        .foregroundStyle(Theme.textSecondary)
+                                    Spacer()
+                                    Text("$")
+                                    TextField("0", text: Binding(
+                                        get: { used == 0 ? "" : String(Int(used)) },
+                                        set: { newValue in
+                                            let entered = min(max(Double(newValue) ?? 0, 0), credit.amount)
+                                            cardViewModel.setUsedAmount(entered, cardID: card.id,
+                                                                        creditID: credit.id, periodKey: periodKey)
+                                        }))
+                                        .keyboardType(.numberPad)
+                                        .multilineTextAlignment(.trailing)
+                                        .frame(width: 60)
+                                    Text("/ $\(Int(credit.amount)) · $\(Int(credit.amount - used)) left")
+                                        .font(.app(.caption))
+                                        .foregroundStyle(Theme.textSecondary)
+                                }
+                            }
+                            .padding(.vertical, 2)
+                        }
+                    }
+                }
+
                 // Rotating Categories
                 if let rotating = card.rotatingCategories {
                     Section("Rotating Categories") {
