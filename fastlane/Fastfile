@@ -3,6 +3,9 @@
 # Triggered by CI on every push to `main` (see .github/workflows/ios-release.yml).
 # App Store *submission for review* stays manual in App Store Connect.
 
+require "base64"
+require "fileutils"
+
 default_platform(:ios)
 
 APP_ID = "studio.tmj.cardwise"
@@ -85,9 +88,21 @@ platform :ios do
       }
     )
 
-    upload_to_testflight(
-      api_key: api_key,
-      skip_waiting_for_build_processing: true
-    )
+    # Upload by invoking altool directly instead of via upload_to_testflight. fastlane's
+    # wrapper hands altool the API key in a way that makes Xcode 26's altool fail JWT
+    # generation ("Failed to generate JWT token … 259"), even though the key itself is
+    # valid (it authenticates against the ASC REST API fine). Writing the key to altool's
+    # canonical AuthKey_<id>.p8 location and calling altool ourselves sidesteps that.
+    keys_dir = File.expand_path("~/.appstoreconnect/private_keys")
+    FileUtils.mkdir_p(keys_dir)
+    key_file = File.join(keys_dir, "AuthKey_#{key_id}.p8")
+    File.write(key_file, Base64.decode64(ENV.fetch("ASC_KEY_P8_BASE64")))
+    begin
+      ipa = lane_context[SharedValues::IPA_OUTPUT_PATH]
+      sh("xcrun", "altool", "--upload-app", "-f", ipa, "-t", "ios",
+         "--apiKey", key_id, "--apiIssuer", issuer_id, "--verbose")
+    ensure
+      File.delete(key_file) if File.exist?(key_file)
+    end
   end
 end
