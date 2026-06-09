@@ -1,6 +1,6 @@
 {
-  "version": 3,
-  "updatedAt": "2026-06-09",
+  "version": 4,
+  "updatedAt": "2026-06-10",
   "cards": [
     {
       "id": "chase-chase-sapphire-preferred",
@@ -65,7 +65,23 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/sapphire_preferred_card.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/sapphire_preferred_card.png",
+      "credits": [
+        {
+          "id": "csp-hotel",
+          "description": "Hotel credit (Chase Travel)",
+          "amount": 50,
+          "cadence": "annual",
+          "category": "hotels"
+        },
+        {
+          "id": "csp-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "chase-chase-sapphire-reserve",
@@ -106,7 +122,65 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/sapphire_reserve_card_Halo.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/sapphire_reserve_card_Halo.png",
+      "credits": [
+        {
+          "id": "csr-travel",
+          "description": "Travel credit",
+          "amount": 300,
+          "cadence": "annual",
+          "category": "travel"
+        },
+        {
+          "id": "csr-the-edit",
+          "description": "The Edit hotel credit",
+          "amount": 250,
+          "cadence": "semiannual",
+          "category": "hotels"
+        },
+        {
+          "id": "csr-select-hotel",
+          "description": "Select hotel credit (2026)",
+          "amount": 250,
+          "cadence": "annual",
+          "category": "hotels"
+        },
+        {
+          "id": "csr-dining",
+          "description": "Exclusive Tables dining",
+          "amount": 150,
+          "cadence": "semiannual",
+          "category": "dining"
+        },
+        {
+          "id": "csr-stubhub",
+          "description": "StubHub credit",
+          "amount": 150,
+          "cadence": "semiannual",
+          "category": "entertainment"
+        },
+        {
+          "id": "csr-doordash",
+          "description": "DoorDash credit",
+          "amount": 25,
+          "cadence": "monthly",
+          "category": "dining"
+        },
+        {
+          "id": "csr-lyft",
+          "description": "Lyft credit",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "transit"
+        },
+        {
+          "id": "csr-peloton",
+          "description": "Peloton credit",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "fitness"
+        }
+      ]
     },
     {
       "id": "chase-chase-freedom-unlimited",
@@ -424,7 +498,37 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/united_quest_card_tilted.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/united_quest_card_tilted.png",
+      "credits": [
+        {
+          "id": "united-quest-hotels",
+          "description": "Renowned Hotels credit",
+          "amount": 150,
+          "cadence": "annual",
+          "category": "hotels"
+        },
+        {
+          "id": "united-quest-rideshare",
+          "description": "Rideshare credit",
+          "amount": 8,
+          "cadence": "monthly",
+          "category": "transit"
+        },
+        {
+          "id": "united-quest-jsx",
+          "description": "JSX flight credit",
+          "amount": 150,
+          "cadence": "annual",
+          "category": "airlines"
+        },
+        {
+          "id": "united-quest-instacart",
+          "description": "Instacart credit",
+          "amount": 15,
+          "cadence": "monthly",
+          "category": "grocery"
+        }
+      ]
     },
     {
       "id": "chase-united-explorer-card",
@@ -547,7 +651,37 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/united_club_infinite_card_tilted.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/united_club_infinite_card_tilted.png",
+      "credits": [
+        {
+          "id": "united-club-hotels",
+          "description": "Renowned Hotels credit",
+          "amount": 200,
+          "cadence": "annual",
+          "category": "hotels"
+        },
+        {
+          "id": "united-club-rideshare",
+          "description": "Rideshare credit",
+          "amount": 12,
+          "cadence": "monthly",
+          "category": "transit"
+        },
+        {
+          "id": "united-club-jsx",
+          "description": "JSX flight credit",
+          "amount": 200,
+          "cadence": "annual",
+          "category": "airlines"
+        },
+        {
+          "id": "united-club-instacart",
+          "description": "Instacart credit",
+          "amount": 20,
+          "cadence": "monthly",
+          "category": "grocery"
+        }
+      ]
     },
     {
       "id": "chase-southwest-rapid-rewards-priority",
@@ -580,7 +714,23 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_priority_card-2.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_priority_card-2.png",
+      "credits": [
+        {
+          "id": "sw-priority-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        },
+        {
+          "id": "sw-priority-instacart",
+          "description": "Instacart credit",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "grocery"
+        }
+      ]
     },
     {
       "id": "chase-southwest-rapid-rewards-plus",
@@ -630,7 +780,23 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_premier_card.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/swa_premier_card.png",
+      "credits": [
+        {
+          "id": "sw-premier-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        },
+        {
+          "id": "sw-premier-instacart",
+          "description": "Instacart credit",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "grocery"
+        }
+      ]
     },
     {
       "id": "chase-marriott-bonvoy-boundless",
@@ -655,7 +821,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott-bonvoy-boundless-card.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott-bonvoy-boundless-card.png",
+      "credits": [
+        {
+          "id": "boundless-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "chase-marriott-bonvoy-bold",
@@ -705,7 +880,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott_bonvoy_bountiful_card.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott_bonvoy_bountiful_card.png",
+      "credits": [
+        {
+          "id": "bountiful-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "chase-ihg-one-rewards-premier",
@@ -730,7 +914,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ihg_premier_card.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ihg_premier_card.png",
+      "credits": [
+        {
+          "id": "ihg-premier-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "chase-ihg-one-rewards-traveler",
@@ -862,7 +1055,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney_Mickey70_premier_card.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney_Mickey70_premier_card.png",
+      "credits": [
+        {
+          "id": "disney-premier-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "chase-instacart-mastercard",
@@ -985,7 +1187,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/aeroplan_card.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/aeroplan_card.png",
+      "credits": [
+        {
+          "id": "aeroplan-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "chase-british-airways-visa-signature",
@@ -1001,14 +1212,30 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/british-airways.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/british-airways.png",
+      "credits": [
+        {
+          "id": "ba-reward-flight",
+          "description": "Reward flight credit",
+          "amount": 100,
+          "cadence": "annual",
+          "category": "airlines"
+        },
+        {
+          "id": "ba-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "american-express-american-express-platinum-card",
       "name": "American Express Platinum Card",
       "issuer": "American Express",
       "network": "amex",
-      "annualFee": 695,
+      "annualFee": 895,
       "rewardType": "points",
       "baseReward": 1,
       "baseIsPercentage": false,
@@ -1032,7 +1259,86 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#006FCF",
-      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/platinum-card.png"
+      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/platinum-card.png",
+      "credits": [
+        {
+          "id": "amex-plat-uber-cash",
+          "description": "Uber Cash",
+          "amount": 15,
+          "cadence": "monthly",
+          "category": "transit"
+        },
+        {
+          "id": "amex-plat-uber-one",
+          "description": "Uber One membership",
+          "amount": 120,
+          "cadence": "annual",
+          "category": "other"
+        },
+        {
+          "id": "amex-plat-airline",
+          "description": "Airline fee credit",
+          "amount": 200,
+          "cadence": "annual",
+          "category": "airlines"
+        },
+        {
+          "id": "amex-plat-hotel",
+          "description": "Hotel credit (FHR/THC)",
+          "amount": 300,
+          "cadence": "semiannual",
+          "category": "hotels"
+        },
+        {
+          "id": "amex-plat-digital",
+          "description": "Digital entertainment",
+          "amount": 25,
+          "cadence": "monthly",
+          "category": "streaming"
+        },
+        {
+          "id": "amex-plat-resy",
+          "description": "Resy dining",
+          "amount": 100,
+          "cadence": "quarterly",
+          "category": "dining"
+        },
+        {
+          "id": "amex-plat-equinox",
+          "description": "Equinox credit",
+          "amount": 300,
+          "cadence": "annual",
+          "category": "fitness"
+        },
+        {
+          "id": "amex-plat-lululemon",
+          "description": "lululemon credit",
+          "amount": 75,
+          "cadence": "quarterly",
+          "category": "other"
+        },
+        {
+          "id": "amex-plat-walmart",
+          "description": "Walmart+ membership",
+          "amount": 155,
+          "cadence": "annual",
+          "category": "other"
+        },
+        {
+          "id": "amex-plat-clear",
+          "description": "CLEAR Plus",
+          "amount": 209,
+          "cadence": "annual",
+          "category": "travel"
+        },
+        {
+          "id": "amex-plat-oura",
+          "description": "Oura Ring credit",
+          "amount": 200,
+          "cadence": "annual",
+          "category": "fitness"
+        }
+      ]
     },
     {
       "id": "american-express-american-express-gold-card",
@@ -1124,7 +1430,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#006FCF",
-      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/green-card.png"
+      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/green-card.png",
+      "credits": [
+        {
+          "id": "amex-green-clear",
+          "description": "CLEAR Plus",
+          "amount": 209,
+          "cadence": "annual",
+          "category": "travel"
+        }
+      ]
     },
     {
       "id": "american-express-blue-cash-preferred-card",
@@ -1169,7 +1484,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#006FCF",
-      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/blue-cash-preferred.png"
+      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/blue-cash-preferred.png",
+      "credits": [
+        {
+          "id": "bcp-disney",
+          "description": "Disney Bundle credit",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "streaming"
+        }
+      ]
     },
     {
       "id": "american-express-blue-cash-everyday-card",
@@ -1354,7 +1678,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#006FCF",
-      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/hilton-honors-surpass.png"
+      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/hilton-honors-surpass.png",
+      "credits": [
+        {
+          "id": "hilton-surpass-resort",
+          "description": "Hilton property credit",
+          "amount": 50,
+          "cadence": "quarterly",
+          "category": "hotels"
+        }
+      ]
     },
     {
       "id": "american-express-hilton-honors-american-express-aspire-card",
@@ -1493,7 +1826,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#006FCF",
-      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/marriott-bonvoy-brilliant.png"
+      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/marriott-bonvoy-brilliant.png",
+      "credits": [
+        {
+          "id": "bonvoy-brilliant-dining",
+          "description": "Dining credit",
+          "amount": 25,
+          "cadence": "monthly",
+          "category": "dining"
+        }
+      ]
     },
     {
       "id": "american-express-delta-skymiles-blue-american-express-card",
@@ -1562,7 +1904,23 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#006FCF",
-      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/gold-delta-skymiles.png"
+      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/gold-delta-skymiles.png",
+      "credits": [
+        {
+          "id": "delta-gold-rideshare",
+          "description": "Rideshare credit",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "travel"
+        },
+        {
+          "id": "delta-gold-stays",
+          "description": "Delta Stays credit",
+          "amount": 100,
+          "cadence": "annual",
+          "category": "hotels"
+        }
+      ]
     },
     {
       "id": "american-express-delta-skymiles-platinum-american-express-card",
@@ -1607,7 +1965,30 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#006FCF",
-      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/platinum-delta-skymiles.png"
+      "imageURL": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/platinum-delta-skymiles.png",
+      "credits": [
+        {
+          "id": "delta-platinum-rideshare",
+          "description": "Rideshare credit",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "travel"
+        },
+        {
+          "id": "delta-platinum-resy",
+          "description": "Resy dining",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "dining"
+        },
+        {
+          "id": "delta-platinum-stays",
+          "description": "Delta Stays credit",
+          "amount": 150,
+          "cadence": "annual",
+          "category": "hotels"
+        }
+      ]
     },
     {
       "id": "american-express-delta-skymiles-reserve-american-express-card",
@@ -1631,7 +2012,30 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#006FCF",
-      "imageURL": "https://icm.aexp-static.com/acquisition/card-art/NUS000000237_480x304_straight_withname.png"
+      "imageURL": "https://icm.aexp-static.com/acquisition/card-art/NUS000000237_480x304_straight_withname.png",
+      "credits": [
+        {
+          "id": "delta-reserve-rideshare",
+          "description": "Rideshare credit",
+          "amount": 10,
+          "cadence": "monthly",
+          "category": "travel"
+        },
+        {
+          "id": "delta-reserve-resy",
+          "description": "Resy dining",
+          "amount": 20,
+          "cadence": "monthly",
+          "category": "dining"
+        },
+        {
+          "id": "delta-reserve-stays",
+          "description": "Delta Stays credit",
+          "amount": 200,
+          "cadence": "annual",
+          "category": "hotels"
+        }
+      ]
     },
     {
       "id": "citi-citi-double-cash-card",
@@ -1786,7 +2190,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#1A365D",
-      "imageURL": "https://www.citi.com/CRD/images/citi-strata-premier/citi-strata-premier_222x140.png"
+      "imageURL": "https://www.citi.com/CRD/images/citi-strata-premier/citi-strata-premier_222x140.png",
+      "credits": [
+        {
+          "id": "strata-premier-hotel",
+          "description": "Hotel credit (Citi Travel)",
+          "amount": 100,
+          "cadence": "annual",
+          "category": "hotels"
+        }
+      ]
     },
     {
       "id": "citi-citi-rewards-card",
@@ -2046,7 +2459,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#1A1F71",
-      "imageURL": "https://ecm.capitalone.com/WCM/card/pages/open-graph/venture-x.png"
+      "imageURL": "https://ecm.capitalone.com/WCM/card/pages/open-graph/venture-x.png",
+      "credits": [
+        {
+          "id": "venturex-travel",
+          "description": "Travel credit (Capital One Travel)",
+          "amount": 300,
+          "cadence": "annual",
+          "category": "travel"
+        }
+      ]
     },
     {
       "id": "capital-one-capital-one-venture-rewards",
@@ -2307,7 +2729,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#012169",
-      "imageURL": "https://www.bankofamerica.com/content/images/ContextualSiteGraphics/CreditCardArt/en_US/Approved_PCM/8CAL_prmsigcm_v_250_158.png"
+      "imageURL": "https://www.bankofamerica.com/content/images/ContextualSiteGraphics/CreditCardArt/en_US/Approved_PCM/8CAL_prmsigcm_v_250_158.png",
+      "credits": [
+        {
+          "id": "boa-pr-airline",
+          "description": "Airline incidental credit",
+          "amount": 100,
+          "cadence": "annual",
+          "category": "airlines"
+        }
+      ]
     },
     {
       "id": "bank-of-america-bank-of-america-premium-rewards-elite",
@@ -2338,7 +2769,23 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#1A1F71",
-      "imageURL": "https://www.bankofamerica.com/content/images/ContextualSiteGraphics/CreditCardArt/en_US/Approved_PCM/8cud_premrewelite_v_250x158.png"
+      "imageURL": "https://www.bankofamerica.com/content/images/ContextualSiteGraphics/CreditCardArt/en_US/Approved_PCM/8cud_premrewelite_v_250x158.png",
+      "credits": [
+        {
+          "id": "boa-pre-airline",
+          "description": "Airline incidental credit",
+          "amount": 300,
+          "cadence": "annual",
+          "category": "airlines"
+        },
+        {
+          "id": "boa-pre-lifestyle",
+          "description": "Lifestyle credit",
+          "amount": 150,
+          "cadence": "annual",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "bank-of-america-bank-of-america-travel-rewards",
@@ -2543,7 +2990,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#1A1F71",
-      "imageURL": "https://creditcards.wellsfargo.com/W-Card-MarketPlace/v12-17-25/images/Products/AutographJourney/WF_Autograph_Journey_Card_d.png"
+      "imageURL": "https://creditcards.wellsfargo.com/W-Card-MarketPlace/v12-17-25/images/Products/AutographJourney/WF_Autograph_Journey_Card_d.png",
+      "credits": [
+        {
+          "id": "wf-journey-airline",
+          "description": "Airline credit",
+          "amount": 50,
+          "cadence": "annual",
+          "category": "airlines"
+        }
+      ]
     },
     {
       "id": "wells-fargo-wells-fargo-reflect-card",
@@ -2725,7 +3181,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#002855",
-      "imageURL": "https://www.usbank.com/content/dam/usbank/en/images/photos/credit-cards/photo-altitude-reserve-visa-infinite-benefits-vertical-card-art.png"
+      "imageURL": "https://www.usbank.com/content/dam/usbank/en/images/photos/credit-cards/photo-altitude-reserve-visa-infinite-benefits-vertical-card-art.png",
+      "credits": [
+        {
+          "id": "usb-altitude-travel",
+          "description": "Travel credit (US Bank Travel Center)",
+          "amount": 325,
+          "cadence": "annual",
+          "category": "travel"
+        }
+      ]
     },
     {
       "id": "us-bank-us-bank-cash-visa-signature",
@@ -2799,7 +3264,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#C8102E",
-      "imageURL": null
+      "imageURL": null,
+      "credits": [
+        {
+          "id": "aviator-red-wifi",
+          "description": "Inflight Wi-Fi credit",
+          "amount": 25,
+          "cadence": "annual",
+          "category": "airlines"
+        }
+      ]
     },
     {
       "id": "barclays-aadvantage-aviator-silver",
@@ -2837,7 +3311,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#808080",
-      "imageURL": null
+      "imageURL": null,
+      "credits": [
+        {
+          "id": "aviator-silver-wifi",
+          "description": "Inflight Wi-Fi credit",
+          "amount": 50,
+          "cadence": "annual",
+          "category": "airlines"
+        }
+      ]
     },
     {
       "id": "barclays-jetblue-plus-card",
@@ -2875,7 +3358,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003876",
-      "imageURL": "https://cards.barclaycardus.com/content/dam/bcuspublic/card-plastic/card-front/JBE_card_Plus_WE_Flat_230x157.png"
+      "imageURL": "https://cards.barclaycardus.com/content/dam/bcuspublic/card-plastic/card-front/JBE_card_Plus_WE_Flat_230x157.png",
+      "credits": [
+        {
+          "id": "jetblue-plus-vacations",
+          "description": "JetBlue Vacations credit",
+          "amount": 100,
+          "cadence": "annual",
+          "category": "travel"
+        }
+      ]
     },
     {
       "id": "barclays-jetblue-card",
@@ -3202,7 +3694,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#0A2240",
-      "imageURL": null
+      "imageURL": null,
+      "credits": [
+        {
+          "id": "navy-flagship-amazon-prime",
+          "description": "Amazon Prime membership",
+          "amount": 139,
+          "cadence": "annual",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "navy-federal-navy-federal-go-rewards",
@@ -3325,7 +3826,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#1A1F71",
-      "imageURL": null
+      "imageURL": null,
+      "credits": [
+        {
+          "id": "penfed-pathfinder-airline",
+          "description": "Airline fee credit",
+          "amount": 100,
+          "cadence": "annual",
+          "category": "airlines"
+        }
+      ]
     },
     {
       "id": "alliant-alliant-cashback-visa",
