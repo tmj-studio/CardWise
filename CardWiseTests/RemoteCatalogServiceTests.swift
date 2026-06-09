@@ -33,6 +33,7 @@ final class RemoteCatalogServiceTests: XCTestCase {
     }
 
     func test_decide_skips_whenCardMissingID() {
+        // swiftlint:disable:next line_length
         let badCard = ##"{"id":"","name":"No ID","issuer":"X","network":"visa","annualFee":0,"rewardType":"cashback","baseReward":1,"baseIsPercentage":true,"categoryRewards":[],"rotatingCategories":null,"selectableConfig":null,"signUpBonus":null,"imageColor":"#000000","imageURL":null}"##
         XCTAssertEqual(RemoteCatalogService.decide(fetched: wrapper(version: 9, cards: badCard), currentVersion: 0), .skip)
     }

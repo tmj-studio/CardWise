@@ -86,6 +86,7 @@ final class CardCatalogTests: XCTestCase {
         let tmp = FileManager.default.temporaryDirectory
             .appendingPathComponent("ver-\(UUID().uuidString).json")
         defer { try? FileManager.default.removeItem(at: tmp) }
+        // swiftlint:disable:next line_length
         let json = ##"{"version":42,"updatedAt":"2026-06-09","cards":[{"id":"a","name":"A","issuer":"X","network":"visa","annualFee":0,"rewardType":"cashback","baseReward":1,"baseIsPercentage":true,"categoryRewards":[],"rotatingCategories":null,"selectableConfig":null,"signUpBonus":null,"imageColor":"#000000","imageURL":null}]}"##
         try Data(json.utf8).write(to: tmp)
         XCTAssertEqual(CardCatalog.currentVersion(cacheURL: tmp), 42)
