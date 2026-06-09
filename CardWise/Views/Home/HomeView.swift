@@ -9,6 +9,7 @@ struct HomeView: View {
     // Collapse state - auto-collapse when many items
     @AppStorage("dashboard.utilizationExpanded") private var utilizationExpanded = true
     @AppStorage("dashboard.capsExpanded") private var capsExpanded = true
+    @AppStorage("dashboard.creditsExpanded") private var creditsExpanded = true
     @AppStorage("dashboard.transactionsExpanded") private var transactionsExpanded = true
 
     var greeting: String {
@@ -58,6 +59,11 @@ struct HomeView: View {
                         SpendingCapsCard(caps: caps, isExpanded: $capsExpanded)
                     }
 
+                    // Credits to Use
+                    if cardViewModel.totalUnusedCredits > 0 {
+                        CreditsToUseCard(isExpanded: $creditsExpanded)
+                    }
+
                     // Monthly Summary - always visible, compact
                     MonthlySummaryCard()
 
@@ -80,6 +86,7 @@ struct HomeView: View {
                             withAnimation(.easeInOut(duration: 0.25)) {
                                 utilizationExpanded = true
                                 capsExpanded = true
+                                creditsExpanded = true
                                 transactionsExpanded = true
                             }
                         } label: {
@@ -90,6 +97,7 @@ struct HomeView: View {
                             withAnimation(.easeInOut(duration: 0.25)) {
                                 utilizationExpanded = false
                                 capsExpanded = false
+                                creditsExpanded = false
                                 transactionsExpanded = false
                             }
                         } label: {
@@ -316,6 +324,44 @@ struct SpendingCapsCard: View {
                     Text("+\(caps.count - 5) more")
                         .font(.app(.caption))
                         .foregroundStyle(Theme.textSecondary)
+                }
+            }
+        }
+        .sectionCard()
+    }
+}
+
+// MARK: - Credits to Use Card
+
+struct CreditsToUseCard: View {
+    @EnvironmentObject var cardViewModel: CardViewModel
+    @Binding var isExpanded: Bool
+
+    var body: some View {
+        let items = cardViewModel.unusedCreditsThisPeriod
+        return VStack(alignment: .leading, spacing: 12) {
+            CollapsibleHeader(
+                title: "Credits to Use",
+                subtitle: "$\(Int(cardViewModel.totalUnusedCredits)) available",
+                subtitleColor: Theme.success,
+                isExpanded: $isExpanded
+            )
+
+            if isExpanded {
+                ForEach(items) { item in
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(item.credit.description)
+                                .font(.app(.subheadline))
+                            Text("\(item.cardName) · per \(item.credit.cadence.displayName)")
+                                .font(.app(.caption2))
+                                .foregroundStyle(Theme.textSecondary)
+                        }
+                        Spacer()
+                        Text("$\(Int(item.remaining)) left")
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.success)
+                    }
                 }
             }
         }
