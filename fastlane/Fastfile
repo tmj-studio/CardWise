@@ -3,10 +3,6 @@
 # Triggered by CI on every push to `main` (see .github/workflows/ios-release.yml).
 # App Store *submission for review* stays manual in App Store Connect.
 
-require "base64"
-require "tmpdir"
-require "fileutils"
-
 default_platform(:ios)
 
 APP_ID = "studio.tmj.cardwise"
@@ -27,78 +23,78 @@ platform :ios do
       is_key_content_base64: true
     )
 
-    # xcodebuild needs the API key on disk to authenticate -allowProvisioningUpdates
-    # during the archive step. Keep it in a 0700 dir as a 0600 file and delete it once
-    # the lane finishes.
-    auth_key_dir = Dir.mktmpdir
-    auth_key_path = File.join(auth_key_dir, "asc_api_key.p8")
-    File.open(auth_key_path, File::WRONLY | File::CREAT | File::EXCL, 0o600) do |f|
-      f.write(Base64.decode64(ENV.fetch("ASC_KEY_P8_BASE64")))
-    end
+    # Import the distribution certificate (.p12) into the CI keychain so Xcode can sign.
+    import_certificate(
+      certificate_path: ENV.fetch("DIST_CERT_P12_PATH"),
+      certificate_password: ENV.fetch("DIST_CERT_PASSWORD", ""),
+      keychain_name: ENV.fetch("MATCH_KEYCHAIN_NAME", "fastlane_tmp_keychain"),
+      keychain_password: ENV.fetch("MATCH_KEYCHAIN_PASSWORD", "")
+    )
 
-    begin
-      # Import the distribution certificate (.p12) into the CI keychain so Xcode can sign.
-      import_certificate(
-        certificate_path: ENV.fetch("DIST_CERT_P12_PATH"),
-        certificate_password: ENV.fetch("DIST_CERT_PASSWORD", ""),
-        keychain_name: ENV.fetch("MATCH_KEYCHAIN_NAME", "fastlane_tmp_keychain"),
-        keychain_password: ENV.fetch("MATCH_KEYCHAIN_PASSWORD", "")
-      )
+    # Download (creating if missing) App Store provisioning profiles for the app and its
+    # widget extension via the ASC API key, so both the archive and the export sign
+    # manually against known profiles.
+    get_provisioning_profile(api_key: api_key, app_identifier: APP_ID, readonly: false)
+    app_profile = lane_context[SharedValues::SIGH_NAME]
 
-      # Download (creating if missing) App Store provisioning profiles for the app and its
-      # widget extension via the ASC API key. Doing this explicitly lets the *export* step
-      # sign manually with known profiles instead of falling back to Xcode cloud signing,
-      # which fails with "Cloud signing permission error" / "No profiles were found" under an
-      # API key that can't mint cloud-managed certificates.
-      get_provisioning_profile(api_key: api_key, app_identifier: APP_ID, readonly: false)
-      app_profile = lane_context[SharedValues::SIGH_NAME]
+    get_provisioning_profile(api_key: api_key, app_identifier: WIDGET_ID, readonly: false)
+    widget_profile = lane_context[SharedValues::SIGH_NAME]
 
-      get_provisioning_profile(api_key: api_key, app_identifier: WIDGET_ID, readonly: false)
-      widget_profile = lane_context[SharedValues::SIGH_NAME]
+    # Force *manual* signing on the freshly-generated project (xcodegen regenerates it each
+    # CI run, so this never touches project.yml or local dev). Previously the archive used
+    # automatic signing with -allowProvisioningUpdates, which made xcodebuild mint a new
+    # Apple Development certificate every run until the account hit its certificate cap
+    # ("Your account has reached the maximum number of certificates"). Pinning each target
+    # to the imported Apple Distribution cert + the profile fetched above means xcodebuild
+    # signs with what's already there and never tries to create a certificate.
+    update_code_signing_settings(
+      path: "CardWise.xcodeproj",
+      use_automatic_signing: false,
+      team_id: "K434CK85HW",
+      targets: ["CardWise"],
+      code_sign_identity: "Apple Distribution",
+      profile_name: app_profile,
+      bundle_identifier: APP_ID
+    )
+    update_code_signing_settings(
+      path: "CardWise.xcodeproj",
+      use_automatic_signing: false,
+      team_id: "K434CK85HW",
+      targets: ["CardWiseWidget"],
+      code_sign_identity: "Apple Distribution",
+      profile_name: widget_profile,
+      bundle_identifier: WIDGET_ID
+    )
 
-      # Next build number = highest already on TestFlight + 1 (0 -> 1 for the very first build).
-      next_build = (latest_testflight_build_number(api_key: api_key, app_identifier: APP_ID) rescue 0) + 1
+    # Next build number = highest already on TestFlight + 1 (0 -> 1 for the very first build).
+    next_build = (latest_testflight_build_number(api_key: api_key, app_identifier: APP_ID) rescue 0) + 1
 
-      # Archive with automatic signing: -allowProvisioningUpdates lets xcodebuild mint/refresh
-      # profiles via the API key so the app + widget both sign without fastlane match. The
-      # -authenticationKey* flags log xcodebuild into the developer portal with the ASC API key.
-      archive_args = [
-        "-allowProvisioningUpdates",
-        "-authenticationKeyPath", auth_key_path,
-        "-authenticationKeyID", key_id,
-        "-authenticationKeyIssuerID", issuer_id
-      ].join(" ")
-
-      # Export with *manual* signing using the profiles fetched above, so xcodebuild never
-      # attempts cloud signing during export. The provisioningProfiles map carries one entry
-      # per bundle id (something xcargs can't express for a multi-target app).
-      build_app(
-        project: "CardWise.xcodeproj",
-        scheme: "CardWise",
-        export_method: "app-store",
-        xcargs: "#{archive_args} CURRENT_PROJECT_VERSION=#{next_build}",
-        export_options: {
-          signingStyle: "manual",
-          provisioningProfiles: {
-            APP_ID => app_profile,
-            WIDGET_ID => widget_profile
-          }
+    # Archive + export both sign manually with the profiles fetched above; no
+    # -allowProvisioningUpdates, so xcodebuild never logs into the portal or mints certs.
+    build_app(
+      project: "CardWise.xcodeproj",
+      scheme: "CardWise",
+      export_method: "app-store",
+      xcargs: "CURRENT_PROJECT_VERSION=#{next_build}",
+      export_options: {
+        signingStyle: "manual",
+        provisioningProfiles: {
+          APP_ID => app_profile,
+          WIDGET_ID => widget_profile
         }
-      )
+      }
+    )
 
-      # Xcode 26's rewritten altool does a pre-flight "resolve appleID from bundleID"
-      # round-trip that regressed in 26.3: it dies instantly with "The file couldn't be
-      # opened because it isn't in the correct format. (259)" before uploading a byte
-      # (fastlane #29698 / #29820). `--use-old-altool` falls back to the pre-26 upload
-      # path; passing the numeric apple_id skips the broken app-resolution step entirely.
-      ENV["DELIVER_ALTOOL_ADDITIONAL_UPLOAD_PARAMETERS"] = "--use-old-altool"
-      upload_to_testflight(
-        api_key: api_key,
-        apple_id: "6776198130",
-        skip_waiting_for_build_processing: true
-      )
-    ensure
-      FileUtils.remove_entry(auth_key_dir)
-    end
+    # Xcode 26's rewritten altool does a pre-flight "resolve appleID from bundleID"
+    # round-trip that regressed in 26.3: it dies instantly with "The file couldn't be
+    # opened because it isn't in the correct format. (259)" before uploading a byte
+    # (fastlane #29698 / #29820). `--use-old-altool` falls back to the pre-26 upload
+    # path; passing the numeric apple_id skips the broken app-resolution step entirely.
+    ENV["DELIVER_ALTOOL_ADDITIONAL_UPLOAD_PARAMETERS"] = "--use-old-altool"
+    upload_to_testflight(
+      api_key: api_key,
+      apple_id: "6776198130",
+      skip_waiting_for_build_processing: true
+    )
   end
 end
