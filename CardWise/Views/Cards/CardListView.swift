@@ -386,7 +386,11 @@ struct CardDetailView: View {
                                 .font(.app(.caption))
                                 .foregroundStyle(Theme.textSecondary)
                             if card.credits?.isEmpty == false {
-                                Text("−$\(Int(card.annualizedCreditTotal)) credits · $\(Int(card.netAnnualFee)) net/yr")
+                                let net = card.netAnnualFee
+                                let netText = net < 0
+                                    ? "credits exceed fee by $\(Int(-net))/yr"
+                                    : "$\(Int(net)) net/yr"
+                                Text("−$\(Int(card.annualizedCreditTotal)) credits · \(netText)")
                                     .font(.app(.caption))
                                     .foregroundStyle(Theme.textSecondary)
                             }

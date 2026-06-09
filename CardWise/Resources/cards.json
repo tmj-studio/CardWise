@@ -1285,14 +1285,14 @@
         {
           "id": "amex-plat-hotel",
           "description": "Hotel credit (FHR/THC)",
-          "amount": 300,
-          "cadence": "semiannual",
+          "amount": 200,
+          "cadence": "annual",
           "category": "hotels"
         },
         {
           "id": "amex-plat-digital",
           "description": "Digital entertainment",
-          "amount": 25,
+          "amount": 20,
           "cadence": "monthly",
           "category": "streaming"
         },
@@ -1300,7 +1300,7 @@
           "id": "amex-plat-resy",
           "description": "Resy dining",
           "amount": 100,
-          "cadence": "quarterly",
+          "cadence": "annual",
           "category": "dining"
         },
         {
