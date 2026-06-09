@@ -12,6 +12,7 @@
 		07D349BE1B1D702BC3A2411C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC2EACAE9B6AC051343C040 /* HomeView.swift */; };
 		0AC1CA2AFE63E12C00DA4F94 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D190866A1D3D807F1F0AE5A3 /* CacheManager.swift */; };
 		0AF6F97F2BBE90C731D37F21 /* Badges.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7C85F068146A64781EFF3A /* Badges.swift */; };
+		17CD8EC9F9369CC8FED62B44 /* UnusedCreditsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9826353CEE7E3787AD7513F8 /* UnusedCreditsTests.swift */; };
 		22DF95431EEA5E77BC622198 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499416ED0BFBDDCEB3E51E95 /* LegalView.swift */; };
 		24F2489D6537EB1C05238221 /* LegalLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92E72F4B3DAD256EAC5842C /* LegalLinks.swift */; };
 		2EDE1CA4E675C7DE23A0C133 /* CloudStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7A51E743C7B9A7320FF939 /* CloudStore.swift */; };
@@ -157,6 +158,7 @@
 		91E2B4656F04A27CDA45B53B /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		94D3CFC5475B463B957F028F /* HeroStatCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroStatCard.swift; sourceTree = "<group>"; };
 		954D972AEF90855F3BCD06F1 /* ReleaseNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseNotes.swift; sourceTree = "<group>"; };
+		9826353CEE7E3787AD7513F8 /* UnusedCreditsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnusedCreditsTests.swift; sourceTree = "<group>"; };
 		998DD0C18E2B6B0A017F1050 /* CreditUsageViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditUsageViewModelTests.swift; sourceTree = "<group>"; };
 		9EF88FBB29B10BEDD26919AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A19A21D57BB7FC98B67DFA4C /* SpendingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingListView.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */,
 				8DF97DA6F4C5544E308B02DE /* RemoteCatalogServiceTests.swift */,
 				43AE329C5BF824AC8FC7375E /* SearchHistoryManagerTests.swift */,
+				9826353CEE7E3787AD7513F8 /* UnusedCreditsTests.swift */,
 				4BB7C226563289833EA7095D /* WhatsNewTests.swift */,
 			);
 			path = CardWiseTests;
@@ -636,6 +639,7 @@
 				32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */,
 				86DD595717F5FB8225342ED0 /* RemoteCatalogServiceTests.swift in Sources */,
 				DB509AB60F4D5175E7E74CEE /* SearchHistoryManagerTests.swift in Sources */,
+				17CD8EC9F9369CC8FED62B44 /* UnusedCreditsTests.swift in Sources */,
 				B8B6837B2FE9828D3DB70532 /* WhatsNewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
