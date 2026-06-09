@@ -42,7 +42,7 @@ enum CardCatalog {
     }
 
     static func currentVersion(cacheURL: URL? = RemoteCatalogService.defaultCacheURL) -> Int {
-        if let cacheURL, let file = decodeFile(at: cacheURL) {
+        if let cacheURL, let file = decodeFile(at: cacheURL), !file.cards.isEmpty {
             return file.version
         }
         if let file = decodeFile(at: bundleURL) {

@@ -5,7 +5,7 @@ import os
 /// Backend-free and silent on failure: network/parse errors leave the existing
 /// cache (and bundled fallback) untouched.
 final class RemoteCatalogService {
-    static let logger = Logger(subsystem: "com.cardwise.app", category: "RemoteCatalog")
+    private static let logger = Logger(subsystem: "com.cardwise.app", category: "RemoteCatalog")
 
     static let remoteURL = URL(string:
         "https://raw.githubusercontent.com/tmj-studio/CardWise/main/CardWise/Resources/cards.json")!
