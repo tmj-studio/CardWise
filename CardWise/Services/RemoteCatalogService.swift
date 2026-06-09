@@ -65,8 +65,11 @@ final class RemoteCatalogService {
     func refresh() async {
         do {
             let (data, response) = try await session.data(from: url)
-            if let http = response as? HTTPURLResponse, http.statusCode != 200 {
-                Self.logger.debug("catalog refresh HTTP \(http.statusCode)")
+            // Accept only a confirmed 200; anything else (3xx/4xx/5xx or a non-HTTP
+            // response) is treated as "no fresh data" and leaves the cache untouched.
+            guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+                let code = (response as? HTTPURLResponse)?.statusCode.description ?? "non-HTTP"
+                Self.logger.debug("catalog refresh skipped: HTTP \(code, privacy: .public)")
                 return
             }
             writeIfNeeded(fetched: data, currentVersion: CardCatalog.currentVersion(cacheURL: cacheURL))
