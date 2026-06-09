@@ -73,6 +73,12 @@ jobs:
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_KEY_P8_BASE64: ${{ secrets.ASC_KEY_P8_BASE64 }}
           DIST_CERT_PASSWORD: ${{ secrets.DIST_CERT_PASSWORD }}
+          # Upload via the Java iTMSTransporter instead of Xcode 26's altool. The
+          # Xcode 26 altool regressed and cannot build the App Store Connect auth JWT
+          # from a valid API key — it dies with "Failed to generate JWT token …
+          # NSCocoaErrorDomain Code=259 (isn't in the correct format)" before uploading.
+          # The shell-script transporter has its own (working) JWT handling.
+          FASTLANE_ITUNES_TRANSPORTER_USE_SHELL_SCRIPT: "true"
         run: bundle exec fastlane beta
 
       - name: Clean up signing assets
