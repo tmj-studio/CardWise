@@ -87,9 +87,18 @@ fi
 git add "$CARDS"
 git commit -q -m "data: weekly card update ($DATE)"
 git push -q -u origin "$BRANCH"
-gh pr create --title "$TITLE" --body "$SUMMARY
+# Create the PR first; attach the label separately so a missing label can
+# never abort PR creation (gh pr create fails outright on unknown --label).
+if gh pr create --title "$TITLE" --body "$SUMMARY
 
 Automated weekly update from the Mac mini pipeline (claude subscription, validated + classified).
-Merge to publish — the app picks it up on next launch via the remote catalog." \
-    $( [ "$CLASS" = "2" ] && echo --label needs-review ) || true
-log "PR opened"
+Merge to publish — the app picks it up on next launch via the remote catalog."; then
+    if [ "$CLASS" = "2" ]; then
+        gh pr edit "$BRANCH" --add-label needs-review \
+            || log "warning: could not add needs-review label"
+    fi
+    log "PR opened"
+else
+    log "ERROR: gh pr create failed — branch $BRANCH is pushed; open the PR manually"
+    exit 1
+fi
