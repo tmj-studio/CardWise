@@ -19,7 +19,7 @@ jobs:
     name: build-and-test
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Select latest Xcode (26+)
         run: |
@@ -49,7 +49,7 @@ jobs:
     name: swiftlint
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install SwiftLint
         run: brew install swiftlint
       - name: Run SwiftLint

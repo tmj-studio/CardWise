@@ -39,7 +39,7 @@ jobs:
     # step below then picks 26.5 (the newest 26.x present).
     runs-on: macos-26
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Select latest Xcode (26+)
         # Apple now rejects uploads built with anything older than the iOS 26 SDK
