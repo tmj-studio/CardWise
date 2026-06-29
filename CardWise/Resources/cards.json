@@ -1,6 +1,6 @@
 {
-  "version": 5,
-  "updatedAt": "2026-06-10",
+  "version": 6,
+  "updatedAt": "2026-06-29",
   "cards": [
     {
       "id": "chase-chase-sapphire-preferred",
@@ -51,14 +51,6 @@
           "cap": null,
           "capPeriod": null,
           "note": null
-        },
-        {
-          "category": "transit",
-          "multiplier": 5,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null,
-          "note": "Lyft rides"
         }
       ],
       "rotatingCategories": null,
@@ -70,7 +62,7 @@
         {
           "id": "csp-hotel",
           "description": "Hotel credit (Chase Travel)",
-          "amount": 50,
+          "amount": 100,
           "cadence": "annual",
           "category": "hotels"
         },
@@ -93,14 +85,6 @@
       "baseReward": 1,
       "baseIsPercentage": true,
       "categoryRewards": [
-        {
-          "category": "transit",
-          "multiplier": 5,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null,
-          "note": "Lyft rides"
-        },
         {
           "category": "travel",
           "multiplier": 4,
@@ -223,14 +207,6 @@
           "cap": null,
           "capPeriod": null,
           "note": "Booked through Chase Travel"
-        },
-        {
-          "category": "transit",
-          "multiplier": 2,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null,
-          "note": "Lyft rides"
         }
       ],
       "rotatingCategories": null,
@@ -272,22 +248,6 @@
           "cap": null,
           "capPeriod": null,
           "note": null
-        },
-        {
-          "category": "gas",
-          "multiplier": 5,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null,
-          "note": null
-        },
-        {
-          "category": "transit",
-          "multiplier": 2,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null,
-          "note": "Lyft rides"
         }
       ],
       "rotatingCategories": [
@@ -320,16 +280,7 @@
       "rewardType": "cashback",
       "baseReward": 1.5,
       "baseIsPercentage": true,
-      "categoryRewards": [
-        {
-          "category": "transit",
-          "multiplier": 2,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null,
-          "note": "Lyft rides"
-        }
-      ],
+      "categoryRewards": [],
       "rotatingCategories": null,
       "selectableConfig": null,
       "signUpBonus": null,
@@ -369,14 +320,6 @@
           "cap": null,
           "capPeriod": null,
           "note": null
-        },
-        {
-          "category": "transit",
-          "multiplier": 5,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null,
-          "note": "Lyft rides"
         }
       ],
       "rotatingCategories": null,
@@ -402,14 +345,6 @@
           "cap": null,
           "capPeriod": null,
           "note": null
-        },
-        {
-          "category": "transit",
-          "multiplier": 5,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null,
-          "note": "Lyft rides"
         }
       ],
       "rotatingCategories": null,
@@ -427,16 +362,7 @@
       "rewardType": "cashback",
       "baseReward": 1,
       "baseIsPercentage": true,
-      "categoryRewards": [
-        {
-          "category": "transit",
-          "multiplier": 5,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null,
-          "note": "Lyft rides"
-        }
-      ],
+      "categoryRewards": [],
       "rotatingCategories": null,
       "selectableConfig": null,
       "signUpBonus": null,
@@ -471,7 +397,7 @@
       "categoryRewards": [
         {
           "category": "airlines",
-          "multiplier": 8,
+          "multiplier": 4,
           "isPercentage": true,
           "cap": null,
           "capPeriod": null,
@@ -557,7 +483,7 @@
       "categoryRewards": [
         {
           "category": "airlines",
-          "multiplier": 7,
+          "multiplier": 2,
           "isPercentage": true,
           "cap": null,
           "capPeriod": null,
@@ -628,7 +554,7 @@
       "categoryRewards": [
         {
           "category": "airlines",
-          "multiplier": 7,
+          "multiplier": 2,
           "isPercentage": true,
           "cap": null,
           "capPeriod": null,
@@ -669,7 +595,7 @@
       "categoryRewards": [
         {
           "category": "airlines",
-          "multiplier": 9,
+          "multiplier": 2,
           "isPercentage": true,
           "cap": null,
           "capPeriod": null,
@@ -3487,20 +3413,13 @@
       "name": "Wyndham Rewards Earner Plus",
       "issuer": "Barclays",
       "network": "visa",
-      "annualFee": 75,
+      "annualFee": 95,
       "rewardType": "points",
       "baseReward": 1,
       "baseIsPercentage": false,
       "categoryRewards": [
         {
           "category": "hotels",
-          "multiplier": 6,
-          "isPercentage": false,
-          "cap": null,
-          "capPeriod": null
-        },
-        {
-          "category": "gas",
           "multiplier": 6,
           "isPercentage": false,
           "cap": null,
@@ -3539,14 +3458,14 @@
         },
         {
           "category": "gas",
-          "multiplier": 5,
+          "multiplier": 3,
           "isPercentage": false,
           "cap": null,
           "capPeriod": null
         },
         {
           "category": "grocery",
-          "multiplier": 2,
+          "multiplier": 3,
           "isPercentage": false,
           "cap": null,
           "capPeriod": null
@@ -3616,13 +3535,6 @@
         {
           "category": "dining",
           "multiplier": 3,
-          "isPercentage": false,
-          "cap": null,
-          "capPeriod": null
-        },
-        {
-          "category": "entertainment",
-          "multiplier": 2,
           "isPercentage": false,
           "cap": null,
           "capPeriod": null
@@ -3856,7 +3768,7 @@
       "categoryRewards": [
         {
           "category": "travel",
-          "multiplier": 4,
+          "multiplier": 3,
           "isPercentage": false,
           "cap": null,
           "capPeriod": null
@@ -3912,7 +3824,7 @@
         },
         {
           "category": "grocery",
-          "multiplier": 3,
+          "multiplier": 2,
           "isPercentage": true,
           "cap": 3000,
           "capPeriod": "yearly"
@@ -4186,7 +4098,7 @@
       "categoryRewards": [
         {
           "category": "phone",
-          "multiplier": 4,
+          "multiplier": 1,
           "isPercentage": true,
           "cap": null,
           "capPeriod": null
