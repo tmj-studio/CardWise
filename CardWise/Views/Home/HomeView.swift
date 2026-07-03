@@ -723,6 +723,7 @@ struct QuickRecommendSheet: View {
 }
 
 struct QuickRecommendRow: View {
+    @EnvironmentObject var cardViewModel: CardViewModel
     let recommendation: CardRecommendation
     let isTop: Bool
     let onAddSpending: () -> Void
@@ -753,9 +754,14 @@ struct QuickRecommendRow: View {
                         .foregroundStyle(Theme.textSecondary)
 
                     if recommendation.needsActivation {
-                        Label("Needs activation", systemImage: "exclamationmark.triangle")
-                            .font(.app(.caption2))
-                            .foregroundStyle(Theme.warning)
+                        Button {
+                            cardViewModel.setRotatingActivated(for: recommendation.userCard, activated: true)
+                        } label: {
+                            Label("Needs activation — tap once activated", systemImage: "exclamationmark.triangle")
+                                .font(.app(.caption2))
+                                .foregroundStyle(Theme.warning)
+                        }
+                        .buttonStyle(.borderless)
                     }
                 }
 

@@ -209,6 +209,7 @@ struct UserCard: Identifiable, Codable, Equatable {
     var currentBalance: Double?       // Optional: track current balance
     var signUpBonusStartDate: Date?   // When user started tracking sign-up bonus
     var signUpBonusAchieved: Bool     // Whether bonus has been achieved
+    var activatedRotatingQuarters: [String]?  // quarter keys ("2026-Q3") the user has activated; optional for pre-feature decoding
     let addedDate: Date
 
     init(card: CreditCard, nickname: String? = nil, creditLimit: Double? = nil, trackSignUpBonus: Bool = false) {
@@ -220,7 +221,27 @@ struct UserCard: Identifiable, Codable, Equatable {
         self.currentBalance = nil
         self.signUpBonusStartDate = trackSignUpBonus ? Date() : nil
         self.signUpBonusAchieved = false
+        self.activatedRotatingQuarters = nil
         self.addedDate = Date()
+    }
+
+    // MARK: - Rotating category activation
+
+    private static func quarterKey(quarter: Int, year: Int) -> String { "\(year)-Q\(quarter)" }
+
+    func hasActivatedRotating(quarter: Int, year: Int) -> Bool {
+        activatedRotatingQuarters?.contains(Self.quarterKey(quarter: quarter, year: year)) ?? false
+    }
+
+    mutating func setRotatingActivated(_ activated: Bool, quarter: Int, year: Int) {
+        let key = Self.quarterKey(quarter: quarter, year: year)
+        var keys = activatedRotatingQuarters ?? []
+        if activated {
+            if !keys.contains(key) { keys.append(key) }
+        } else {
+            keys.removeAll { $0 == key }
+        }
+        activatedRotatingQuarters = keys.isEmpty ? nil : keys
     }
 
     // Credit utilization percentage
