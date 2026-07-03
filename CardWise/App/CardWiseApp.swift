@@ -87,8 +87,10 @@ struct CardWiseApp: App {
                         }
                     }
                     .onAppear {
-                        CacheManager.shared.clearExpired()
                         updateWidgetData()
+                        NotificationService.shared.refreshRotatingReminders(
+                            hasRotatingCards: cardViewModel.hasRotatingCards
+                        )
                     }
                     .task {
                         let notes = WhatsNew.notesToPresent(lastSeen: lastSeenVersion,
