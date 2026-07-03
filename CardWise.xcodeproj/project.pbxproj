@@ -10,7 +10,6 @@
 		0281D1EB5399AB722D80F408 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2B4656F04A27CDA45B53B /* KeychainHelper.swift */; };
 		0642E0A4A307C0DF15D8CB01 /* HeroStatCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D3CFC5475B463B957F028F /* HeroStatCard.swift */; };
 		07D349BE1B1D702BC3A2411C /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC2EACAE9B6AC051343C040 /* HomeView.swift */; };
-		0AC1CA2AFE63E12C00DA4F94 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D190866A1D3D807F1F0AE5A3 /* CacheManager.swift */; };
 		0AF6F97F2BBE90C731D37F21 /* Badges.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7C85F068146A64781EFF3A /* Badges.swift */; };
 		17CD8EC9F9369CC8FED62B44 /* UnusedCreditsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9826353CEE7E3787AD7513F8 /* UnusedCreditsTests.swift */; };
 		22DF95431EEA5E77BC622198 /* LegalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499416ED0BFBDDCEB3E51E95 /* LegalView.swift */; };
@@ -40,6 +39,7 @@
 		7763CE35ACB2B150CA1F1238 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F0A498B90BF641C9725DD /* Extensions.swift */; };
 		8280E62FD06ACC0294590CBF /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530C41DD9A8ACF4889D327DD /* ModelTests.swift */; };
 		84B582DBA535831757D11106 /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */; };
+		84B7F2123C3E69AEE8F56615 /* NotificationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFBC15E69551C9F558D53C99 /* NotificationServiceTests.swift */; };
 		86DD595717F5FB8225342ED0 /* RemoteCatalogServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF97DA6F4C5544E308B02DE /* RemoteCatalogServiceTests.swift */; };
 		883027E57857D945A9BC93D3 /* RecommendationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */; };
 		8C5E57B8CE14DC1589E78235 /* SpendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7949151505BEE1862FD1298 /* SpendingViewModel.swift */; };
@@ -47,7 +47,6 @@
 		93DBF7456906A5431E2F2BD8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125792622D2A5A023026842B /* NotificationService.swift */; };
 		96E09EC27D55C770E1124713 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F8003CFFC6306AD8A404BC /* AppVersion.swift */; };
 		96EB0F142683D4FD56FEFBE4 /* ReleaseNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954D972AEF90855F3BCD06F1 /* ReleaseNotes.swift */; };
-		9DB7B64BC6BA35194AFB9BFB /* NetworkSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC23F2A1F4B524A8AEF858 /* NetworkSecurity.swift */; };
 		9E38F42863CF30B1EBECEE7D /* CardCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BB4129B1DF02AD3B256E4A /* CardCatalogTests.swift */; };
 		A3A2FFADA38BE4999C5485C4 /* CreditModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4EDF74094174199CEC5D5A /* CreditModelTests.swift */; };
 		A407D4AC57E2390F317FD940 /* AppUpdateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FAC77D03D3E60F4BFD216 /* AppUpdateChecker.swift */; };
@@ -118,7 +117,6 @@
 		0B30C0AFC4E819A77F51E987 /* CardWise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CardWise.entitlements; sourceTree = "<group>"; };
 		0E304F5D3034F498361136AA /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		0EB4C0064CA01D693739E78B /* OCRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRService.swift; sourceTree = "<group>"; };
-		0ECC23F2A1F4B524A8AEF858 /* NetworkSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSecurity.swift; sourceTree = "<group>"; };
 		125792622D2A5A023026842B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		137EA6547C7BFB8F919B98B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		18F664E2BAF611E22F994D4F /* AppVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionTests.swift; sourceTree = "<group>"; };
@@ -172,12 +170,12 @@
 		BA119EEC79B96D49EACB240D /* CategoryChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryChip.swift; sourceTree = "<group>"; };
 		BE7C85F068146A64781EFF3A /* Badges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badges.swift; sourceTree = "<group>"; };
 		BF3AEAFE49F6A0E286A10992 /* CreditCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCard.swift; sourceTree = "<group>"; };
+		BFBC15E69551C9F558D53C99 /* NotificationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceTests.swift; sourceTree = "<group>"; };
 		C32CD6C612AC3FCB5753A2E5 /* AppButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppButtons.swift; sourceTree = "<group>"; };
 		C7949151505BEE1862FD1298 /* SpendingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingViewModel.swift; sourceTree = "<group>"; };
 		C92E72F4B3DAD256EAC5842C /* LegalLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalLinks.swift; sourceTree = "<group>"; };
 		CF40BCAD3A0B02D4BB31F13A /* RecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendView.swift; sourceTree = "<group>"; };
 		CFA49935D5C8A86F1693BA70 /* CardWise.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CardWise.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D190866A1D3D807F1F0AE5A3 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		D86876CAF6DBE2FCAC53B18F /* Merchant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Merchant.swift; sourceTree = "<group>"; };
 		D8C8733673EA55C8847FAFD4 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
 		E39223C41DAEDFB37806A813 /* CreditUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditUsage.swift; sourceTree = "<group>"; };
@@ -215,6 +213,7 @@
 				998DD0C18E2B6B0A017F1050 /* CreditUsageViewModelTests.swift */,
 				F7F173864CFC6B3CF85B28DB /* MerchantDatabaseTests.swift */,
 				530C41DD9A8ACF4889D327DD /* ModelTests.swift */,
+				BFBC15E69551C9F558D53C99 /* NotificationServiceTests.swift */,
 				8C15E8A509DCC0838E4E96CA /* RecommendationEngineTests.swift */,
 				8DF97DA6F4C5544E308B02DE /* RemoteCatalogServiceTests.swift */,
 				43AE329C5BF824AC8FC7375E /* SearchHistoryManagerTests.swift */,
@@ -297,11 +296,9 @@
 			isa = PBXGroup;
 			children = (
 				4D7FAC77D03D3E60F4BFD216 /* AppUpdateChecker.swift */,
-				D190866A1D3D807F1F0AE5A3 /* CacheManager.swift */,
 				82B7DAE90B2564ABF2FD6F97 /* CardCatalog.swift */,
 				AC7A51E743C7B9A7320FF939 /* CloudStore.swift */,
 				91E2B4656F04A27CDA45B53B /* KeychainHelper.swift */,
-				0ECC23F2A1F4B524A8AEF858 /* NetworkSecurity.swift */,
 				125792622D2A5A023026842B /* NotificationService.swift */,
 				0EB4C0064CA01D693739E78B /* OCRService.swift */,
 				E44607663AD290D877CEF8F6 /* RecommendationEngine.swift */,
@@ -570,7 +567,6 @@
 				96E09EC27D55C770E1124713 /* AppVersion.swift in Sources */,
 				0AF6F97F2BBE90C731D37F21 /* Badges.swift in Sources */,
 				D5B129EA4F08494117091CF6 /* Brand.swift in Sources */,
-				0AC1CA2AFE63E12C00DA4F94 /* CacheManager.swift in Sources */,
 				AB2483F6ADED56B7940AC32B /* CardCatalog.swift in Sources */,
 				6347C2D1FB8141F3DAA3A62A /* CardListView.swift in Sources */,
 				3495EA4C145807AC2907B0BF /* CardViewModel.swift in Sources */,
@@ -590,7 +586,6 @@
 				F071521DE211DD5E2AC981AD /* MainTabView.swift in Sources */,
 				BA604566E8422326172923AE /* Merchant.swift in Sources */,
 				3053BD38689869691D821BC5 /* MockData.swift in Sources */,
-				9DB7B64BC6BA35194AFB9BFB /* NetworkSecurity.swift in Sources */,
 				93DBF7456906A5431E2F2BD8 /* NotificationService.swift in Sources */,
 				E96600BFC9F671E826EA13A0 /* OCRService.swift in Sources */,
 				43B1B89DB3683C7C94D0CC5A /* OnboardingView.swift in Sources */,
@@ -636,6 +631,7 @@
 				8F0802150638EEE3C8E85D0B /* CreditUsageViewModelTests.swift in Sources */,
 				EC6A3D10C9A3C2B6AD6AB3CC /* MerchantDatabaseTests.swift in Sources */,
 				8280E62FD06ACC0294590CBF /* ModelTests.swift in Sources */,
+				84B7F2123C3E69AEE8F56615 /* NotificationServiceTests.swift in Sources */,
 				32E72906FB039011FC0EA73F /* RecommendationEngineTests.swift in Sources */,
 				86DD595717F5FB8225342ED0 /* RemoteCatalogServiceTests.swift in Sources */,
 				DB509AB60F4D5175E7E74CEE /* SearchHistoryManagerTests.swift in Sources */,
@@ -683,7 +679,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = studio.tmj.cardwise;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -760,7 +756,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = studio.tmj.cardwise.widget;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -854,7 +850,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = studio.tmj.cardwise;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -874,7 +870,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = studio.tmj.cardwise.widget;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;

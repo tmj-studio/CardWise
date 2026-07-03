@@ -73,9 +73,7 @@ CardWise/
 │   ├── AppUpdateChecker.swift  # In-app "update available" nudge (itunes.apple.com lookup)
 │   ├── WidgetDataManager.swift # Shares data with the widget via app group
 │   ├── SearchHistoryManager.swift  # Recent merchant searches (Keychain-backed)
-│   ├── KeychainHelper.swift        # Keychain wrapper (WhenUnlockedThisDeviceOnly)
-│   ├── CacheManager.swift          # Generic TTL cache (populate paths currently unused)
-│   └── NetworkSecurity.swift       # Certificate-pinning URLSession (currently unwired, empty pin set)
+│   └── KeychainHelper.swift        # Keychain wrapper (WhenUnlockedThisDeviceOnly)
 ├── Resources/
 │   └── cards.json          # Bundled read-only reward database
 └── Utils/

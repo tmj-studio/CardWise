@@ -137,7 +137,7 @@ CardWise/
 │   ├── NotificationService.swift
 │   ├── AppUpdateChecker.swift
 │   ├── WidgetDataManager.swift
-│   └── …(SearchHistoryManager、KeychainHelper、CacheManager、NetworkSecurity)
+│   └── …(SearchHistoryManager、KeychainHelper)
 ├── Resources/
 │   └── cards.json          # 內建唯讀回饋資料庫
 └── Utils/                  # 擴充與輔助工具

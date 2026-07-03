@@ -57,7 +57,7 @@ final class AppUpdateChecker: ObservableObject {
             guard let info = Self.parse(data) else { return }
             if Self.shouldPrompt(installed: installedVersion, store: info.version, dismissed: dismissedVersion) {
                 availableVersion = info.version
-                appStoreURL = URL(string: info.trackViewUrl)
+                appStoreURL = Self.storeURL(from: info.trackViewUrl)
             }
         } catch {
             Self.logger.debug("update check failed: \(error.localizedDescription, privacy: .public)")
@@ -84,6 +84,13 @@ final class AppUpdateChecker: ObservableObject {
 
     nonisolated static func shouldPrompt(installed: String, store: String, dismissed: String) -> Bool {
         AppVersion.isNewer(store, than: installed) && store != dismissed
+    }
+
+    /// The response URL is handed to `openURL`; accept only https so a tampered
+    /// response can't make the app open an arbitrary scheme.
+    nonisolated static func storeURL(from raw: String) -> URL? {
+        guard let url = URL(string: raw), url.scheme?.lowercased() == "https" else { return nil }
+        return url
     }
 
     nonisolated static func parse(_ data: Data) -> StoreInfo? {
