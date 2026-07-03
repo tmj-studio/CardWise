@@ -74,6 +74,52 @@ class NotificationService {
         return notificationsEnabled && capAlertsEnabled
     }
 
+    // MARK: - Rotating Category Reminders
+
+    static let rotatingReminderIdentifiers = (1...4).map { "rotating-quarter-Q\($0)" }
+
+    /// Date components for the four quarter starts (Jan/Apr/Jul/Oct 1st, 9:00 local), repeating yearly.
+    static func quarterReminderDateComponents() -> [DateComponents] {
+        [1, 4, 7, 10].map { month in
+            var components = DateComponents()
+            components.month = month
+            components.day = 1
+            components.hour = 9
+            return components
+        }
+    }
+
+    func shouldSendRotatingReminders() -> Bool {
+        let defaults = UserDefaults.standard
+        let notificationsEnabled = defaults.object(forKey: "notificationsEnabled") as? Bool ?? true
+        let rotatingEnabled = defaults.object(forKey: "rotatingReminders") as? Bool ?? true
+        return notificationsEnabled && rotatingEnabled
+    }
+
+    /// (Re)schedule the repeating quarter-start reminders, or cancel them when the user
+    /// has no rotating-category cards or has turned the toggles off.
+    func refreshRotatingReminders(hasRotatingCards: Bool) {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: Self.rotatingReminderIdentifiers)
+
+        guard hasRotatingCards, shouldSendRotatingReminders() else { return }
+
+        for (index, components) in Self.quarterReminderDateComponents().enumerated() {
+            let content = UNMutableNotificationContent()
+            content.title = "New Rotating Categories"
+            content.body = "Q\(index + 1) just started — activate your cards' rotating bonus categories to earn the full rate."
+            content.sound = .default
+
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+            let request = UNNotificationRequest(
+                identifier: Self.rotatingReminderIdentifiers[index],
+                content: content,
+                trigger: trigger
+            )
+            center.add(request)
+        }
+    }
+
     // MARK: - Clear Notifications
 
     func clearAllNotifications() {

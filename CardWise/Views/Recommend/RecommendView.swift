@@ -259,6 +259,7 @@ struct RecommendView: View {
 }
 
 struct RecommendationDetailRow: View {
+    @EnvironmentObject var cardViewModel: CardViewModel
     let recommendation: CardRecommendation
     let rank: Int
     let isTop: Bool
@@ -294,9 +295,14 @@ struct RecommendationDetailRow: View {
                     .foregroundStyle(Theme.textSecondary)
 
                 if recommendation.needsActivation {
-                    Label("Needs activation", systemImage: "exclamationmark.triangle.fill")
-                        .font(.app(.caption))
-                        .foregroundStyle(Theme.warning)
+                    Button {
+                        cardViewModel.setRotatingActivated(for: recommendation.userCard, activated: true)
+                    } label: {
+                        Label("Needs activation — tap once activated", systemImage: "exclamationmark.triangle.fill")
+                            .font(.app(.caption))
+                            .foregroundStyle(Theme.warning)
+                    }
+                    .buttonStyle(.borderless)
                 }
             }
 

@@ -45,6 +45,16 @@ jobs:
             -destination "platform=iOS Simulator,name=${sim:-iPhone 16}" \
             CODE_SIGNING_ALLOWED=NO
 
+  python-tests:
+    name: python-tests (cards pipeline)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run Scripts/ unit tests
+        run: |
+          python3 -m pip install --user pytest
+          python3 -m pytest Scripts/tests/ -q
+
   swiftlint:
     name: swiftlint
     runs-on: macos-15

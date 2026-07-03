@@ -108,8 +108,9 @@ class RecommendationEngine {
                 rewardType: card.rewardType
             )
 
-            // If near cap, only count reward up to the remaining cap
-            if let remaining = capInfo.remaining, remaining < amount && remaining > 0 {
+            // If near (or past) the cap, only count bonus reward up to the remaining cap;
+            // remaining == 0 means the whole amount earns the base rate.
+            if let remaining = capInfo.remaining, remaining < amount {
                 let rewardOnRemaining = calculateEstimatedReward(
                     amount: remaining,
                     multiplier: reward.multiplier,
@@ -208,13 +209,29 @@ class RecommendationEngine {
 
             if let currentRotating = rotating.first(where: { $0.quarter == currentQ && $0.year == currentY }) {
                 if currentRotating.categories.contains(category) {
+                    let needsActivation = currentRotating.activationRequired
+                        && !userCard.hasActivatedRotating(quarter: currentQ, year: currentY)
+
+                    // An un-activated rotating bonus earns the base rate — score it that
+                    // way so a maxed-out multiplier can't win the ranking on its own.
+                    if needsActivation {
+                        return RewardInfo(
+                            multiplier: card.baseReward,
+                            isPercentage: card.baseIsPercentage,
+                            reason: "Base rate until Q\(currentQ) activated (\(currentRotating.displayMultiplier) after activation)",
+                            isRotating: true,
+                            isSelectable: false,
+                            needsActivation: true
+                        )
+                    }
+
                     return RewardInfo(
                         multiplier: currentRotating.multiplier,
                         isPercentage: currentRotating.isPercentage,
                         reason: "\(currentRotating.displayMultiplier) Q\(currentQ) rotating category",
                         isRotating: true,
                         isSelectable: false,
-                        needsActivation: currentRotating.activationRequired
+                        needsActivation: false
                     )
                 }
             }

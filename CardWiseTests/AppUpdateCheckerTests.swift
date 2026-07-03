@@ -36,4 +36,18 @@ final class AppUpdateCheckerTests: XCTestCase {
     func test_parse_garbage_returnsNil() {
         XCTAssertNil(AppUpdateChecker.parse(Data("not json".utf8)))
     }
+
+    func test_storeURL_acceptsHTTPS() {
+        XCTAssertEqual(
+            AppUpdateChecker.storeURL(from: "https://apps.apple.com/app/id6776198130")?.absoluteString,
+            "https://apps.apple.com/app/id6776198130"
+        )
+    }
+
+    func test_storeURL_rejectsNonHTTPSSchemes() {
+        XCTAssertNil(AppUpdateChecker.storeURL(from: "http://apps.apple.com/app/id1"))
+        XCTAssertNil(AppUpdateChecker.storeURL(from: "javascript:alert(1)"))
+        XCTAssertNil(AppUpdateChecker.storeURL(from: "file:///etc/passwd"))
+        XCTAssertNil(AppUpdateChecker.storeURL(from: "not a url"))
+    }
 }

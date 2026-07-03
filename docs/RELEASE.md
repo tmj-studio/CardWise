@@ -42,10 +42,16 @@ Notes:
 - The App ID (`studio.tmj.cardwise`) + widget (`studio.tmj.cardwise.widget`) and their
   capabilities are already registered.
 - Build number is auto-set to `latest TestFlight build + 1`.
-- **Signing flow:** the lane *archives* with automatic signing (`-allowProvisioningUpdates`
-  refreshes profiles via the API key) and *exports* with manual signing using App Store
-  profiles fetched by `sigh`. Exporting manually avoids the "Cloud signing permission error"
-  that automatic export hits when the API key can't mint cloud-managed certificates.
+- **Signing flow:** both *archive* and *export* sign **manually** against the imported
+  Apple Distribution cert (`DIST_CERT_P12_BASE64`) + App Store profiles fetched by `sigh`
+  (`update_code_signing_settings(use_automatic_signing: false)` in the `beta` lane; no
+  `-allowProvisioningUpdates`). This was changed deliberately: automatic/cloud signing kept
+  hitting certificate-cap ("certificate exhaustion") and cloud-signing-permission errors in CI.
+  Don't "fix" it back to automatic signing.
+- **Runner / Xcode requirement:** the workflow runs on **`macos-26`** and selects Xcode 26.x
+  because Xcode 26.3's `altool` cannot generate an App Store Connect JWT. Related: the upload
+  step calls **`xcrun altool --upload-app` directly** (with the `.p8` written to a temp dir)
+  instead of fastlane's `upload_to_testflight`, which mishandled the API key on that toolchain.
 - The API key needs the **App Manager** (or Admin) role, and the Distribution cert in
   `DIST_CERT_P12_BASE64` must belong to Team `K434CK85HW`.
 

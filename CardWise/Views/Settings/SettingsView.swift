@@ -58,11 +58,19 @@ struct SettingsView: View {
                             if newValue {
                                 NotificationService.shared.requestAuthorization { _ in }
                             }
+                            NotificationService.shared.refreshRotatingReminders(
+                                hasRotatingCards: cardViewModel.hasRotatingCards
+                            )
                         }
 
                     Toggle("Rotating Category Reminders", isOn: $rotatingReminders)
                         .foregroundStyle(Theme.textPrimary)
                         .disabled(!notificationsEnabled)
+                        .onChange(of: rotatingReminders) { _, _ in
+                            NotificationService.shared.refreshRotatingReminders(
+                                hasRotatingCards: cardViewModel.hasRotatingCards
+                            )
+                        }
 
                     Toggle("Spending Cap Alerts", isOn: $spendingCapAlerts)
                         .foregroundStyle(Theme.textPrimary)

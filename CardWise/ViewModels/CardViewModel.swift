@@ -80,6 +80,25 @@ class CardViewModel: ObservableObject {
         }
     }
 
+    /// True when any card in the wallet has rotating categories (drives quarter reminders).
+    var hasRotatingCards: Bool {
+        userCards.contains { userCard in
+            allCards.first(where: { $0.id == userCard.cardId })?.rotatingCategories?.isEmpty == false
+        }
+    }
+
+    /// Mark this quarter's rotating bonus as activated (or not) for a card.
+    func setRotatingActivated(for userCard: UserCard, activated: Bool) {
+        if let index = userCards.firstIndex(where: { $0.id == userCard.id }) {
+            userCards[index].setRotatingActivated(
+                activated,
+                quarter: RotatingCategory.currentQuarter(),
+                year: RotatingCategory.currentYear()
+            )
+            saveUserCards()
+        }
+    }
+
     func updateBalance(for userCard: UserCard, balance: Double?) {
         if let index = userCards.firstIndex(where: { $0.id == userCard.id }) {
             userCards[index].currentBalance = balance
