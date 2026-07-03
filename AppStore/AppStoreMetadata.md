@@ -69,13 +69,18 @@ Download CardWise today and start earning more rewards on every purchase!
 ## Keywords (100 characters max)
 credit card,rewards,cashback,points,miles,optimize,tracker,spending,finance,money,savings,bonus
 
-## What's New (Version 1.0)
-Initial release featuring:
-- Smart card recommendations
-- Rotating category tracking
-- Receipt scanning with OCR
-- Spending analytics
-- Spending cap alerts
+## What's New (Version 1.0.3)
+- Statement credits: track each card's credits (with partial amounts) and see them in card detail
+- New home "Credits to Use" summary so unused credits never expire unnoticed
+- Card detail now shows your net annual fee (fee minus usable credits)
+- Card reward data refreshed and corrected across the catalog
+
+<details>
+<summary>Previous versions</summary>
+
+**1.0** — Initial release: smart card recommendations, rotating category tracking,
+receipt scanning with OCR, spending analytics, spending cap alerts.
+</details>
 
 ---
 
@@ -141,9 +146,11 @@ CardWise is a personal finance tool that helps users optimize their credit card 
 2. Does NOT store credit card numbers, CVVs, or sensitive financial data
 3. Only stores card names and reward category preferences
 4. Uses Apple's Vision framework for receipt OCR (on-device processing)
-5. Requires NO account or sign-in. All data is stored locally on-device and
-   synced privately via the user's own iCloud (CloudKit). No backend servers,
-   no analytics, no tracking.
+5. Requires NO account or sign-in. All user data is stored locally on-device.
+   No CardWise backend servers, no analytics, no tracking. The app's only network
+   activity is read-only: refreshing the bundled card-reward database from the
+   project's GitHub repository and checking itunes.apple.com for a newer app
+   version. No user data is ever transmitted.
 
 Test Account: Not applicable — the app requires no login.
 

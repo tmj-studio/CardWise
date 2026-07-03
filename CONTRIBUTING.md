@@ -48,7 +48,7 @@ Please report unacceptable behavior by opening an issue with the `conduct` label
    ```
 3. Add the upstream repository:
    ```bash
-   git remote add upstream https://github.com/Rich627/CardWise.git
+   git remote add upstream https://github.com/tmj-studio/CardWise.git
    ```
 
 ---
@@ -81,7 +81,7 @@ Look for issues labeled `good first issue` - these are great for newcomers!
    ```
 
 2. **Select a simulator**
-   - Choose iPhone 15 or newer simulator
+   - Choose an iPhone 16 (or newer) simulator — this matches what CI tests against
    - Or connect a physical device
 
 3. **Build and run**
@@ -274,6 +274,13 @@ Mockups, examples, etc.
 
 The reward database ships bundled with the app as `CardWise/Resources/cards.json` (loaded by
 `CardCatalog`). To add or update a card, edit that file directly.
+
+> **Note — automated weekly updates:** `cards.json` is also rewritten on a schedule by the
+> maintainer-run pipeline in `Scripts/` (`update_cards.sh` researches issuer changes, validates
+> with `validate_cards.py`, classifies the diff with `diff_cards.py`, and opens its own
+> `data/cards-update-*` PR for human review). Manual card PRs are still welcome — just be aware
+> a weekly data PR may touch the same file, so keep manual PRs small and rebase if needed.
+> See `Scripts/README.md` for details.
 
 1. Open `CardWise/Resources/cards.json` and add an entry:
 

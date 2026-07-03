@@ -10,23 +10,27 @@ CardWise is an iOS app that helps users maximize credit card rewards by recommen
 - Spending tracking and analytics
 - Support for US credit card issuers
 
-The app is **free and fully local** — no accounts, no backend. User data lives on-device
-via SwiftData and syncs across the user's own devices through CloudKit. The credit-card
-reward database ships bundled with the app (`CardWise/Resources/cards.json`).
+The app is **free and local-first** — no accounts, no CardWise-operated backend. User data
+lives on-device via SwiftData. CloudKit sync is entitlement-ready but **currently disabled**
+(`cloudKitDatabase: .none` in `CardWiseApp.swift`) pending iCloud container provisioning in
+the Apple Developer account. The app makes exactly two read-only network calls: a card-catalog
+refresh from GitHub raw (`RemoteCatalogService`) and an App Store version check against
+`itunes.apple.com` (`AppUpdateChecker`). The credit-card reward database ships bundled with
+the app (`CardWise/Resources/cards.json`) and is refreshed weekly by the `Scripts/` pipeline.
 
 ## Tech Stack
 
 - **Platform**: iOS 17+ (iPhone only)
 - **UI Framework**: SwiftUI
 - **Architecture**: MVVM
-- **Persistence**: SwiftData + CloudKit (private database) via `CloudStore`
+- **Persistence**: SwiftData via `CloudStore` (CloudKit private-database sync prepared but not yet enabled)
 - **Project generation**: XcodeGen (`project.yml` is the source of truth)
 - **Language**: Swift 5.9
 - **Dependencies**: none (no SPM packages; no Firebase/Plaid/StoreKit)
 
 ## Build and Development
 
-The Xcode project is generated from `project.yml` with [XcodeGen](https://github.com/yonsm/XcodeGen):
+The Xcode project is generated from `project.yml` with [XcodeGen](https://github.com/yonaskolb/XcodeGen):
 
 ```bash
 brew install xcodegen   # once
@@ -59,14 +63,19 @@ CardWise/
 │   ├── Home/ Cards/ Spending/ Recommend/ Settings/
 ├── ViewModels/             # State management (CardViewModel, SpendingViewModel)
 ├── Services/               # Business logic
-│   ├── CloudStore.swift        # SwiftData + CloudKit persistence
-│   ├── CardCatalog.swift       # Loads bundled cards.json (read-only catalog)
+│   ├── CloudStore.swift        # SwiftData persistence (CloudKit sync prepared, not yet enabled)
+│   ├── CardCatalog.swift       # Card catalog: cache-first load of cards.json with bundled fallback
+│   ├── RemoteCatalogService.swift # Fetches updated cards.json from GitHub raw, validates + caches
 │   ├── RecommendationEngine.swift
+│   ├── SpendingCapTracker.swift    # Per-period category-cap accounting
 │   ├── OCRService.swift        # Receipt scanning (Vision)
 │   ├── NotificationService.swift
-│   ├── AppUpdateChecker.swift  # In-app "update available" nudge
+│   ├── AppUpdateChecker.swift  # In-app "update available" nudge (itunes.apple.com lookup)
 │   ├── WidgetDataManager.swift # Shares data with the widget via app group
-│   └── …
+│   ├── SearchHistoryManager.swift  # Recent merchant searches (Keychain-backed)
+│   ├── KeychainHelper.swift        # Keychain wrapper (WhenUnlockedThisDeviceOnly)
+│   ├── CacheManager.swift          # Generic TTL cache (populate paths currently unused)
+│   └── NetworkSecurity.swift       # Certificate-pinning URLSession (currently unwired, empty pin set)
 ├── Resources/
 │   └── cards.json          # Bundled read-only reward database
 └── Utils/
@@ -74,6 +83,9 @@ CardWise/
 
 CardWiseWidget/             # Home-screen widget (app-extension)
 CardWiseTests/              # Unit tests
+Scripts/                    # cards.json update pipeline (validator, diff classifier,
+                            # pre-push hook, weekly `claude -p` orchestrator + launchd job)
+                            # plus one-off asset generators — see Scripts/README.md
 fastlane/                   # Release automation (Fastfile → `beta` lane)
 ```
 

@@ -6,8 +6,7 @@ An iOS app that helps you choose the best credit card for every purchase, so you
 
 [![Swift](https://img.shields.io/badge/Swift-5.9-orange.svg)](https://swift.org/)
 [![Platform](https://img.shields.io/badge/Platform-iOS%2017+-blue.svg)](https://developer.apple.com/ios/)
-[![License](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](../LICENSE)
-[![Commercial](https://img.shields.io/badge/Commercial-License%20Available-green.svg)](../COMMERCIAL_LICENSE.md)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](../LICENSE)
 
 ---
 
@@ -33,7 +32,7 @@ An iOS app that helps you choose the best credit card for every purchase, so you
 | **Receipt Scanning** | OCR-powered receipt scanning for quick expense logging |
 | **Sign-Up Bonus Tracker** | Never miss a sign-up bonus deadline |
 | **Home Screen Widget** | Quick access to recommendations without opening the app |
-| **Privacy First** | All data stays on-device and syncs through your own iCloud — no accounts, no backend |
+| **Privacy First** | All data stays on-device — no accounts, no CardWise servers (the app only makes read-only calls for card-data and app-update checks) |
 
 ### Supported Cards
 
@@ -76,7 +75,7 @@ An iOS app that helps you choose the best credit card for every purchase, so you
 
 ```bash
 # Clone the repository
-git clone https://github.com/Rich627/CardWise.git
+git clone https://github.com/tmj-studio/CardWise.git
 
 # Open in Xcode
 cd CardWise
@@ -129,11 +128,16 @@ CardWise/
 │   └── Settings/           # App settings
 ├── ViewModels/             # State management
 ├── Services/               # Business logic
-│   ├── CloudStore.swift        # SwiftData + CloudKit persistence
-│   ├── CardCatalog.swift       # Loads bundled cards.json
+│   ├── CloudStore.swift        # SwiftData persistence (CloudKit sync prepared, not yet enabled)
+│   ├── CardCatalog.swift       # Cache-first card catalog with bundled fallback
+│   ├── RemoteCatalogService.swift # Read-only cards.json refresh from GitHub
 │   ├── RecommendationEngine.swift
+│   ├── SpendingCapTracker.swift
 │   ├── OCRService.swift
-│   └── NotificationService.swift
+│   ├── NotificationService.swift
+│   ├── AppUpdateChecker.swift
+│   ├── WidgetDataManager.swift
+│   └── … (SearchHistoryManager, KeychainHelper, CacheManager, NetworkSecurity)
 ├── Resources/
 │   └── cards.json          # Bundled read-only reward database
 └── Utils/                  # Extensions & helpers
@@ -147,11 +151,11 @@ CardWise/
 |----------|------------|
 | UI | SwiftUI |
 | Architecture | MVVM |
-| Persistence | SwiftData + CloudKit |
+| Persistence | SwiftData (CloudKit sync prepared, not yet enabled) |
 | Widget | WidgetKit |
 | OCR | Vision Framework |
-| Backend | None — fully on-device |
-| Card data | Bundled `cards.json` |
+| Backend | None operated by CardWise — read-only card-data & update checks only |
+| Card data | Bundled `cards.json`, refreshed weekly via the `Scripts/` pipeline |
 
 ---
 
@@ -161,14 +165,16 @@ CardWise/
 # Run all tests (Cmd + U in Xcode)
 
 # Or via command line
-xcodebuild test -scheme CardWise -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -project CardWise.xcodeproj -scheme CardWise \
+  -destination 'platform=iOS Simulator,name=iPhone 16' CODE_SIGNING_ALLOWED=NO
 ```
 
-**Test Coverage:**
+**Test Coverage** (15 suites in `CardWiseTests/`), including:
 - `RecommendationEngineTests` - Card recommendation logic
 - `MerchantDatabaseTests` - Merchant to category mapping
-- `ModelTests` - Data model encoding/decoding
-- `SearchHistoryManagerTests` - Search history functionality
+- `ModelTests` / `CreditModelTests` - Data model encoding/decoding
+- `RemoteCatalogServiceTests` / `CardCatalogTests` - Catalog refresh & caching
+- `CloudStoreTests`, `CreditPeriodTests`, `CreditUsage*Tests`, `AppUpdateCheckerTests`, and more
 
 ---
 
@@ -188,19 +194,14 @@ We welcome contributions! Please see [CONTRIBUTING.md](../CONTRIBUTING.md) for g
 
 ## License
 
-This project is dual-licensed:
-
-- **Open Source License:** [AGPL-3.0](../LICENSE) - Free for personal and non-commercial use
-- **Commercial License:** [Available for purchase](../COMMERCIAL_LICENSE.md) - For commercial/proprietary use
-
-If you want to use CardWise in a commercial product without open-sourcing your code, please [contact us](mailto:your@email.com) for commercial licensing options.
+This project is licensed under the [MIT License](../LICENSE).
 
 ---
 
 ## Support
 
-- [Report Bug](https://github.com/Rich627/CardWise/issues)
-- [Request Feature](https://github.com/Rich627/CardWise/issues)
+- [Report Bug](https://github.com/tmj-studio/CardWise/issues)
+- [Request Feature](https://github.com/tmj-studio/CardWise/issues)
 - Star this repo if you find it useful!
 
 ---
