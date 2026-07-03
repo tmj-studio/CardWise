@@ -146,11 +146,12 @@ CardWise is a personal finance tool that helps users optimize their credit card 
 2. Does NOT store credit card numbers, CVVs, or sensitive financial data
 3. Only stores card names and reward category preferences
 4. Uses Apple's Vision framework for receipt OCR (on-device processing)
-5. Requires NO account or sign-in. All user data is stored locally on-device.
-   No CardWise backend servers, no analytics, no tracking. The app's only network
-   activity is read-only: refreshing the bundled card-reward database from the
-   project's GitHub repository and checking itunes.apple.com for a newer app
-   version. No user data is ever transmitted.
+5. Requires NO account or sign-in. All user data is stored locally on-device and
+   synced privately via the user's own iCloud (CloudKit private database).
+   No CardWise backend servers, no analytics, no tracking. The app's only other
+   network activity is read-only: refreshing the bundled card-reward database from
+   the project's GitHub repository and checking itunes.apple.com for a newer app
+   version. No user data is ever transmitted to the developer.
 
 Test Account: Not applicable — the app requires no login.
 

@@ -14,9 +14,10 @@ CardWise is an iOS app that helps users maximize credit card rewards by recommen
 - Support for US credit card issuers
 
 The app is **free and local-first** — no accounts, no CardWise-operated backend. User data
-lives on-device via SwiftData. CloudKit sync is entitlement-ready but **currently disabled**
-(`cloudKitDatabase: .none` in `CardWiseApp.swift`) pending iCloud container provisioning in
-the Apple Developer account. The app makes exactly two read-only network calls: a card-catalog
+lives on-device via SwiftData and syncs across the user's own devices through CloudKit
+(private database, with a local-only fallback when iCloud is unavailable). Note: sync in
+TestFlight/App Store builds requires the CloudKit schema to be deployed to Production in
+the CloudKit Console. The app makes exactly two read-only network calls: a card-catalog
 refresh from GitHub raw (`RemoteCatalogService`) and an App Store version check against
 `itunes.apple.com` (`AppUpdateChecker`). The credit-card reward database ships bundled with
 the app (`CardWise/Resources/cards.json`) and is refreshed weekly by the `Scripts/` pipeline.
@@ -26,7 +27,7 @@ the app (`CardWise/Resources/cards.json`) and is refreshed weekly by the `Script
 - **Platform**: iOS 17+ (iPhone only)
 - **UI Framework**: SwiftUI
 - **Architecture**: MVVM
-- **Persistence**: SwiftData via `CloudStore` (CloudKit private-database sync prepared but not yet enabled)
+- **Persistence**: SwiftData + CloudKit (private database) via `CloudStore`, local fallback
 - **Project generation**: XcodeGen (`project.yml` is the source of truth)
 - **Language**: Swift 5.9
 - **Dependencies**: none (no SPM packages; no Firebase/Plaid/StoreKit)
@@ -66,7 +67,7 @@ CardWise/
 │   ├── Home/ Cards/ Spending/ Recommend/ Settings/
 ├── ViewModels/             # State management (CardViewModel, SpendingViewModel)
 ├── Services/               # Business logic
-│   ├── CloudStore.swift        # SwiftData persistence (CloudKit sync prepared, not yet enabled)
+│   ├── CloudStore.swift        # SwiftData + CloudKit persistence
 │   ├── CardCatalog.swift       # Card catalog: cache-first load of cards.json with bundled fallback
 │   ├── RemoteCatalogService.swift # Fetches updated cards.json from GitHub raw, validates + caches
 │   ├── RecommendationEngine.swift

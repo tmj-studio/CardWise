@@ -32,7 +32,7 @@ CardWise 是一款 iOS App,幫你在每次消費時選出最划算的信用卡,�
 | **掃描收據** | OCR 辨識收據,快速記帳 |
 | **開卡禮追蹤** | 不錯過任何開卡禮的消費期限 |
 | **主畫面小工具** | 不用開 App 也能快速查看推薦 |
-| **隱私優先** | 資料全部留在裝置上 — 無帳號、無 CardWise 伺服器(App 僅發出唯讀的卡片資料更新與版本檢查請求) |
+| **隱私優先** | 資料留在裝置上並透過你自己的 iCloud 同步 — 無帳號、無 CardWise 伺服器(僅唯讀的卡片資料更新與版本檢查請求) |
 
 ### 支援卡片
 
@@ -128,7 +128,7 @@ CardWise/
 │   └── Settings/           # 設定
 ├── ViewModels/             # 狀態管理
 ├── Services/               # 商業邏輯
-│   ├── CloudStore.swift        # SwiftData 持久化(CloudKit 同步已備妥、尚未啟用)
+│   ├── CloudStore.swift        # SwiftData + CloudKit 持久化(本地備援)
 │   ├── CardCatalog.swift       # 卡片目錄:快取優先載入,內建 cards.json 為備援
 │   ├── RemoteCatalogService.swift # 從 GitHub 唯讀更新 cards.json
 │   ├── RecommendationEngine.swift
@@ -151,7 +151,7 @@ CardWise/
 |------|------|
 | UI | SwiftUI |
 | 架構 | MVVM |
-| 持久化 | SwiftData(CloudKit 同步已備妥、尚未啟用) |
+| 持久化 | SwiftData + CloudKit 私有資料庫(本地備援) |
 | 小工具 | WidgetKit |
 | OCR | Vision Framework |
 | 後端 | 無 CardWise 自營後端 — 僅唯讀的卡片資料與版本檢查請求 |

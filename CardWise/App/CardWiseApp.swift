@@ -16,28 +16,27 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 enum AppContainer {
-    /// Local SwiftData store today; CloudKit-synced once the iCloud entitlement is
-    /// provisioned in Task 11.
+    /// CloudKit-synced SwiftData store (user's private database), falling back to a
+    /// plain local store when CloudKit is unavailable — e.g. unsigned test/simulator
+    /// runs, or no iCloud capability at runtime. The container
+    /// "iCloud.com.cardwise.app" and the App ID's iCloud capability are provisioned
+    /// (release profiles have carried these entitlements since v1.0.2).
     ///
-    /// NOTE: The CloudKit code path is intentionally kept commented out.
-    /// CardWise.entitlements now carries the iCloud/CloudKit entitlements, but the
-    /// iCloud container "iCloud.com.cardwise.app" must first be created in the Apple
-    /// Developer account and the app's provisioning profile must include the iCloud
-    /// capability. Without that, activating CloudKit causes an uncatchable SIGTRAP on
-    /// launch (the CloudKit daemon crashes the process before Swift can handle it).
-    ///
-    /// TODO: CloudKit sync is entitlement-ready (see CardWise.entitlements). To enable:
-    ///   1. In the Apple Developer account, create the CloudKit container "iCloud.com.cardwise.app"
-    ///      and ensure the app's provisioning profile includes the iCloud capability.
-    ///   2. Uncomment the .private(...) attempt below; it becomes the first choice with local fallback.
+    /// Sync in TestFlight/App Store builds additionally requires the CloudKit schema
+    /// to be deployed to the Production environment (CloudKit Console → Deploy Schema
+    /// Changes); until then, cloud-signed builds run happily but only store locally.
     static let shared: ModelContainer = {
-        // TODO: Uncomment once the CloudKit container is provisioned in the Apple Developer account:
-        // if let cloud = try? ModelContainer(
-        //     for: UserCardRecord.self, SpendingRecord.self, CreditUsageRecord.self,
-        //     configurations: ModelConfiguration("CardWise", cloudKitDatabase: .private("iCloud.com.cardwise.app"))
-        // ) {
-        //     return cloud
-        // }
+        // Unsigned test runs (CODE_SIGNING_ALLOWED=NO) carry no CloudKit entitlement and
+        // CKContainer SIGTRAPs the process before Swift can catch anything — `try?` does
+        // not help. Only attempt CloudKit outside XCTest.
+        let isHostedByXCTest = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        if !isHostedByXCTest,
+           let cloud = try? ModelContainer(
+               for: UserCardRecord.self, SpendingRecord.self, CreditUsageRecord.self,
+               configurations: ModelConfiguration("CardWise", cloudKitDatabase: .private("iCloud.com.cardwise.app"))
+           ) {
+            return cloud
+        }
         if let local = try? ModelContainer(
             for: UserCardRecord.self, SpendingRecord.self, CreditUsageRecord.self,
             configurations: ModelConfiguration("CardWise", cloudKitDatabase: .none)

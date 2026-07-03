@@ -32,7 +32,7 @@ An iOS app that helps you choose the best credit card for every purchase, so you
 | **Receipt Scanning** | OCR-powered receipt scanning for quick expense logging |
 | **Sign-Up Bonus Tracker** | Never miss a sign-up bonus deadline |
 | **Home Screen Widget** | Quick access to recommendations without opening the app |
-| **Privacy First** | All data stays on-device — no accounts, no CardWise servers (the app only makes read-only calls for card-data and app-update checks) |
+| **Privacy First** | Data lives on-device and syncs via your own iCloud — no accounts, no CardWise servers (only read-only card-data and app-update checks) |
 
 ### Supported Cards
 
@@ -128,7 +128,7 @@ CardWise/
 │   └── Settings/           # App settings
 ├── ViewModels/             # State management
 ├── Services/               # Business logic
-│   ├── CloudStore.swift        # SwiftData persistence (CloudKit sync prepared, not yet enabled)
+│   ├── CloudStore.swift        # SwiftData + CloudKit persistence (local fallback)
 │   ├── CardCatalog.swift       # Cache-first card catalog with bundled fallback
 │   ├── RemoteCatalogService.swift # Read-only cards.json refresh from GitHub
 │   ├── RecommendationEngine.swift
@@ -151,7 +151,7 @@ CardWise/
 |----------|------------|
 | UI | SwiftUI |
 | Architecture | MVVM |
-| Persistence | SwiftData (CloudKit sync prepared, not yet enabled) |
+| Persistence | SwiftData + CloudKit private database (local fallback) |
 | Widget | WidgetKit |
 | OCR | Vision Framework |
 | Backend | None operated by CardWise — read-only card-data & update checks only |

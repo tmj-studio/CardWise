@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- CloudKit sync enabled: user data now syncs across the user's own devices via the
+  iCloud private database (local-only fallback when iCloud is unavailable)
+
 ## [1.0.3]
 
 ### Added
