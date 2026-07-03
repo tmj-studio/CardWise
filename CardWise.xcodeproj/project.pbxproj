@@ -47,6 +47,7 @@
 		93DBF7456906A5431E2F2BD8 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125792622D2A5A023026842B /* NotificationService.swift */; };
 		96E09EC27D55C770E1124713 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F8003CFFC6306AD8A404BC /* AppVersion.swift */; };
 		96EB0F142683D4FD56FEFBE4 /* ReleaseNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954D972AEF90855F3BCD06F1 /* ReleaseNotes.swift */; };
+		982E6560652680AADCCF68E4 /* CloudKitSchemaInitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED49B974E9082500FCC1F6D /* CloudKitSchemaInitTests.swift */; };
 		9E38F42863CF30B1EBECEE7D /* CardCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BB4129B1DF02AD3B256E4A /* CardCatalogTests.swift */; };
 		A3A2FFADA38BE4999C5485C4 /* CreditModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4EDF74094174199CEC5D5A /* CreditModelTests.swift */; };
 		A407D4AC57E2390F317FD940 /* AppUpdateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FAC77D03D3E60F4BFD216 /* AppUpdateChecker.swift */; };
@@ -164,6 +165,7 @@
 		A9C4D7C60F516C97591535FC /* CardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListView.swift; sourceTree = "<group>"; };
 		AC7A51E743C7B9A7320FF939 /* CloudStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStore.swift; sourceTree = "<group>"; };
 		ACB054B1C57355D04F18D873 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AED49B974E9082500FCC1F6D /* CloudKitSchemaInitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitSchemaInitTests.swift; sourceTree = "<group>"; };
 		B11583449A6D8F7FA63D5D1B /* RemoteCatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCatalogService.swift; sourceTree = "<group>"; };
 		B6CB0ECCA9539342105F7247 /* SearchHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
 		B97732289978E9D76C5A0E08 /* CloudStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStoreTests.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				E3CEB43AB81A28E4FFE9B657 /* AppUpdateCheckerTests.swift */,
 				18F664E2BAF611E22F994D4F /* AppVersionTests.swift */,
 				57BB4129B1DF02AD3B256E4A /* CardCatalogTests.swift */,
+				AED49B974E9082500FCC1F6D /* CloudKitSchemaInitTests.swift */,
 				B97732289978E9D76C5A0E08 /* CloudStoreTests.swift */,
 				5D4EDF74094174199CEC5D5A /* CreditModelTests.swift */,
 				020279ED4D745113A0018184 /* CreditPeriodTests.swift */,
@@ -624,6 +627,7 @@
 				5B037893BD96EF3138F5FD03 /* AppUpdateCheckerTests.swift in Sources */,
 				B4A3B956B5F66B2EE31D844A /* AppVersionTests.swift in Sources */,
 				9E38F42863CF30B1EBECEE7D /* CardCatalogTests.swift in Sources */,
+				982E6560652680AADCCF68E4 /* CloudKitSchemaInitTests.swift in Sources */,
 				2FC2A91D4E762B8DD3FA12C8 /* CloudStoreTests.swift in Sources */,
 				A3A2FFADA38BE4999C5485C4 /* CreditModelTests.swift in Sources */,
 				72C359ED26020FC88F2933AA /* CreditPeriodTests.swift in Sources */,
