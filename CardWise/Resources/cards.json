@@ -1,6 +1,6 @@
 {
-  "version": 6,
-  "updatedAt": "2026-06-29",
+  "version": 7,
+  "updatedAt": "2026-07-20",
   "cards": [
     {
       "id": "chase-chase-sapphire-preferred",
@@ -91,7 +91,7 @@
           "isPercentage": true,
           "cap": null,
           "capPeriod": null,
-          "note": null
+          "note": "Flights and hotels booked direct (not through Chase Travel)"
         },
         {
           "category": "travel",
@@ -483,7 +483,7 @@
       "categoryRewards": [
         {
           "category": "airlines",
-          "multiplier": 2,
+          "multiplier": 3,
           "isPercentage": true,
           "cap": null,
           "capPeriod": null,
@@ -595,7 +595,7 @@
       "categoryRewards": [
         {
           "category": "airlines",
-          "multiplier": 2,
+          "multiplier": 5,
           "isPercentage": true,
           "cap": null,
           "capPeriod": null,
@@ -826,7 +826,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott_bonvoy_bold_card_NAF.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/marriott_bonvoy_bold_card_NAF.png",
+      "credits": [
+        {
+          "id": "bold-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "chase-marriott-bonvoy-bountiful",
@@ -926,7 +935,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ihg-traveler-card.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/ihg-traveler-card.png",
+      "credits": [
+        {
+          "id": "ihg-traveler-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "chase-world-of-hyatt",
@@ -951,7 +969,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/world_of_hyatt_card.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/world_of_hyatt_card.png",
+      "credits": [
+        {
+          "id": "hyatt-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "chase-prime-visa",
@@ -1008,7 +1035,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#003B73",
-      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney-rewards2025.png"
+      "imageURL": "https://creditcards.chase.com/content/dam/jpmc-marketplace/card-art/disney-rewards2025.png",
+      "credits": [
+        {
+          "id": "disney-doordash",
+          "description": "DoorDash credit",
+          "amount": 10,
+          "cadence": "quarterly",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "chase-disney-premier-visa-card",
@@ -1305,7 +1341,7 @@
         {
           "id": "amex-plat-clear",
           "description": "CLEAR Plus",
-          "amount": 209,
+          "amount": 219,
           "cadence": "annual",
           "category": "travel"
         },
@@ -1315,6 +1351,13 @@
           "amount": 200,
           "cadence": "annual",
           "category": "fitness"
+        },
+        {
+          "id": "amex-plat-saks",
+          "description": "Saks Fifth Avenue credit",
+          "amount": 50,
+          "cadence": "semiannual",
+          "category": "other"
         }
       ]
     },
@@ -1427,7 +1470,7 @@
         {
           "id": "amex-green-clear",
           "description": "CLEAR Plus",
-          "amount": 209,
+          "amount": 219,
           "cadence": "annual",
           "category": "travel"
         }
@@ -2152,7 +2195,7 @@
           "isPercentage": false,
           "cap": null,
           "capPeriod": null,
-          "note": "Hotels booked through thankyou.com"
+          "note": "Hotels, car rentals, and attractions booked through cititravel.com"
         },
         {
           "category": "travel",
@@ -2214,7 +2257,7 @@
       "categoryRewards": [
         {
           "category": "grocery",
-          "multiplier": 2,
+          "multiplier": 3,
           "isPercentage": false,
           "cap": null,
           "capPeriod": null,
@@ -2222,7 +2265,7 @@
         },
         {
           "category": "gas",
-          "multiplier": 2,
+          "multiplier": 3,
           "isPercentage": false,
           "cap": null,
           "capPeriod": null,
@@ -2563,10 +2606,11 @@
       "categoryRewards": [],
       "rotatingCategories": [
         {
-          "quarter": 4,
-          "year": 2025,
+          "quarter": 3,
+          "year": 2026,
           "categories": [
-            "amazon",
+            "gas",
+            "transit",
             "drugstore"
           ],
           "multiplier": 5,
@@ -2639,10 +2683,11 @@
       "categoryRewards": [],
       "rotatingCategories": [
         {
-          "quarter": 4,
-          "year": 2025,
+          "quarter": 3,
+          "year": 2026,
           "categories": [
-            "amazon",
+            "gas",
+            "transit",
             "drugstore"
           ],
           "multiplier": 5,
@@ -2797,15 +2842,7 @@
       "rewardType": "points",
       "baseReward": 1.5,
       "baseIsPercentage": false,
-      "categoryRewards": [
-        {
-          "category": "travel",
-          "multiplier": 3,
-          "isPercentage": false,
-          "cap": null,
-          "capPeriod": null
-        }
-      ],
+      "categoryRewards": [],
       "rotatingCategories": null,
       "selectableConfig": null,
       "signUpBonus": null,
@@ -3122,15 +3159,15 @@
           "category": "gas",
           "multiplier": 4,
           "isPercentage": false,
-          "cap": null,
-          "capPeriod": null
+          "cap": 1000,
+          "capPeriod": "quarterly"
         },
         {
           "category": "evCharging",
           "multiplier": 4,
           "isPercentage": false,
-          "cap": null,
-          "capPeriod": null
+          "cap": 1000,
+          "capPeriod": "quarterly"
         },
         {
           "category": "streaming",
@@ -3437,7 +3474,16 @@
       "selectableConfig": null,
       "signUpBonus": null,
       "imageColor": "#0072CE",
-      "imageURL": "https://cards.barclaycardus.com/content/dam/bcuspublic/card-plastic/card-front/WYF_card_rRGB_Fee_EarnerPlus_VS_Flat_230x157.png"
+      "imageURL": "https://cards.barclaycardus.com/content/dam/bcuspublic/card-plastic/card-front/WYF_card_rRGB_Fee_EarnerPlus_VS_Flat_230x157.png",
+      "credits": [
+        {
+          "id": "wyndham-earner-plus-meal-delivery",
+          "description": "Meal delivery credit (DoorDash, Uber Eats, etc.)",
+          "amount": 25,
+          "cadence": "semiannual",
+          "category": "other"
+        }
+      ]
     },
     {
       "id": "barclays-wyndham-rewards-earner",
@@ -3947,15 +3993,7 @@
       "rewardType": "cashback",
       "baseReward": 3,
       "baseIsPercentage": true,
-      "categoryRewards": [
-        {
-          "category": "travel",
-          "multiplier": 5,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null
-        }
-      ],
+      "categoryRewards": [],
       "rotatingCategories": null,
       "selectableConfig": null,
       "signUpBonus": null,
@@ -4032,28 +4070,8 @@
           "multiplier": 5,
           "isPercentage": true,
           "cap": null,
-          "capPeriod": null
-        },
-        {
-          "category": "grocery",
-          "multiplier": 2,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null
-        },
-        {
-          "category": "travel",
-          "multiplier": 2,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null
-        },
-        {
-          "category": "dining",
-          "multiplier": 2,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null
+          "capPeriod": null,
+          "note": "Requires Walmart+ membership; 3% without"
         }
       ],
       "rotatingCategories": null,
@@ -4157,13 +4175,6 @@
         },
         {
           "category": "dining",
-          "multiplier": 3,
-          "isPercentage": true,
-          "cap": null,
-          "capPeriod": null
-        },
-        {
-          "category": "travel",
           "multiplier": 3,
           "isPercentage": true,
           "cap": null,
